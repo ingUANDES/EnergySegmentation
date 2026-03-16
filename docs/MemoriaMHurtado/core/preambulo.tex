@@ -30,6 +30,11 @@
 \usepackage{listings}
 \usepackage{pgfplots}
 \usepackage{eurosym}
+\usepackage{changes}
+\usepackage[table]{xcolor}
+\usepackage{subcaption}
+
+
 
 % Logo Julia
 
@@ -38,21 +43,19 @@
 % Cool code highlight
 % https://es.overleaf.com/learn/latex/Code_Highlighting_with_minted
 % No need of outputdir out of overleaf
-\usepackage[outputdir=docs/DocumentoMemoria]{minted}
+\usepackage[]{minted}
 
 % Librerías adicionales para diagramas tikz
 
 \usepackage{tikz}
 \usepackage{mathdots}
 \usepackage{yhmath}
-\usepackage{color}
 \usepackage{xcolor}
 \usepackage{siunitx}
 \usepackage{multirow}
 \usepackage{gensymb}
 \usepackage{tabularx}
 \usepackage{extarrows}
-\usepackage{booktabs}
 \usetikzlibrary{fadings}
 \usetikzlibrary{patterns}
 \usetikzlibrary{shadows.blur}
@@ -102,7 +105,6 @@
 %\pdfcompresslevel=9 %commented to use Xelatex
 %\pdfadjustspacing=1 %commented to use xelatex
 % Definicion de colores
-\usepackage{color}
 \definecolor{rltbrightred}{rgb}{1,0,0}
 \definecolor{rltred}{rgb}{0.75,0,0}
 \definecolor{rltdarkred}{rgb}{0.5,0,0}
@@ -191,9 +193,21 @@
 
 \setlength{\parindent}{0cm}
 \usepackage{float}
-\usepackage{subfigure}
 \usepackage{array}
 \newcolumntype{E}{>{$}c<{$}}
 \usepackage{longtable}
 \setcounter{MaxMatrixCols}{40}
 \usepackage{bm}
+
+
+\usepackage{float}      % para [H]
+\usepackage{booktabs}  % para \toprule
+\usepackage{makecell}  % para \makecell
+ % para \boldsymbol
+
+
+
+
+\usepackage{url}
+\usepackage{xurl}
+\usepackage{hyperref}

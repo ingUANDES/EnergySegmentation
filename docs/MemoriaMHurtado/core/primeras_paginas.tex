@@ -29,15 +29,15 @@ UNIVERSIDAD DE LOS ANDES\\FACULTAD DE INGENIERÍA Y\\CIENCIAS APLICADAS
 % Text Node
 \draw (260,241.86) node [anchor=north west][inner sep=0.75pt]  [font=\LARGE] [align=left] {\begin{minipage}[lt]{206.76pt}\setlength\topsep{0pt}
 \begin{center}
-\titulo
+{Planificador social con atención limitada en un sistema de permisos transables}
 \end{center}
-
+%Determinación del presupuesto de emisiones por un planificador social con atención limitada en un sistema de permisos transables
 \end{minipage}};
 
 % Text Node
 \draw (260,431) node [anchor=north west][inner sep=0.75pt] [font=\large]  [align=left] {\begin{minipage}[lt]{206.76pt}\setlength\topsep{0pt}
 \begin{center}
-Diego Guzmán Cuevas
+\nombreautor
 \end{center}
 
 \end{minipage}};
@@ -51,7 +51,8 @@ TRABAJO PARA OPTAR AL TITULO\\ DE INGENIERO CIVIL INDUSTRIAL
 % Text Node
 \draw (260,598) node [anchor=north west][inner sep=0.75pt]   [align=left] {\begin{minipage}[lt]{206.76pt}\setlength\topsep{0pt}
 \begin{center}
-PROFESOR GUÍA: {\sc Sebastián Cea}
+PROF. GUÍA: {\sc \nombreprofuno}
+
 \end{center}
 
 \end{minipage}};
@@ -59,7 +60,7 @@ PROFESOR GUÍA: {\sc Sebastián Cea}
 \draw (260,681) node [anchor=north west][inner sep=0.75pt]   [align=left] {
 \begin{minipage}[lt]{206.76pt}\setlength\topsep{0pt}
 \begin{center}
-{\small SANTIAGO, NOVIEMBRE DE 2023}
+{\small SANTIAGO, MARZO DE \the\year{}}
 \end{center}
 \end{minipage}};
 
@@ -128,16 +129,51 @@ una memoria conducente al título de Ingeniero.
 % Genera agradecimientos leyendo definicion de agradecimientos
 
   \cleardoublepage \addcontentsline{toc}{section}{Agradecimientos}
-  \begin{center} \Large \textbf{Agradecimientos} \end{center}
+  \begin{center} \Large \textbf{Agradecimientos} 
+  \end{center}
+  Agradezco en primer lugar a mis padres por el apoyo constante e incondicional que me entregaron durante toda mi carrera, tanto en lo emocional como en lo económico.
 
+  Agradezco a Laura por su apoyo y compañía durante este proceso, especialmente en los momentos más exigentes.
+    
+  Agradezco a mi profesor guía, Sebastián Cea, por su orientación y apoyo a lo largo del desarrollo de este trabajo.
 
+  Agradezco a Nicolás por su constante apoyo e interés a lo largo del proceso.
+
+  Finalmente, agradezco a todas las personas que, de manera directa o indirecta, contribuyeron a la realización de este trabajo.
 % Genera resumen leyendo definicion de resumen
 
 
   \cleardoublepage
   \refstepcounter{dummy} \addcontentsline{toc}{section}{Resumen}
   \begin{center} \Large \textbf{Resumen} \end{center}
-describir resumen del trabajo
+  
+El aumento de la contaminación a nivel global hace necesario establecer medidas regulatorias para reducir las emisiones y poder acelerar la transición desde energías contaminantes hacia fuentes limpias. Con este fin, la presente investigación abordó el desafío de estimar un límite máximo de emisiones en un sistema de permisos de emisión transables, o también llamado \textit{Cap-and-Trade}, aplicado al sector eléctrico chileno para un horizonte de tiempo de 11 años entre 2020 y 2030, con el objetivo de proponer una forma más efectiva de llegar a la meta establecida en la Contribución Determinada a Nivel Nacional (NDC) de Chile, la cual fija un máximo de emisiones en 1.100 millones de toneladas de dióxido de carbono equivalente (MtCO$_2$e) para el período mencionado. \medskip
+
+El modelo se basó en un trabajo existente que diseñó un mercado de permisos específicamente para Chile, donde una autoridad regulatoria,  emite y vende permisos de emisión equivalente a una tCO$_2$e a industrias de energía que lo requieran, estas no pueden contaminar de no ser que tengan estos permisos para hacerlo. Estas luego, podrán vender o comprar permisos entre ellas. El trabajo recién mencionado dedicó gran prioridad en cómo funcionaría el mercado de transacción de estas industrias y con menor prioridad el problema de quien emite los permisos, donde los investigadores forzaron una cantidad de permisos emitidos de forma predeterminada. \medskip
+
+El objetivo de este estudio fue dar al planificador una participación más realista, donde se integran atención y racionalidad a la decisión de permisos a emitir. Para esto, se estudió la teoría de un autor sobre la atención racional en las personas, que aplicada a un planificador social en un modelo de \textit{Cap-and-Trade}, explica que el planificador al emitir permisos tiene un valor por defecto sobre cuántos permisos decidirá emitir (ancla), y luego, a medida que dedica mayor atención o estudios, es capaz de ajustar ese valor inicial para proyectar un límite de emisiones más preciso (ajuste). De este modo, la calidad de la meta final depende directamente del nivel de atención dedicado por el regulador. La teoría de esta formulación se conoce como ``anclaje y ajuste''. \medskip
+
+La formulación descrita se integró al modelo de origen a través de un lenguaje de codificación llamado Julia, simulando el mercado eléctrico chileno bajo un marco de \emph{Cap-and-Trade}. En esta etapa, se evaluó el comportamiento del sistema según distintos niveles de atención graduados del 0 al 1 (0 es atención mínima y 1 total) que dedica el agente al decidir la emisión de permisos. Posteriormente, se calibró el modelo de acuerdo a la matriz de producción eléctrica de Chile, los resultados revelaron que actualmente existen niveles bajos de atención hacia las señales informativas sobre el presupuesto real de emisiones del país.\medskip
+\\
+La investigación demostró que incorporar atención y racionalidad en el comportamiento del planificador social dentro de un sistema Cap-and-Trade altera significativamente la estimación óptima del límite de emisiones y puede acelerar la transición hacia energías limpias en el sector eléctrico chileno. Sin embargo, se encontró que el país aún no se encuentra alineado con los objetivos ambientales propuestos, manteniéndose en una trayectoria de emisiones similar a la observada en años anteriores.
+
+
+
+
+
+
+
+
+%El presente trabajo busca mejorar un modelo realizado por \citeA{amigo_two_2021} el cual trata sobre un sistema de Cap and Trade de dos etapas como método para reducir las emisiones de carbono. En este, un subastador decide el límite máximo de emisiones de $CO_2$ para la industria eléctrica y luego los vende en forma de permisos a los productores de esta, generando un mercado posterior de compra y venta. Este paper tiene un robusto moldeamiento para los productores y el mercado generado; sin embargo, el modelo del subastador presenta formulaciones poco explícitas que pueden generar ambigüedades. En particular, no se define una función de costos matemática que sea coherente con la toma de decisión de permisos a emitir. Se introduce el problema del modelo \citeA{amigo_two_2021} en detalle y posteriormente se habla del estudio realizado por \cite{munoz_lhuillier_inversion_2022} que busca solucionar el mismo problema del subastador en \cite{amigo_two_2021}. Se explica porque las innovaciones de \citeA{munoz_lhuillier_inversion_2022} incorpora ciertas fallas matemáticas que comprometen el modelo.
+
+%Analizando los modelos de \citeA{amigo_two_2021} y \citeA{munoz_lhuillier_inversion_2022} por medio de gráficos en la función de utilidad del subastador se visualizan los detalles clave para entender porque no son óptimos. a partir de esto se encuentra una posible solución traida del trabajo de \citeA{gabaix_behavioral_2019} que introduce atención conductual semejante al problema del subastador en \citeA{amigo_two_2021}.
+
+%Se desarrolla el modelo introducido desde \citeA{gabaix_behavioral_2019} incorporándolo en la función del subastador de \citeA{amigo_two_2021}. Se analizan gráficos de la utilidad en el subastador en diferentes costos para llegar finalmente a uno que sea el más coherente con la realidad. 
+
+%Se codifica el costo en un modelo computacional y se analizan los resultados, posteriormente se compara con los modelos de \citeA{amigo_two_2021} y \citeA{munoz_lhuillier_inversion_2022}.
+
+%Se concluye la conclusión y se deja una propuesta de mejora
+
 
 
 

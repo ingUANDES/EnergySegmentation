@@ -1,8 +1,319 @@
 % cap3.tex
 
-\chapter{Desarrollo Metodológico} \label{MCP:subastador} % la etiqueta para referencias
+\chapter{Desarrollo Metodológico} \label{c3} % la etiqueta para referencias
+El presente capítulo comienza por describir el procedimiento mediante el cual se construyen los presupuestos sectoriales de Chile. Luego se presentan los distintos presupuestos que han sido estimados a lo largo de la historia reciente de la política ambiental del país, lo que permite obtener un valor de referencia para $\sigma_{CAP}$. Posteriormente se determinan los parámetros $CAP_s$, $CAP_d$ y $\kappa$. Se describe también el procedimiento de calibración del parámetro de atención $m$ y finalmente se presenta la integración del modelo expuesto en la Sección~\ref{sec:planificadorIC} dentro de una implementación computacional desarrollada en \textit{Julia}.
+\section{Contexto y fuentes de datos de presupuestos}
+\label{3.1}
+La NDC de Chile estableció en el año 2020 un presupuesto nacional de emisiones de 1.100 MtCO$_2$e para el período 2020-2030. Esta meta excluye al sector de Uso de la Tierra, Cambio de Uso de la Tierra y Silvicultura (UTCUTS), debido a su condición de sumidero neto (sus absorciones son más altas que sus emisiones). En consistencia con la meta de carbono neutralidad al 2050, la NDC define una trayectoria que limita las emisiones a 65 MtCO$_2$e para dicho año, las cuales deberán ser compensadas por las capturas del sector forestal \cite{gobierno_de_chile_estrategia_2021}. \medskip 
+
+Para dar operatividad a esta meta, la Estrategia Climática de Largo Plazo (ECLP) definió posteriormente un proceso de asignación sectorial basado en los criterios de costo-efectividad y equidad, como dicta la LMCC. La metodología de este proceso se resume en cuatro etapas técnicas que permiten derivar los límites sectoriales a partir de la meta nacional:
+
+\begin{enumerate}
+    \item Asignar las categorías de emisiones del Inventario Nacional de Gases de Efecto Invernadero (INGEI) a cada autoridad sectorial según su responsabilidad y capacidad de acción.
+    \item Distribuir las emisiones del escenario de referencia de la NDC para 2020–2030.
+    \item Restar a la distribución los esfuerzos de mitigación exigidos a cada sector para cumplir la trayectoria de carbono neutralidad.
+    \item Obtener el presupuesto de emisiones de cada autoridad sectorial para el período 2020–2030.
+\end{enumerate}
+
+Es importante notar que este proceso mencionado hereda la variabilidad de las proyecciones base (estimación del presupuesto 1100 MtCO$_2$e). Variabilidad por los distintos supuestos, métodos y escenarios que se utilizan. Para mayor detalle del proceso revisar Anexo sección ~\ref{metodologiaAG}.
+
+Los resultados de la asignación sectorial se detallan en el Cuadro ~\ref{tab:presupuesto_sectorial}. En particular, se destaca la asignación al sector de energía, cuya participación en el escenario de referencia es de 306,4 MtCO$_2$e (27,85\% del total nacional). Este factor de participación es clave para el presente estudio, ya que permitirá estandarizar diversas proyecciones nacionales y sectoriales bajo una base comparativa común.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Asignación sectorial del presupuesto de emisiones 2020--2030}
+\label{tab:presupuesto_sectorial}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{p{3.4cm} c c c}
+\hline
+\textbf{Ministerio} & 
+\textbf{Esc. Ref.} & 
+\textbf{Mitigación} & 
+\textbf{Presupuesto} \\
+ & \textbf{(MtCO$_2$eq)} & \textbf{(MtCO$_2$eq)} & \textbf{(MtCO$_2$eq)} \\
+\hline
+
+Energía & 306,4 & 38,9 & 271,8 \\
+Transporte y Telecomunicaciones & 305,9 & 2,8 & 303,1 \\
+Minería & 180,9 & 6,8 & 174,1 \\
+Agricultura & 123,4 & 1,0 & 122,4 \\
+Vivienda y Urbanismo & 100,1 & 4,8 & 95,3 \\
+Salud & 53,6 & 2,4 & 51,1 \\
+Obras Públicas & 48,3 & 0,7 & 43,3 \\
+
+\hline
+\textbf{TOTAL (Meta NDC)} & \multicolumn{2}{c}{} & \textbf{1.100} \\
+\hline
+\end{tabular}
+
+\vspace{0.2cm}
+\footnotesize \textit{Fuente: Cuadro 7 \citeA{gobierno_de_chile_estrategia_2021}.}
+\end{table}
 
 
-\section{Modelos econométricos XXX}
 
-describir modelos y fuentes de datos
+
+
+
+
+\section{Incertidumbre en las estimaciones del sector energético}
+La fijación de una meta de presupuesto de emisiones conlleva una incertidumbre inherente, la cual se refleja en los distintos valores máximos propuestos por diversas fuentes a lo largo de los años. Esta variabilidad puede explicarse por la limitada disponibilidad de información histórica, así como por las restricciones en las tecnologías de medición y estimación de emisiones para períodos previos. Para abordar esto, se construyó un cuadro con los distintos presupuestos del sector energético o nacional estandarizado por medio de su participación mencionada recientemente (27,85\%), estimados bajo distintos horizontes temporales. Estos fueron anualizados y proyectados a un período de 11 años (multiplicando el valor anual por once) para permitir una comparación directa entre ellos. El resultado de esta recopilación se presenta en el Cuadro ~\ref{tab:cap_fuentes}, donde los valores no consideran la mitigación explicada en la letra c) de la sección \ref{3.1}.
+
+\begin{table}[H]
+\centering
+\caption{Estimaciones del presupuesto de emisiones del sector eléctrico bajo distintas fuentes}
+\label{tab:cap_fuentes}
+%\renewcommand{\arraystretch}{1.15}
+%\setlength{\tabcolsep}{10pt}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l c c c}
+\toprule
+\textbf{Fuente} & \textbf{Fecha} & \textbf{CAP ventana 11 años} & \textbf{Horizonte temporal} \\
+ &  & \textbf{(MtCO$_2$e)} &  \\
+\midrule
+\citeA{amigo_two_2021} & 10/02/2021 & 365,29 & 2019--2030 \\
+\citeA{ministerio_del_medio_ambiente_anteproyecto_2025} & 2025 & 300,27 & 2031--2035 \\
+\citeA{ministerio_del_medio_ambiente_reporte_2024}  & 2024 & 332,34 & 2020--2022\\
+\citeA{ministerio_del_medio_ambiente_reporte_2024} & 2024 & 296,67 & 2023--2030 \\
+\citeA{ministerio_de_energia_de_chile_plan_2024} & 2024 & 296,00 & 2020--2030 \\
+\citeA{gobierno_de_chile_estrategia_2021} & 21/10/2021 & 306,40 & 2020–2030 \\
+\addlinespace
+Climate Action Tracker & 02/11/2016 & 493,30 & 2030 \\
+Climate Action Tracker & 06/11/2017 & 496,37 & 2030 \\
+Climate Action Tracker & 23/03/2018 & 392,19 & 2030 \\
+Climate Action Tracker & 16/08/2018 & 401,38 & 2030 \\
+Climate Action Tracker & 30/11/2018 & 407,51 & 2030 \\
+Climate Action Tracker & 01/11/2018 & 364,62 & 2020 \\
+Climate Action Tracker & 02/12/2019 & 318,24 & 2020--2030 \\
+Climate Action Tracker & 19/09/2019 & 401,38 & 2030 \\
+Climate Action Tracker & 19/09/2019 & 373,81 & 2020 \\
+Climate Action Tracker & 02/12/2019 & 297,21 & 2030 \\
+Climate Action Tracker & 04/11/2022 & 286,76 & 2020--2030 \\
+Climate Action Tracker & 03/11/2025 & 294,14 & 2031--2035 \\
+\addlinespace
+Climate Action Tracker (CFI) & 02/11/2016 & 422,83 & 2030 \\
+Climate Action Tracker (CFI) & 06/11/2017 & 427,43 & 2030 \\
+Climate Action Tracker (CFI) & 23/03/2018 & 333,98 & 2030 \\
+Climate Action Tracker (CFI) & 16/08/2018 & 344,70 & 2030 \\
+Climate Action Tracker (CFI) & 30/11/2018 & 350,83 & 2030 \\
+Climate Action Tracker (CFI) & 19/09/2019 & 344,70 & 2030 \\
+Climate Action Tracker (CFI) & 04/11/2022 & 283,42 & 2030 \\
+Climate Action Tracker (CFI) & 07/10/2024 & 280,36 & 2030 \\
+\addlinespace
+\citeA{palma_behnke_chilean_2019} & 2019 & 300,94 & 2020--2030 \\
+\bottomrule
+\end{tabular}
+}
+\vspace{0.2cm}
+\footnotesize
+\textbf{Nota:} 
+CFI es un acrónimo para la frase ``considerando financiamiento internacional'' en español.\\
+\emph{Climate Action Tracker} es el título de la página web: \url{https://climateactiontracker.org/} consultada el 18/12/2025;\\
+Si las fechas no incluyen el día y/o mes es debido a que no se encontró dicha información.\\
+(Fuente: Elaboración propia)
+\end{table}
+
+Al calcular la desviación estándar de los presupuestos históricos anualizados para un horizonte de 11 años, se obtiene un valor de 61,86 MtCO$_2$e. Este resultado se adopta como la estimación para el parámetro $\sigma_{CAP}$, representando la incertidumbre estructural en la fijación del presupuesto que enfrentará el planificador.
+
+\section{\boldmath Valores $CAP_s$, $CAP_d$ y $\kappa$}
+El presupuesto más reciente fue establecido por el \citeA{ministerio_de_energia_de_chile_plan_2024}, proponiendo un escenario de referencia de 296 MtCO$_2$e con un efecto de mitigación de 31,8 MtCO$_2$e. Este valor surge de una acumulación de conocimiento de años anteriores, más estudios y mejores tecnologías de estimación. Es por esto que se declara como la mejor señal encontrada del $CAP$: $CAP_s = 264,2\ \text{MtCO}_2$e.\medskip
+
+Complementariamente, para establecer la señal por defecto ($CAP_d$), se tomó como referencia el comportamiento histórico de las emisiones del sector energético. Utilizando registros oficiales del Ministerio de Energía \footnote{Datos consolidados a partir de las estadísticas del Sistema Nacional de Inventarios de GEI (SNICHILE) en \url{https://snichile.mma.gob.cl/sector-energia/} y su plataforma de visualización en \url{https://infogram.com/1pdzx11m5n3px3cmpdkdr5wnyxtknxxpdzl}. Consultados el 20 de noviembre de 2025.} se calculó el nivel acumulado de GEI para un período de once años desde el año 2012, lo que arroja un valor de 311 MtCO$_2$e. Bajo la lógica de inatención racional, este valor representa la señal obtenida por defecto al seguir la tendencia histórica, estableciendo de este modo $CAP_d=311$ MtCO$_2$e.
+
+Por otro lado, el valor de $\kappa$ se asocia al costo social del carbón (SCC), el cual parametriza cuánto le cuesta a la sociedad una tonelada extra de CO$_2$e. El gobierno de Chile estableció esta cifra en 64,4 USD/ tCO$_2$e \footnote{Gobierno de Chile (2024). Véase: \url{https://www.gob.cl/noticias/actualizan-precio-social-del-carbono/}. Consultado el 12 de diciembre de 2025.}, para efectos de este trabajo la penalización es por desviarse del $CAP$ ya sea al sobrepasarlo o al ser menor a él. Esto se debe a que existe una necesidad mínima de producción energética que debe ser satisfecha; por lo tanto, emitir por debajo del $CAP$ implica no cubrir adecuadamente dicha demanda, lo que también genera un costo o daño social. En este sentido, dado que la integración de las ERNC es un proceso transitorio y resulta infactible eliminar las emisiones de forma inmediata a corto plazo; la transición desde tecnologías fósiles hacia fuentes no fósiles debe realizarse de manera gradual, evitando reducciones brutales que puedan comprometer el suministro energético de la sociedad. Con esto, el costo marginal por desviarse del $CAP$ es $\kappa=64,4$.
+
+\section{\boldmath Calibración de $\sigma_{\varepsilon}^2$}
+El valor de $\sigma_\epsilon^2$ será calibrado modelando 11 escenarios correspondientes a niveles discretos de atención:
+\[
+m \in \{0,\,0{,}1,\,0{,}2,\,0{,}3,\,0{,}4,\,0{,}5,\,0{,}6,\,0{,}7,\,0{,}8,\,0{,}9,\,1\}.
+\]
+La calibración consiste en ajustar el modelo de forma tal que la composición de la matriz energética simulada reproduzca la estructura de la producción eléctrica observada en Chile durante el año 2024. Para ello, se compara la participación porcentual por tecnología del sistema real con la participación resultante del modelo para el mismo año, considerando los distintos niveles de atención bajo el escenario de mitigación $\omega =5$ propuesto por \citeA{amigo_two_2021}. Se selecciona este escenario particular dado que representa el nivel de ambición y esfuerzo nacional requerido para el cumplimiento efectivo de las metas climáticas trazadas. La similitud entre ambos vectores de participaciones se evalúa mediante la suma de las diferencias absolutas entre las participaciones reales y modeladas por tecnología, es decir, una medida de distancia del tipo \( \sum_i \lvert s_i^{\text{real}} - s_i^{\text{modelo}} \rvert \), donde $s_i$ representa la cuota de participación de la tecnología $i$ en la generación total de la matriz. La composición real de la matriz energética utilizada como referencia se presenta en el Cuadro ~\ref{tab:participacion_real_2024}.
+
+
+\begin{table}[H]
+\centering
+\caption{Participación productiva por tecnología en el sistema eléctrico chileno (2024)}
+\label{tab:participacion_real_2024}
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{10pt}
+\begin{tabular}{l c}
+\toprule
+\textbf{Tecnología} & \textbf{Participación (\%)} \\
+\midrule
+Hidráulica        & 31.66 \\
+Solar             & 21.77 \\
+Carbón            & 15.62 \\
+Gas Natural       & 15.16 \\
+Eólica            & 12.97 \\
+Biomasa           & 2.27  \\
+Geotérmica        & 0.36  \\
+Petróleo Diésel   & 0.21  \\
+\midrule
+\textbf{Total}    & \textbf{100.00} \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.2cm}
+\footnotesize\textit{Nota: Datos consultados el 27/12/2025 desde el Coordinador Eléctrico Nacional: \url{https://www.coordinador.cl/reportes-y-estadisticas/\#Estadisticas}.}\\
+(Fuente: Elaboración propia)
+\end{table}
+
+A partir de los niveles de atención seleccionados, es posible determinar la desviación del ruido, o error, representada por $\sigma_{\varepsilon}$. Utilizando la definición del nivel de atención $m$ presentada en el Capítulo ~\ref{c2} y despejando para la desviación del error de la señal, se obtiene la ecuación ~\ref{eq:var_epsilon_general}:
+
+\begin{equation}
+\sigma_{\varepsilon} 
+= \sqrt{\frac{\sigma_{CAP}^2(1-m)}{m}}
+\label{eq:var_epsilon_general}
+\end{equation}
+
+%https://solsur.cl/post-chile-energía-solar/
+
+En este análisis, es posible descomponer la meta de emisiones óptima ($\theta^*$) de la ecuación  ~\ref{eq:theta_revenue_final}. Esta queda conformada por un valor fijo ($m\,CAP_s + (1-m)\,CAP_d$) y un valor variable ($\frac{\pi^a}{\kappa}$), llamemos al valor fijo $\theta_{base}$. El Cuadro ~\ref{tab:theta_m} muestra el valor de $\sigma_{\varepsilon}^2$ junto con el valor de atención $m$ correspondiendo a cada error, y el valor de $\theta_{base}$ para los distintos niveles de atención descritos anteriormente.
+
+\begin{table}[H]
+\centering
+\caption{Valores de $\theta_{base}$ expresados en MtCO$_2$e}
+\label{tab:theta_m}
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{12pt}
+\begin{tabular}{c c c}
+\toprule
+\textbf{$\sigma_{\varepsilon}$ (MtCO$_2$e)} & \textbf{$m$} & \textbf{$\theta_{base}$ (MtCO$_2$e)} \\
+\midrule
+$\infty$ & 0,0 & 311,01 \\
+185,58 & 0,1 & 306,33 \\
+123,72 & 0,2 & 301,65 \\
+94,49  & 0,3 & 296,97 \\
+75,76  & 0,4 & 292,29 \\
+61,86  & 0,5 & 287,61 \\
+50,51  & 0,6 & 282,93 \\
+40,50  & 0,7 & 278,24 \\
+30,93  & 0,8 & 273,56 \\
+20,62  & 0,9 & 268,88 \\
+0,00   & 1,0 & 264,20 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.1cm}
+\footnotesize{Fuente: Elaboración propia.}
+\end{table}
+
+Nótese que para valores extremadamente altos de $\sigma_{\varepsilon}$ se obtiene un nivel de atención $m=0$ y un valor de $\theta_{base}$ correspondiente al valor por defecto $CAP_d$.
+
+% \section{\boldmath Calibración del ruido $\sigma_\varepsilon $}
+% El valor de $\sigma_\varepsilon $ será calibrado modelando 11 escenarios correspondientes a niveles discretos de atención:
+
+% \[
+% m \in \{0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1\}.
+% \]
+
+% La calibración consiste en ajustar el modelo de forma tal que la composición de la matriz energética simulada reproduzca la estructura de la producción eléctrica observada en Chile durante el año 2024. Para ello, se compara la participación porcentual por tecnología del sistema real con la participación resultante del modelo para el mismo año, considerando los distintos niveles de atención bajo el escenario de mitigación $\omega = 5$ propuesto por \citeA{amigo_two_2021}. Se selecciona este escenario particular dado que representa el nivel de ambición y esfuerzo nacional requerido para el cumplimiento efectivo de las metas climáticas trazadas. La similitud entre ambos vectores de participaciones se evalúa mediante la suma de las diferencias absolutas entre las participaciones reales y modeladas por tecnología, es decir, una medida de distancia del tipo 
+% \[
+% \sum_i \left| s_i^{\text{real}} - s_i^{\text{modelo}} \right|,
+% \]
+% donde $s_i$ representa la cuota de participación de la tecnología $i$ en la generación total de la matriz. La composición real de la matriz energética utilizada como referencia se presenta en el Cuadro \ref{tab:participacion_real_2024}.
+
+% \begin{table}[H]
+% \centering
+% \caption{Participación productiva por tecnología en el sistema eléctrico chileno (2024)}
+% \label{tab:participacion_real_2024}
+% \renewcommand{\arraystretch}{1.15}
+% \setlength{\tabcolsep}{10pt}
+% \begin{tabular}{l c}
+% \toprule
+% \textbf{Tecnología} & \textbf{Participación (\%)} \\
+% \midrule
+% Hidráulica        & 31,66 \\
+% Solar             & 21,77 \\
+% Carbón            & 15,62 \\
+% Gas Natural       & 15,16 \\
+% Eólica            & 12,97 \\
+% Biomasa           & 2,27  \\
+% Geotérmica        & 0,36  \\
+% Petróleo Diésel   & 0,21  \\
+% \midrule
+% \textbf{Total}    & \textbf{100.00} \\
+% \bottomrule
+% \end{tabular}
+
+% \vspace{0.2cm}
+% \footnotesize\textit{Nota: Datos consultados el 27/12/2025 desde el Coordinador Eléctrico Nacional: \url{https://www.coordinador.cl/reportes-y-estadisticas/\#Estadisticas}.}
+% \end{table}
+
+% Adicionalmente, es posible descomponer la meta de emisiones óptima ($\theta^*$) de la ecuación~\ref{eq:utilidadv}. Esta queda conformada por un valor fijo $(m\,CAP_s + (1-m)\,CAP_d)$ y un valor variable $\left(\frac{\pi^a}{\kappa}\right)$, se denomina al valor fijo $\theta_{base}$. En el Cuadro \ref{tab:theta_m} se presentan los valores de $\sigma_\varepsilon$, la atención $m$ y el valor de $\theta_{base}$ correspondiente.
+
+% \begin{table}[H]
+% \centering
+% \caption{Valores de $\theta_{base}$ según el nivel de atención $m$}
+% \label{tab:theta_m}
+% \renewcommand{\arraystretch}{1.2}
+% \setlength{\tabcolsep}{20pt} 
+% \begin{tabular}{c c}
+% \toprule
+% \textbf{Nivel de Atención ($m$)} & \textbf{$\theta_{base}$ (MtCO$_2$e)} \\
+% \midrule
+% 1,0 & 264,20 \\
+% 0,9 & 268,88 \\
+% 0,8 & 273,56 \\
+% 0,7 & 278,24 \\
+% 0,6 & 282,93 \\
+% 0,5 & 287,61 \\
+% 0,4 & 292,29 \\
+% 0,3 & 296,97 \\
+% 0,2 & 301,65 \\
+% 0,1 & 306,33 \\
+% 0,0 & 311,01 \\
+% \bottomrule
+% \end{tabular}
+
+% \vspace{0.1cm}
+% \footnotesize{Fuente: Elaboración propia.}
+% \end{table}
+
+\section{Integración con el modelo \protect\citeA{amigo_two_2021}}
+
+\citeA{munoz_lhuillier_inversion_2022} replicó el modelo de \citeA{amigo_two_2021} en lenguaje Julia aplicando Mixed Complementary Problem (MCP) con ecuaciones de Karush-Kuhn-Tucker (KKT).  Las KKT describen cuándo una solución es óptima en un problema con restricciones, combinando la función objetivo, las restricciones y sus precios obtenidos en el equilibrio. Al expresarlas como un MCP, el modelo se resuelve directamente como un equilibrio económico donde las restricciones y sus multiplicadores actúan de forma coherente. La estructura del programa sigue la lógica del modelo original, se definen \textit{sets} que delimitan el alcance temporal, tecnológico y estocástico; se incorporan los parámetros que caracterizan al sistema; se declaran las variables endógenas y de mercado; y finalmente se resuelve el equilibrio utilizando \textit{PATH}. Para un mejor entendimiento de esta codificación, revisar el trabajo de \cite{munoz_lhuillier_inversion_2022}.
+
+Con el fin de incorporar la inatención conductual en esta estructura, es necesario modificar ciertas partes del código recién mencionado: 
+
+\begin{itemize}
+    \item Cambios en el set.
+    \item Eliminación de las ecuaciones originales del planificador \citeA{amigo_two_2021}
+    \item Incorporación de nueva formulación del planificador
+\end{itemize}
+
+\subsection{Cambios en el set}
+El código realizado por \citeA{munoz_lhuillier_inversion_2022} existe para un período entre 2019 y 2050, el modelo actual busca acotar a un horizonte de 11 años: 2020 a 2030. 
+
+\subsection{Eliminación de las ecuaciones originales del planificador}
+El planificador con condiciones KKT se expresa de la siguiente manera en el código de \citeA{munoz_lhuillier_inversion_2022}:
+\begin{minted}{julia}
+@variable(model, eta >= 0)   
+@variable(model, theta >= 0, start = 1) 
+\end{minted}
+Complementariedades del planificador:
+\begin{minted}{julia}
+@constraint(model, kkt_auctioneer, -pi_a + eta ⟂ theta)
+@constraint(model, theta_const, -theta + PhiRisk * (Std) + mean ⟂ eta)
+\end{minted}
+Esto define $\theta$ y $\eta$, lo que es equivalente a resolver:
+
+\[
+\max_{\theta \ge 0} \; \pi^a \theta
+\]
+
+sujeto a:
+
+\[
+\theta \le \mu + \Phi\,\sigma
+\]
+
+
+Como se analizó en el Capítulo ~\ref{c2} esta es una ecuación débil que puede mejorarse con la ecuación ~\ref{eq:theta*}. Para esto, se eliminan las líneas mostradas recientemente y se procede a definir el valor de $\kappa$, los distintos $\theta_{base}$ según los distintos valores de $\sigma_\varepsilon$, y la unión de $\theta_{base}$ con el componente variable ($\frac{\pi^a}{\kappa}$). Se muestra, según lo dicho, la expresión para $\theta^*$.
+
+\begin{minted}{julia}
+@expression(model, theta, theta_base + pi_a / k)
+\end{minted}
+
+Esta expresión representa el nivel óptimo de permisos que emitirá el planificador formulado en \ref{eq:theta*}.

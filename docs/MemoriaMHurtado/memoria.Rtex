@@ -2,12 +2,12 @@
 \input{core/preambulo.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\nombreautor}{ALUMNO}
-\newcommand{\mes}{Julio}
-\newcommand{\anio}{2023}
-\newcommand{\titulo}{Definir el título}
-\newcommand{\nombreprofuno}{PROFESOR}
-\newcommand{\nombreprofdos}{Nombre Profe 2}
+\newcommand{\nombreautor}{Juan Matías Hurtado}
+\newcommand{\mes}{Agosto}
+\newcommand{\anio}{2025}
+\newcommand{\titulo}{Anclaje y ajuste del subastador en un modelo de permisos transables}
+\newcommand{\nombreprofuno}{Sebastián Cea}
+\newcommand{\nombreprofdos}{}
 \newcommand{\nombreproftres}{Nombre Profesor Invitado}
 \newcommand{\codigo}{ING-IN-001/11}
 
@@ -38,7 +38,7 @@ ok..
 	{\hbox{\large{i}}}
 \newcommand{\RR}{\mathbb{R}}
 
-
+\geometry{margin=2cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
@@ -65,7 +65,7 @@ ok..
 \addcontentsline{toc}{chapter}{Bibliografía}
 
 \bibliographystyle{newapa}
-\bibliography{referencias}
+\bibliography{docs/MemoriaMHurtado/references}
 
 \appendix % seguido de archivos de apendices
 
@@ -74,9 +74,11 @@ ok..
 % Escribe 'Anexos' en el Indice General
 \addcontentsline{toc}{chapter}{Anexos}
 
-\input{attachments/anexo_a.tex}    % archivo de apendice
+\input{docs/MemoriaMHurtado/attachments/anexo_a}    % archivo de apendice
 
-%\input{apendice_b}    % otro archivo de apendice
+%\input{docs/MemoriaMHurtado/attachments/anexo_b}     % otro archivo de apendice
+
+%\input{docs/MemoriaMHurtado/attachments/anexo_c}  
 
 \label{end}
 \end{document}
