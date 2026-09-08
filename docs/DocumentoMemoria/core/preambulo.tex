@@ -38,7 +38,9 @@
 % Cool code highlight
 % https://es.overleaf.com/learn/latex/Code_Highlighting_with_minted
 % No need of outputdir out of overleaf
-\usepackage[outputdir=docs/DocumentoMemoria]{minted}
+% minted retirado: la opcion outputdir estaba fijada a la ruta de Overleaf, exigia -shell-escape
+% y Pygments, y ningun entorno minted se usa realmente en los capitulos.
+%\usepackage[outputdir=docs/DocumentoMemoria]{minted}
 
 % Librerías adicionales para diagramas tikz
 
@@ -55,7 +57,7 @@
 \usepackage{booktabs}
 \usetikzlibrary{fadings}
 \usetikzlibrary{patterns}
-\usetikzlibrary{shadows.blur}
+\usetikzlibrary{shadows} % shadows.blur no existe en las versiones actuales de PGF
 \usetikzlibrary{shapes}
 
 
@@ -92,10 +94,13 @@
 %\usepackage[pdftex]{graphicx}
 
 \usepackage{graphicx}
+% Reconcilia las dos convenciones de ruta del documento: las figuras de capitulos son
+% relativas a la raiz del repositorio y el logo y las fuentes al directorio del documento.
+\graphicspath{{../../}{./}}
 
 \usepackage{fontspec}
  
-\setmainfont{Times New Roman}
+\setmainfont{TeX Gyre Termes} % clon libre de Times; la fuente propietaria no es portable
 
 
 

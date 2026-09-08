@@ -54,10 +54,10 @@ Estos modelos, por ejemplo, representan las estrategias de varios agentes involu
 Esta memoria se focaliza en los modelos de equilibrio en capacidad, relacionados con el mercado de generación eléctrica. En estos, por una parte, presentan un equilibrio entre la demanda de energía de los consumidores y la oferta de los productores y, por otra parte, un equilibrio entre la capacidad instalada de los productores y los permisos para emitir contaminantes. Este problema se formula como la minimización anual de inversión en las plantas generadoras de energía.
 \vspace{2.5mm}
 
-Los modelos de equilibrio en capacidad han sido estudiados por \citeB{ehrenmann_generation_2011}, \citeB{d__aertrycke_risk_2017}, \citeB{gabriel_complementarity_2012}, \citeB{ralph_risk_2015}, entre otros.
+Los modelos de equilibrio en capacidad han sido estudiados por \citeB{ehrenmann_generation_2011}, \citeB{de_maere_d__aertrycke_risk_2017}, \citeB{gabriel_complementarity_2012}, \citeB{ralph_risk_2015}, entre otros.
 \vspace{2.5mm}
 
-A continuación, en base al trabajo de \citeB{d__aertrycke_risk_2017}, se explica un problema de equilibrio en capacidad con riesgo asociado de dos etapas y uno de riesgo neutral.
+A continuación, en base al trabajo de \citeB{de_maere_d__aertrycke_risk_2017}, se explica un problema de equilibrio en capacidad con riesgo asociado de dos etapas y uno de riesgo neutral.
 
 \subsection{Problema de equilibrio en capacidad con riesgo asociado (\textit{risky design equilibrium problem}) y modelos de dos etapas}
 
@@ -73,14 +73,14 @@ La probabilidad de ocurrencia de cada escenario depende de una distribución de 
 Generalmente, estos modelos, tienen dos etapas de decisión $s\in\{0,1\}$ para los agentes diseñados en el problema. En la primera etapa $s=0$, el productor (monopolio) o grupo de productores (mercado competitivo) decide su inversión en capacidad $x$. Luego, en la segunda etapa $s=1$, se decide la producción $Y$ (si existe más de un escenario de ocurrencia, estos presentan distintas demandas o costos). Es decir, la variable de producción también puede depender del escenario $w$, teniendo $Y_{w}$ para cada uno).
 \vspace{2.5mm}
 
- \citeB{d__aertrycke_risk_2017}, identifican estos problemas como aquellos en los que existe una función $f$ convexa y continua, $g$ convexa y continua en los que para cada $x$:
+ \citeB{de_maere_d__aertrycke_risk_2017}, identifican estos problemas como aquellos en los que existe una función $f$ convexa y continua, $g$ convexa y continua en los que para cada $x$:
 
 \begin{align}
 \min f(x,y)\quad\text{sujeta a}\quad g(x,y)\leq 0
 \end{align}
 
 
-Este problema de optimización busca minimizar los costos asociados al problema y $g(x,y)$ puede ser una o un grupo de restricciones tecnológicas o de equilibrio del sistema.\footnote{Ver página 11 de \citeB{d__aertrycke_risk_2017}.} 
+Este problema de optimización busca minimizar los costos asociados al problema y $g(x,y)$ puede ser una o un grupo de restricciones tecnológicas o de equilibrio del sistema.\footnote{Ver página 11 de \citeB{de_maere_d__aertrycke_risk_2017}.} 
 \vspace{2.5mm}
 
 Con el fin de contrarrestar los costos asociados a escenarios con incertidumbre, por ejemplo, sub o sobre inversión, según cada escenario, cada agente $i$ se dota de una medida de riesgo $r_{i}$ que mide el costo de la incertidumbre respecto de una variable incierta (variable aleatoria o estocástica). Para mitigar ese costo por riesgo, el agente puede decidir qué productos financieros $W_i\in\mathbb{R}^K$ elegir para compensar el riesgo de incertidumbre en cada escenario. Estos productos tienen un precio asociado $P^{r}[W_i]$. Este precio es determinado por la condición de que todos los productos financieros deben balancearse y, suponiendo que $N>0$ agentes componen el mercado, lograr que:
@@ -449,7 +449,7 @@ A continuación, se definen los pasos generales para programar un modelo de opti
 
 \subsection{Resolución ejemplo 3.3.1 D'{}Aertrycke et al. (2017)}
 
-Con el fin de aplicar lo expuesto en la sección \ref{explisolvers}, se lleva a cabo la resolución del problema 3.3.1, presente en la página 24 de \citeB{d__aertrycke_risk_2017}. Este es un problema competitivo de equilibrio en capacidad con riesgo neutral, el cual está relacionado con el tema central de este trabajo ya que modela la minimización de costos de generación de electricidad al suplir la demanda energética que esta abastece. 
+Con el fin de aplicar lo expuesto en la sección \ref{explisolvers}, se lleva a cabo la resolución del problema 3.3.1, presente en la página 24 de \citeB{de_maere_d__aertrycke_risk_2017}. Este es un problema competitivo de equilibrio en capacidad con riesgo neutral, el cual está relacionado con el tema central de este trabajo ya que modela la minimización de costos de generación de electricidad al suplir la demanda energética que esta abastece. 
 \vspace{2.5mm}
 
 \subsubsection{Explicación del Problema}
@@ -519,7 +519,7 @@ El código se encuentra en el anexo, Capítulo \ref{ejerciciojulia}.
 
 \subsubsection{Comparación de resultados}
 
-Finalmente, se comparan los resultados del modelo en ambos \textit{solvers} junto con los resultados presentes en \citeB{d__aertrycke_risk_2017}.
+Finalmente, se comparan los resultados del modelo en ambos \textit{solvers} junto con los resultados presentes en \citeB{de_maere_d__aertrycke_risk_2017}.
 
 \begin{table}[H]
 \centering
@@ -536,7 +536,7 @@ Promedio & 329.6 & 331.52 & 329.59 & 329.72 & 70.3 & 70.3 & 70.4 & 70.27 \\ \hli
 x{[}MW{]} & x* & x** & x*** &  &  &  &  &  \\ \hline
 389 & 389.31 & 388.99 & 389.31 &  &  &  &  &  \\ \hline
 \multicolumn{9}{l}{\footnotesize 
-() valor  \citeB{d__aertrycke_risk_2017} , (*) valor \textit{GAMS}, (**) valor \textit{pyscipopt}, (***) valor \textit{Julia}}
+() valor  \citeB{de_maere_d__aertrycke_risk_2017} , (*) valor \textit{GAMS}, (**) valor \textit{pyscipopt}, (***) valor \textit{Julia}}
 
 \end{tabular}
 \caption{Resultados ejemplo (Fuente: realización propia)}
