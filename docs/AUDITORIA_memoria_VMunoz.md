@@ -36,7 +36,7 @@ Verificado empíricamente:
 
 ### 1.2 Resultado tras las correcciones
 
-Aplicando los cuatro cambios anteriores más el `\graphicspath`, la memoria compila **limpia**: **112 páginas**, 0 errores LaTeX, 0 figuras faltantes, 0 referencias cruzadas indefinidas y **1 sola cita indefinida** (ver §3).
+Aplicando los cuatro cambios anteriores más el `\graphicspath`, la memoria compila **limpia**: **113 páginas**, 0 errores LaTeX, 0 figuras faltantes, 0 referencias cruzadas indefinidas y **1 sola cita indefinida** (ver §3).
 
 ---
 
@@ -142,7 +142,7 @@ Esto es coherente con lo que la propia presentación reconoce en sus comentarios
 
 ## 9. Orden de trabajo sugerido
 
-1. Los cuatro cambios de `core/preambulo.tex` más el `\graphicspath` — la memoria pasa a compilar (112 páginas).
+1. Los cuatro cambios de `core/preambulo.tex` más el `\graphicspath` — la memoria pasa a compilar (113 páginas, contando la errata del `\\` de la §4 que agrega una página).
 2. Corregir la clave `d__aertrycke_risk_2017` → `de_maere_d__aertrycke_risk_2017`.
 3. Decidir cuál valor de πᵃ es correcto en CAP=200 y CAP=800, y ajustar el párrafo de interpretación del "salto" en CAP=800.
 4. Corregir `c=920M` → `c=920.000M` en la presentación UVigo.
