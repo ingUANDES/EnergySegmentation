@@ -63,7 +63,7 @@ Además, el capítulo 5 (conclusiones) tiene 522 palabras y **no reporta ni una 
 
 `docs/DocumentoMemoria/references.bib` tiene **2.038 entradas** para un documento que cita 17: es el volcado completo de una biblioteca Zotero. Conviene reducirlo a las entradas efectivamente citadas.
 
-**Borrador de artículo.** `Submissions/EnergyPolicy/references.bib` tiene 336 entradas y **2 claves citadas que no existen**: `feijoo_design_2014` y `ferris_complementarity_2000`. Además, el resumen cita "Sims (2003)" y "Amigo et alii (2021)" como texto plano; Sims (2003) no tiene entrada en la bibliografía.
+**Borrador de artículo.** `Submissions/EnergyPolicy/references.bib` tiene 336 entradas y **2 claves citadas que no existen**: `feijoo_design_2014` y `ferris_complementarity_2000`. Además, el resumen cita "Sims (2003)" y "Amigo et alii (2021)" como texto plano en lugar de con `\citet`, aunque ambas entradas (`sims_implications_2003` y `amigo_two_2021`) sí existen en la bibliografía.
 
 ---
 
