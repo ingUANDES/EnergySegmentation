@@ -1,9 +1,30 @@
-% Definiciones basicas de LaTeX para la memoria
+% =====================================================================
+% shared/memoria/preambulo-base.tex
+% ---------------------------------------------------------------------
+% Preambulo comun de las memorias. Antes existian tres copias divergentes
+% de este archivo (DocumentoMemoria, MemoriaMHurtado y la plantilla
+% docs/Memoria, ya eliminada), y las tres arrastraban los mismos cuatro
+% bloqueadores de compilacion. Aqui estan corregidos una sola vez:
 %
-% No modificar las lineas a continuacion a menos
-% de estar muy seguro de lo que se esta haciendo!!
+%   1. \usetikzlibrary{shadows}      (shadows.blur ya no existe en PGF)
+%   2. \setmainfont{TeX Gyre Termes} (Times New Roman es propietaria)
+%   3. gensymb declarado en el README como dependencia
+%   4. minted NO se carga aqui: solo lo usa la memoria de Hurtado, y
+%      obliga a -shell-escape mas Pygments. Se carga en el documento
+%      que lo necesita.
 %
-% Jaime Cisternas, julio 2004, agosto 2010
+% Cada memoria conserva su propio core/preambulo.tex, que hace \input de
+% este archivo y añade lo que es suyo: el \graphicspath, minted, y los
+% paquetes que solo ella usa.
+%
+% Los .sty de terceros (newapa, setspace, julialogo) y las carpetas
+% fonts/ y logos/ siguen en cada documento a proposito: kpathsea no
+% busca en ../../shared/, y hacer que lo haga exigiria fijar TEXINPUTS,
+% lo que rompe el criterio de "compilar desde la propia carpeta con
+% xelatex a secas".
+%
+% Autoria original del preambulo: Jaime Cisternas, 2004 y 2010.
+% =====================================================================
 
 % <jcisternas@uandes.cl> 
 
@@ -12,16 +33,6 @@
 %\usepackage{algorithm}
 %\usepackage{algorithmic}
 \usepackage[left=3cm,top=2.5cm,right=3cm,bottom=2.5cm]{geometry}
-
-
-%Para R
-
-% <<setup, include=FALSE>>=
-% library(ggplot2)
-% library(dplyr)
-% library(scales)
-% @
-
 
 % Encoding
 
@@ -40,17 +51,10 @@
 \usepackage{listings}
 \usepackage{pgfplots}
 \usepackage{eurosym}
-\usepackage{graphicx}
-\usepackage{subcaption}
 
 % Logo Julia
 
 \usepackage{core/julialogo}
-
-% Cool code highlight
-% https://es.overleaf.com/learn/latex/Code_Highlighting_with_minted
-% No need of outputdir out of overleaf
-\usepackage[outputdir=docs/DocumentoMemoria]{minted}
 
 % Librerías adicionales para diagramas tikz
 
@@ -58,7 +62,7 @@
 \usepackage{mathdots}
 \usepackage{yhmath}
 \usepackage{color}
-\usepackage{xcolor}
+\usepackage[table]{xcolor}
 \usepackage{siunitx}
 \usepackage{multirow}
 \usepackage{gensymb}
@@ -67,7 +71,7 @@
 \usepackage{booktabs}
 \usetikzlibrary{fadings}
 \usetikzlibrary{patterns}
-\usetikzlibrary{shadows.blur}
+\usetikzlibrary{shadows} % shadows.blur no existe en las versiones actuales de PGF
 \usetikzlibrary{shapes}
 
 
@@ -107,14 +111,13 @@
 
 \usepackage{fontspec}
  
-\setmainfont{Times New Roman}
+\setmainfont{TeX Gyre Termes} % clon libre de Times; la fuente propietaria no es portable
 
 
 
 %\pdfcompresslevel=9 %commented to use Xelatex
 %\pdfadjustspacing=1 %commented to use xelatex
 % Definicion de colores
-\usepackage{color}
 \definecolor{rltbrightred}{rgb}{1,0,0}
 \definecolor{rltred}{rgb}{0.75,0,0}
 \definecolor{rltdarkred}{rgb}{0.5,0,0}

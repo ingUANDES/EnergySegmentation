@@ -33,7 +33,7 @@ De ahí las tres consecuencias medibles:
 | `docs/Presentations/UVigo` | 28 | 1,1 | presentación xaringan 2022 (incluye 18 archivos de `libs/` y `home_files/`) |
 | `Apuntes` + `docs/Apuntes` | 26 | 1,6 | **el mismo árbol, duplicado íntegro** |
 | `code` | 13 | 1,2 | GAMS, Julia, notebooks |
-| `docs/Presentations/presentation-template` | 8 | 0,3 | presentación de Hurtado (la plantilla fue borrada) |
+| `docs/Presentations/HurtadoDefensa2026` | 8 | 0,3 | presentación de Hurtado (la plantilla fue borrada) |
 | `docs/Memoria` | 5 | 0,04 | **plantilla muerta**: 4 archivos de `core/` y un anexo, sin documento maestro |
 | `docs/Presentations/PhDEIIPUCV` | 2 | 0,01 | presentación PUCV |
 
@@ -62,7 +62,7 @@ EnergySegmentation/
 │   ├── uvigo-2022/                ← hoy docs/Presentations/UVigo
 │   ├── ifors-2023/                ← hoy docs/Presentations/IFORS
 │   ├── pucv-phd/                  ← hoy docs/Presentations/PhDEIIPUCV
-│   └── hurtado-defensa-2026/      ← hoy docs/Presentations/presentation-template
+│   └── hurtado-defensa-2026/      ← hoy docs/Presentations/HurtadoDefensa2026
 │       └── figures/               ← las 29 capturas que hoy están en la raíz
 ├── submissions/
 │   ├── energy-2021-published/     ← hoy Energy_8000. Línea base, congelada
@@ -121,14 +121,26 @@ Los focos que **no** se deduplican, y la razón:
 | `core/` de `DocumentoMemoria`, `Memoria` y `MemoriaMHurtado` | 4 + logos | **Unificar en `shared/`.** Es la etapa 3. |
 | `docs/Presentations/UVigo/libs/` y `home_files/`, `IFORS/home_files/` | 88 archivos, 6,2 MB | **Corregido tras verificar: NO deben sacarse del índice.** `UVigo/home.html` e `IFORS/home.html` están versionados y no funcionan sin ellos — son el registro de charlas ya expuestas, no artefactos regenerables sin el entorno de R/Quarto original. Si se quiere un formato de archivo más liviano, exportar cada charla a PDF y retirar HTML y `libs/` juntos. |
 
-### Etapa 3 — Preámbulo compartido y limpieza de plantillas
+### Etapa 3 — Preámbulo compartido y limpieza de plantillas *(hecha)*
 
-1. **`docs/Memoria/` es una plantilla muerta** (5 archivos, sin maestro): eliminar.
-2. **Unificar los tres preámbulos** en `shared/preambulo-memoria.tex`. Los tres arrastran los mismos defectos —`shadows.blur`, `Times New Roman`, `gensymb`— porque son copias. Un preámbulo único con las correcciones ya verificadas evita que el próximo memorista herede los mismos cuatro bloqueadores. Diferencia a preservar: la memoria de Hurtado **usa** `minted` (tres bloques de código Julia) y la de Muñoz no, así que el preámbulo compartido debe cargarlo condicionalmente o dejar `minted` en el documento que lo necesita.
-3. **`docs/Presentations/presentation-template/`**: renombrar a `presentaciones/hurtado-defensa-2026/`. Si se quiere conservar una plantilla de presentación, recuperar `presentation.tex` de `29cb916` y ponerla en `shared/plantilla-presentacion/`.
-4. **`docs/Informe/`** (10 archivos, 1,8 MB, con `informe.tex` y `defensa.rmd`): no tiene relación declarada con el resto del proyecto. Preguntar a los autores si corresponde a un trabajo anterior; si sí, `archivo/informe-<año>/`.
-5. **`docs/Presentations/June2020.pdf`** (1,9 MB): PDF suelto sin fuente. Mover a `archivo/` o eliminar.
-6. **`referencesOLD.bib`** en `MemoriaMHurtado` y `docs/DocumentoMemoria`: sin uso, eliminar.
+| Punto | Estado |
+|---|---|
+| `docs/Memoria/` (plantilla muerta, 5 archivos) | **eliminada** por instrucción de los autores |
+| Unificar los tres preámbulos | **hecho**: `shared/memoria/preambulo-base.tex`. Cada `core/preambulo.tex` queda en 8 y 20 líneas y sólo añade lo propio: el `\graphicspath` y, en Hurtado, `minted` más `subcaption`, `makecell`, `url` y `xurl`. `minted` **no** está en la base: sólo Hurtado lo usa y obliga a `-shell-escape` con Pygments. |
+| `presentation-template/` → nombre real | **hecho**: `docs/Presentations/HurtadoDefensa2026/`, siguiendo la convención de las otras carpetas de `Presentations/`. No era una plantilla: es la defensa del 15 de mayo de 2026. |
+| `docs/Informe/` | **se conserva**: es el material inicial de la investigadora postdoctoral coautora del artículo de *Energy*. Descrito así en el README. |
+| `docs/Presentations/June2020.pdf` | **se conserva** por instrucción de los autores. |
+| `referencesOLD.bib` | **eliminado** (sólo existía en `MemoriaMHurtado`; `DocumentoMemoria` no tenía uno). |
+
+Dos hallazgos al unificar:
+
+- **`changes` se cargaba sin usarse.** El preámbulo de Hurtado lo pedía, pero no hay ni un `\added`, `\deleted` ni `\replaced` en los capítulos. Sale del preámbulo y de la lista de paquetes del README. Lo mismo con `subfigure` en el de Muñoz: ninguna de las dos memorias usa comandos de subfiguras.
+- **Los `.sty` de terceros, `fonts/` y `logos/` siguen duplicados a propósito.** Son 0,97 MB que sí se podrían unificar, pero `kpathsea` no busca en `shared/`: hacer que los encuentre exige fijar `TEXINPUTS`, y eso rompe el criterio de aceptación de compilar desde la propia carpeta con `xelatex` a secas. Las fuentes `TamilMN*.otf` no son peso muerto: `core/julialogo.sty` las declara con `Path=fonts/`.
+
+Verificado tras unificar, cada documento desde su propia carpeta y con el ciclo completo
+de bibliografía: memoria de Muñoz **113 páginas**, memoria de Hurtado **57**, presentación
+**48**; las tres con 0 errores, 0 figuras faltantes y 0 citas ni referencias indefinidas.
+Mismos conteos que antes de tocar los preámbulos.
 
 ### Etapa 4 — Rutas y compilación reproducible
 

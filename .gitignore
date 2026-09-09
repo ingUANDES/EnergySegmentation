@@ -19,7 +19,7 @@
 # El PDF de la presentacion de Hurtado no se versiona: pesa 22 MB, tanto como sus
 # figuras juntas, y se regenera con lualatex desde su propia carpeta. Los PDF y HTML
 # ya versionados de UVigo, IFORS y June2020 se conservan como registro de charlas dadas.
-docs/Presentations/presentation-template/*.pdf
+docs/Presentations/HurtadoDefensa2026/*.pdf
 
 # --- respaldos de editor ---
 *.bak
