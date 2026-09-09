@@ -93,9 +93,25 @@ Usar [`inventario_raiz.csv`](inventario_raiz.csv), que clasifica las 96 imágene
 2. **59 imágenes sin uso (17,0 MB)** → **no borrar a ciegas**. Preguntar a los autores: hay grupos que son claramente iteraciones de una misma captura (`cccc.png`/`CCCC.png`; `embudo.png`/`A.embudo.png`/`bmbudo.png`/`mbudoo.png`; `melect.png`/`melect1..3.png`; `MODELOILUS1.png`/`MODELOILUS2.png`; `calibracion.png`/`calibracion2.png`), donde en general sólo una está referenciada. Lo demás son figuras de trabajo de exploraciones anteriores (`gabaixsubastador.png`, `funcsubastadorJ(m).png`, `thetasypia.png`, …). Propuesta: mover todo a `archivo/figuras-sueltas/` en un PR, y borrar en un segundo PR una vez que los autores confirmen.
 3. **Sustituir las capturas por LaTeX donde sea barato.** Las ocho más pesadas de la presentación de Hurtado (`simbologia.png` 1,93 MB, `objetivo.png`, `limitciones.png`, `parametros2.png`, `codificacion.png`, `calibracion2.png`, `MODELOILUS1.png`, `cccc.png`) son tablas y ecuaciones **que ya existen como LaTeX en la memoria**. Reescribirlas nativas en beamer ahorra ~12 MB, hace la presentación editable y elimina la dependencia de la raíz. Es la única tarea de esta etapa que requiere trabajo real de edición.
 
-### Etapa 2 — Deduplicar *(15,5 MB, 99 archivos)*
+### Etapa 2 — Deduplicar *(hecho: 31 archivos, 2,79 MB)*
 
-Los cuatro focos, en orden de tamaño:
+El titular original de esta etapa —15,5 MB en 99 archivos— **sobrestimaba lo deduplicable**,
+porque 10,2 MB corresponden a los `Figures/` triplicados de los envíos, que deben quedar
+repetidos a propósito, y 6,2 MB a los `libs/` de las charlas ya expuestas, que tampoco se
+tocan. Lo que quedaba y se eliminó:
+
+| Grupo eliminado | Archivos | MB | Por qué es seguro |
+|---|---|---|---|
+| `Apuntes/` en la raíz | 14 | 0,95 | Copia obsoleta de `docs/Apuntes/`: 13 archivos idénticos byte a byte más `Figures/contaminación.png`, que ninguna fuente referencia. La copia viva es la de `docs/`, porque `cnt.tex` incluye una figura de `Informe/`, carpeta que sólo existe como hermana dentro de `docs/`. |
+| `docs/Presentations/UVigo/home_files/` | 12 | 0,40 | **Sobrante de render, no soporte de la charla.** `home.html` referencia únicamente `libs/`; ni el HTML ni el `.Rmd` mencionan `home_files`, que además contiene la figura de ejemplo `pressure-1.png` de la plantilla de rmarkdown. El caso de IFORS es el opuesto: su `home.html` referencia `home_files/` 23 veces, y por eso se conserva. |
+| `docs/Presentations/IFORS/images/Captura de pantalla 2023-07-12…png` | 1 | 1,09 | Idéntica a `frontSlide.png`, que es la que la charla usa; ninguna fuente nombra la captura. |
+| `docs/DocumentoMemoria/images/` | 4 | 0,35 | Réplica de `core/images/`, que es la ruta que usan los capítulos. Dos de los cuatro archivos (`cqgl_1.png`, `crystal.pdf`) no se referencian en ninguna copia. |
+
+Verificado tras eliminar: la memoria de Muñoz sigue en 113 páginas con 0 errores y 0
+figuras faltantes, y los tres apuntes compilan desde su propia carpeta (`cnt` 7 páginas,
+`cnt_v2` 11, `cnt_v3` 15; ninguno con errores ni figuras faltantes).
+
+Los focos que **no** se deduplican, y la razón:
 
 | Grupo | Archivos redundantes | Acción |
 |---|---|---|
@@ -132,7 +148,7 @@ Los cuatro focos, en orden de tamaño:
 
 | | Antes | Después |
 |---|---|---|
-| Peso del árbol | 92,9 MB | **38,0 MB** |
+| Peso del árbol | 92,9 MB | **40,5 MB** |
 | Archivos en la raíz | 97 | 3 |
 | Imágenes sin uso en la raíz | 59 (17,0 MB) | 0 |
 | Duplicados redundantes | 99 (15,5 MB) | 42 (los `Figures/` de submissions, deliberados) |
@@ -147,9 +163,9 @@ Desglose del ahorro, sobre los 92,9 MB de `master`:
 | PDF de la presentación fuera del índice | −22,4 | hecho (etapa 1) |
 | 59 imágenes sin uso de la raíz | −17,0 | **hecho**: eliminadas por instrucción de los autores; el inventario queda como registro |
 | las 8 capturas pesadas de la presentación reescritas como LaTeX | −9,9 | **hecho**: tcolorbox y tikz nativos, con el contenido compartido de la memoria en `shared/datos-modelo.tex` |
-| duplicados, excluidos los `Figures/` de submissions | −5,3 | pendiente (etapa 2) |
+| duplicados, excluidos los `Figures/` de los envíos | −2,8 | **hecho** (etapa 2); el −5,3 previo sobrestimaba lo deduplicable |
 | 10 artefactos de compilación | −0,4 | hecho (etapa 0) |
-| **total** | **−54,9 → 38,0 MB** | queda pendiente sólo la deduplicación de la etapa 2 |
+| **total** | **−52,4 → 40,5 MB** | ejecutado; lo que reste depende de las etapas 3 a 5 |
 
 Los 10,2 MB de los tres `Figures/` triplicados **se conservan** deliberadamente, porque cada envío histórico debe quedar autocontenido.
 
