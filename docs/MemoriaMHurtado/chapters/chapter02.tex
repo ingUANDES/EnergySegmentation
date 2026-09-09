@@ -39,24 +39,7 @@ Como se mencionó, las decisiones del planificador social afectan directamente l
 \centering
 \caption{Nomenclatura modelo \protect\citeA{amigo_two_2021}}
 \label{tab:variables_modelo}
-\begin{tabular}{lll}
-\toprule
-\textbf{Símbolo} & \textbf{Descripción} & \textbf{Unidad} \\
-\midrule
-$\pi^{a}$ & Precio de permisos emitidos por el planificador & USD/$tCO_2e$ \\
-$\pi^{v}$ & Precio de permisos en el mercado entre productores & USD/permiso \\
-$\pi^{d}$ & Precio de la electricidad pagado por el consumidor & USD/MWh \\
-\midrule
-$x_i$ & Inversión o expansión de capacidad del productor $i$ & MW \\
-$Q_i$ & Generación eléctrica del productor $i$ & MWh \\
-$A_i$ & Permisos adquiridos por el productor $i$ al planificador & $tCO_2e$\\
-$P_i$ & Permisos comprados por el productor $i$ en el mercado secundario & $tCO_2e$\ \\
-$V_i$ & Permisos vendidos por el productor $i$ en el mercado secundario & $tCO_2e$\ \\
-$\epsilon_i$ & Factor de emisión por tecnología $i$ & $tCO_2$e/MWh \\
-\midrule
-$\theta$ & Permisos totales emitidos por el planificador & $tCO_2e$ \\
-\bottomrule
-\end{tabular}
+\tablaNomenclaturaAmigo{}
 \vspace{0.1cm}
 \footnotesize{Fuente: Elaboración propia.}
 \end{table}
@@ -117,7 +100,7 @@ Ilustrando el primer caso en la Figura \ref{fig:ejemplo1}, se puede observar que
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{ejemplo1.02.png}
+    \includegraphics[width=0.7\linewidth]{figures/ejemplo1.02.png}
     \caption{Ejemplo con F($\theta$) fijo (Fuente: elaboración propia)}
     \label{fig:ejemplo1}
 \end{figure}
@@ -127,7 +110,7 @@ Para el segundo caso, si analizamos la Figura \ref{fig:ejemplo2} se puede observ
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{ejemplo2.02.png}
+    \includegraphics[width=0.7\linewidth]{figures/ejemplo2.02.png}
     \caption{Ejemplo con F($\theta$) parabólica (Fuente: elaboración propia)}
     \label{fig:ejemplo2}
 \end{figure}
@@ -159,7 +142,7 @@ A continuación se replica el ejercicio del punto \ref{sec:espaciomejora} utiliz
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{planificador social profit.png}
+    \includegraphics[width=0.7\linewidth]{figures/planificador social profit.png}
     \caption{Función beneficio para planificador social Profit-Oriented}
     \label{fig:fporiented}
 \end{figure}
@@ -201,7 +184,7 @@ Dicho lo anterior, se realiza el ejercicio de simulación definiendo la función
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{planificador social bienestar.png}
+    \includegraphics[width=0.7\linewidth]{figures/planificador social bienestar.png}
     \caption{Función de Beneficios para el planificador social Orientado al Bienestar}
     \label{fig:gsbien}
 \end{figure}
@@ -224,24 +207,24 @@ Uno de los modelos presentados por \citeA{gabaix_behavioral_2019} describe un pr
 Aplicando este marco teórico al modelo de \citeA{amigo_two_2021}, el valor verdadero corresponde al $CAP$, el cual sigue una distribución normal $\mathcal{N}(CAP_d,\sigma^2_{CAP})$, donde $CAP_d$ representa el valor por defecto (igual a la media) y $\sigma^2_{CAP}$ su varianza. Sin embargo, dicho valor no es observado directamente. Al intentar conocer el $CAP$, el agente únicamente percibe una señal imperfecta $CAP_s$, la cual incorpora un término de error o ruido $\epsilon$. Se define entonces:
 
 \begin{equation}\label{eq:senal}
-CAP_s = CAP + \epsilon
+\ecSenal
 \end{equation}
 
 El valor de $\epsilon$ se extrae de una distribución normal e independiente $\mathcal{N}(0, \sigma_\epsilon^2)$.
 
 El planificador social toma la acción de emitir $\theta$ permisos y, para simplificar el análisis, su función objetivo está dada por $u(\theta,CAP)=-\frac{1}{2}(\theta-CAP)^2$, una penalización cuadrática por desviarse del $CAP$. El agente se asume racional, por lo que resolverá el problema de optimización:  $\max_{\theta} \mathbb{E}[-\frac{1}{2} (\theta-CAP)^2|CAP_s]$, obteniendo entonces, la condición de primer orden (CPO): $0=\mathbb{E}[- (\theta-CAP)|CAP_s]=\mathbb{E}[CAP|CAP_s]-\theta$. Con esto, el agente elige una acción $\theta(s)=\hat{CAP}(CAP_s)$, donde $\hat{CAP}(CAP_s)$ es el valor esperado de $CAP$ dado $CAP_s$, este valor es descrito por  \citeA{gabaix_behavioral_2019} como: 
 \begin{equation}\label{eq:accion_optima}
-\mathbb{E}\left[CAP|CAP_s\right] = m CAP_s+ (1 - m)CAP_d,
+\ecEsperanza,
 \end{equation}
 donde
 \begin{equation} \label{eq:m}
-m = \frac{\sigma_{CAP}^2}{\sigma_{CAP}^2 + \sigma_\varepsilon^2}.
+\ecAtencion.
 \end{equation}
 representa el nivel de atención del agente. Este último se ancla al valor por defecto $CAP_d$ y se ajusta, mediante el grado de atención $m$, hacia la señal $CAP_s$.
 
 Obtenemos entonces la decisión óptima del planificador social para el problema:
 \begin{equation}\label{eq:theta*}
-{\theta^*}(CAP_s) = m\cdot CAP_s + (1 - m)\cdot CAP_d
+\ecThetaSinPrecio
 \end{equation}
 
 \section{Planificador Social con Inatención Conductual}
@@ -249,7 +232,7 @@ Obtenemos entonces la decisión óptima del planificador social para el problema
 Con base en el marco teórico de inatención descrito, se reformula el problema del planificador social integrando la toma de decisiones bajo inatención conductual. En esta nueva estructura, el planificador maximiza su utilidad considerando el ingreso por permisos   $\pi^a \theta$ y minimiza un costo de penalización cuadrática por desviarse del $CAP$. Se incorpora, además,  un factor marginal $\kappa$ en $USD/{tCO_2e}$ que representa el costo social de la imprecisión en la emisión respecto al $CAP$.  Un exceso de permisos incrementa la contaminación y reduce el beneficio social, mientras que una asignación insuficiente aceleraría la transición hacia tecnologías renovables en un plazo que podría superar la capacidad de adaptación del sistema eléctrico. Queda entonces la función de utilidad del nuevo planificador como:
 
 \begin{equation}\label{eq:utilidadv}
-\mathcal{V}(\theta,CAP) = \pi^a \theta - \frac{\kappa}{2}(\theta - CAP)^2.
+\ecUtilidadPlanificador.
 \end{equation}
 
 Se realiza entonces el mismo procedimiento desarrollado en la sección \ref{atencionconductual} maximizando la utilidad dada una señal $CAP_s$:
@@ -278,7 +261,7 @@ Quitando de la esperanza los valores no dependientes de $CAP_s$ se obtiene la CP
 Despejando la acción óptima del planificador social dada la ecuación \ref{eq:accion_optima} se tiene la decisión final \ref{eq:theta_revenue_final}:
 
 \begin{equation}\label{eq:theta_revenue_final}
-\theta^*(CAP_s) = m\,CAP_s + (1-m)\,CAP_d + \frac{\pi^a}{\kappa},
+\ecThetaOptimo,
 \end{equation}
 
 Donde $m$ está definido por la ecuación \ref{eq:m}.
@@ -291,24 +274,14 @@ Se resumen los parámetros en el Cuadro \ref{tab:varyparametros}.
 \centering
 \caption{Parámetros agregados al modelo de \protect\citeA{amigo_two_2021}}
 \label{tab:varyparametros}
-\begin{tabular}{lll}
-\hline
-\textbf{Símbolo} & \textbf{Descripción} & \textbf{Unidad} \\ 
-\hline
-$\kappa$       & Costo social por alejarse del $CAP$         & USD/tCO$_2$e \\
-$CAP_s$       & Señal observada del presupuesto de emisiones   & tCO$_2$e \\
-$CAP_d$       & Presupuesto determinista del CAP               & tCO$_2$e \\
-$\sigma_\epsilon^2$& Varianza del error en la señal  & tCO$_2$e \\
-$\sigma_{\text{CAP}}^2$ & Varianza del CAP & tCO$_2$e \\
-\hline
-\end{tabular}
+\tablaParametrosAgregados{}
 \end{table}
 
 A modo de representación del modelo, se grafica la utilidad \ref{eq:utilidadv} como el ingreso y el costo en funciones separadas donde $CAP=7$, $\pi^a=1$ y $\kappa=2$. Véase la Figura \ref{fig:uvgrx}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{vg1.png}
+    \includegraphics[width=0.75\linewidth]{figures/vg1.png}
     \caption{Utilidad del planificador social en forma de ingreso y costo - caso $\kappa=2$ (Fuente: elaboración propia)}
     \label{fig:uvgrx}
 \end{figure}
@@ -317,7 +290,7 @@ Se observa que el costo en $\theta = 0$ es cercano a 50, debido a la distancia e
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{vgrx.png}
+    \includegraphics[width=0.75\linewidth]{figures/vgrx.png}
     \caption{Utilidad del planificador social en forma de ingreso y costo - caso $\kappa=10$ (Fuente: elaboración propia)}
     \label{fig:gxv2}
 \end{figure}

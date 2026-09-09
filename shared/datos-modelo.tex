@@ -1,0 +1,151 @@
+% =====================================================================
+% shared/datos-modelo.tex
+% ---------------------------------------------------------------------
+% Nomenclatura, ecuaciones y valores de parámetros del modelo de
+% anclaje y ajuste del subastador. Fuente única para la memoria
+% (docs/MemoriaMHurtado) y la presentación de defensa
+% (docs/Presentations/presentation-template), de modo que un valor o una
+% ecuación se escriban una sola vez.
+%
+% Uso:
+%   \newcommand{\refcita}[1]{\citeA{#1}}   % memoria (newapa/apacite)
+%   \input{../../shared/datos-modelo}
+% o
+%   \newcommand{\refcita}[1]{\citet{#1}}   % presentación (natbib)
+%   \input{../../../shared/datos-modelo}
+%
+% Los macros de tabla entregan sólo el `tabular`, sin flotante ni
+% caption, para que cada documento lo envuelva a su manera (`table` en
+% la memoria, `frame` en beamer).
+%
+% Requiere: amsmath, booktabs.
+% =====================================================================
+
+\providecommand{\refcita}[1]{\texttt{#1}}
+
+% ---------------------------------------------------------------------
+% 1. Valores de los parámetros calibrados para Chile
+% ---------------------------------------------------------------------
+% Valores tal como los reporta el cuadro de parámetros base de la
+% memoria. \valCAPdExacto es el valor sin redondear que reproducen las
+% tablas de resultados; el capítulo de conclusiones usa 311,01.
+% Pendiente de unificar por los autores: ver
+% docs/auditoria/AUDITORIA_2_MHurtado.md.
+\newcommand{\valCAPs}{264,20}          % MtCO2e
+\newcommand{\valCAPd}{311,00}          % MtCO2e
+\newcommand{\valCAPdExacto}{311,0134}  % MtCO2e
+\newcommand{\valSigmaCAP}{61,86}       % MtCO2e
+\newcommand{\valKappa}{64,40}          % USD/tCO2e
+% Calibración: hay que distinguir dos valores de m que la memoria usa para
+% cosas distintas (chapter04.tex, Cuadro tab:top10_distancia_mix y el texto
+% que le sigue).
+%   - El argmin de la distancia absoluta es m=0, que exige sigma_eps -> infinito
+%     y por eso no sirve como parámetro operativo.
+%   - Para los análisis posteriores se selecciona m=0,1, el menor m con un
+%     sigma_eps finito, cuya distancia (0,2758) queda muy cerca del mínimo.
+% Nota: el texto de la memoria dice sigma_eps = 186,90 y el cuadro dice 185,58
+% para el mismo m=0,1. Pendiente de unificar por los autores; ver
+% docs/auditoria/AUDITORIA_2_MHurtado.md.
+\newcommand{\valMArgmin}{0}                  % menor distancia absoluta
+\newcommand{\valDistanciaArgmin}{0,2727}
+\newcommand{\valMSeleccionado}{0,1}          % usado en los análisis posteriores
+\newcommand{\valDistanciaSeleccionado}{0,2758}
+\newcommand{\valSigmaEpsSeleccionado}{185,58} % MtCO2e, segun tab:top10_distancia_mix
+\newcommand{\valHorizonte}{2020--2030}
+\newcommand{\unidadMt}{MtCO$_2$e}
+\newcommand{\unidadUSDt}{USD/tCO$_2$e}
+
+% ---------------------------------------------------------------------
+% 2. Ecuaciones del planificador con inatención conductual
+% ---------------------------------------------------------------------
+% Cuerpo matemático sin entorno, para poder usarlo en `equation`,
+% en \[...\] o dentro de un nodo tikz.
+\newcommand{\ecSenal}{CAP_s = CAP + \epsilon}
+\newcommand{\ecEsperanza}{\mathbb{E}\left[CAP|CAP_s\right] = m CAP_s + (1 - m)CAP_d}
+\newcommand{\ecAtencion}{m = \frac{\sigma_{CAP}^2}{\sigma_{CAP}^2 + \sigma_\varepsilon^2}}
+\newcommand{\ecThetaSinPrecio}{{\theta^*}(CAP_s) = m\cdot CAP_s + (1 - m)\cdot CAP_d}
+\newcommand{\ecUtilidadPlanificador}{\mathcal{V}(\theta,CAP) = \pi^a \theta - \frac{\kappa}{2}(\theta - CAP)^2}
+\newcommand{\ecThetaOptimo}{\theta^*(CAP_s) = m\,CAP_s + (1-m)\,CAP_d + \frac{\pi^a}{\kappa}}
+
+% ---------------------------------------------------------------------
+% 3. Descripciones de los símbolos, definidas una sola vez
+% ---------------------------------------------------------------------
+% La memoria las usa como filas de tabla y la presentación como
+% tarjetas; por eso el texto se define aquí y el formato en cada
+% documento.
+\newcommand{\descCAP}{Presupuesto ambiental real}
+\newcommand{\descCAPs}{Señal observada del presupuesto de emisiones}
+\newcommand{\descCAPd}{Presupuesto determinista del CAP (valor por defecto)}
+\newcommand{\descEps}{Ruido en la señal}
+\newcommand{\descSigmaEps}{Varianza del error en la señal}
+\newcommand{\descSigmaCAP}{Varianza del CAP}
+\newcommand{\descTheta}{Permisos totales emitidos por el planificador}
+\newcommand{\descPiA}{Precio de permisos emitidos por el planificador}
+\newcommand{\descPiV}{Precio de permisos en el mercado entre productores}
+\newcommand{\descPiD}{Precio de la electricidad pagado por el consumidor}
+\newcommand{\descKappa}{Costo social por alejarse del $CAP$}
+\newcommand{\descM}{Nivel de atención del planificador}
+% Distribuciones
+\newcommand{\distCAP}{CAP \sim \mathcal{N}(CAP_d,\sigma^2_{CAP})}
+\newcommand{\distEps}{\epsilon \sim \mathcal{N}(0,\sigma^2_\varepsilon)}
+
+% ---------------------------------------------------------------------
+% 4. Nomenclatura del modelo de Amigo et al. (2021)
+% ---------------------------------------------------------------------
+\newcommand{\tablaNomenclaturaAmigo}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Símbolo} & \textbf{Descripción} & \textbf{Unidad} \\
+\midrule
+$\pi^{a}$ & \descPiA & USD/$tCO_2e$ \\
+$\pi^{v}$ & \descPiV & USD/permiso \\
+$\pi^{d}$ & \descPiD & USD/MWh \\
+\midrule
+$x_i$ & Inversión o expansión de capacidad del productor $i$ & MW \\
+$Q_i$ & Generación eléctrica del productor $i$ & MWh \\
+$A_i$ & Permisos adquiridos por el productor $i$ al planificador & $tCO_2e$\\
+$P_i$ & Permisos comprados por el productor $i$ en el mercado secundario & $tCO_2e$ \\
+$V_i$ & Permisos vendidos por el productor $i$ en el mercado secundario & $tCO_2e$ \\
+$\epsilon_i$ & Factor de emisión por tecnología $i$ & $tCO_2$e/MWh \\
+\midrule
+$\theta$ & \descTheta & $tCO_2e$ \\
+\bottomrule
+\end{tabular}}
+
+% ---------------------------------------------------------------------
+% 5. Parámetros que el modelo conductual agrega a Amigo et al. (2021)
+% ---------------------------------------------------------------------
+\newcommand{\tablaParametrosAgregados}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Símbolo} & \textbf{Descripción} & \textbf{Unidad} \\
+\midrule
+$\kappa$                & \descKappa      & \unidadUSDt \\
+$CAP_s$                 & \descCAPs       & tCO$_2$e \\
+$CAP_d$                 & \descCAPd       & tCO$_2$e \\
+$\sigma_\varepsilon^2$  & \descSigmaEps   & tCO$_2$e \\
+$\sigma_{CAP}^2$        & \descSigmaCAP   & tCO$_2$e \\
+\bottomrule
+\end{tabular}}
+
+% ---------------------------------------------------------------------
+% 6. Valores base de los parámetros, con su origen
+% ---------------------------------------------------------------------
+% Las descripciones de origen se definen aparte para que la
+% presentación pueda usarlas en tarjetas.
+\newcommand{\origenCAPs}{\refcita{ministerio_de_energia_de_chile_plan_2024}}
+\newcommand{\origenCAPd}{Promedio sector energía 2012--2022 (SNICHILE)}
+\newcommand{\origenSigmaCAP}{Incertidumbre estructural histórica}
+\newcommand{\origenKappa}{Costo social del carbono, Gobierno de Chile (2024)}
+
+\newcommand{\tablaParametrosChile}{%
+\begin{tabular}{l c l l}
+\toprule
+\textbf{Parámetro} & \textbf{Valor} & \textbf{Unidad} & \textbf{Origen} \\
+\midrule
+$CAP_s$          & \valCAPs      & \unidadMt   & \origenCAPs \\
+$CAP_d$          & \valCAPd      & \unidadMt   & \origenCAPd \\
+$\sigma_{CAP}$   & \valSigmaCAP  & \unidadMt   & \origenSigmaCAP \\
+$\kappa$         & \valKappa     & \unidadUSDt & \origenKappa \\
+\bottomrule
+\end{tabular}}

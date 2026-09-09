@@ -1,95 +1,97 @@
-archivo,bytes,estado,referenciada_por
-impuestoscarb.png,1909351,huérfana,
-sapiro1.png,1874171,huérfana,
-evol.png,1871970,huérfana,
-image.png,1775469,huérfana,
-matrixenerg.png,1681948,huérfana,
-MODELOILUS2.png,1545921,huérfana,
-calibracion.png,1450161,huérfana,
-CCCC.png,1112755,huérfana,
-impuestoscarbono2.png,399607,huérfana,
-melect.png,234474,huérfana,
-melect2.png,193807,huérfana,
-ejemplo_prod.png,182452,huérfana,
-ejemplo_produciont.png,182452,huérfana,
-matrizelectrica2030sim.png,181442,huérfana,
-melect1.png,180382,huérfana,
-mbudoo.png,153490,huérfana,
-participaciontecm.png,148793,huérfana,
-inversion_t.png,142766,huérfana,
-inv_mmedia.png,136288,huérfana,
-m0prodx.png,98805,huérfana,
-Gases MWh periodo.png,98588,huérfana,
-Escenario 1 gases.png,98579,huérfana,
-A.embudo.png,96630,huérfana,
-subastador.png,92315,huérfana,
-2030mparttec.png,80695,huérfana,
-fuel cost.png,79428,huérfana,
-embudo.png,75189,huérfana,
-funcsubastadorJ(m).png,71653,huérfana,
-Funcion arreglada.png,69703,huérfana,
-Precios en el tiempo.png,69075,huérfana,
-thetasypia.png,67735,huérfana,
-grafbienestar.png,67703,huérfana,
-PrecioCalculado.png,66220,huérfana,
-nfunsubopt.png,65902,huérfana,
-subnuevo.png,64836,huérfana,
-subsobrecap.png,63622,huérfana,
-funcionnuevagraf.png,58918,huérfana,
-costo1gabaix.png,58327,huérfana,
-Alowances.png,57260,huérfana,
-Gabaixtest.png,56721,huérfana,
-grafcostogx1.png,56221,huérfana,
-Profit oriented grafico pfijo.png,55542,huérfana,
-thetasobrecap.png,55139,huérfana,
-comp_vend.png,50369,huérfana,
-profit oriented.png,50231,huérfana,
-gabaixsubastador.png,49545,huérfana,
-emisionesm1.png,47256,huérfana,
-emisionesm0.5.png,46948,huérfana,
-emisionesm0.png,45768,huérfana,
-thetaypia2.png,45346,huérfana,
-demandaMW.png,45220,huérfana,
-ingresopor_m.png,32694,huérfana,
-usdym.png,32237,huérfana,
-utilidadvgx.png,31055,huérfana,
-uvgx2.png,29885,huérfana,
-usdm.png,27518,huérfana,
-carbon cap.png,22473,huérfana,
-simbologia.png,2027016,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-medioambiente.png,1757039,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-calibracion2.png,1626643,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-cccc.png,1612547,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-conclusion.png,1590461,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-ELCAP.png,1557363,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-impcarb.png,1551463,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-modelo2.png,1521998,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-modelo1.png,1422688,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-MODELOILUS1.png,1422297,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-modelacion.png,1419229,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-intro2.png,1365140,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-intro3.png,1354304,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-intro1.png,1317500,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-torta mitigacion.png,1118273,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-objetivo.png,1075916,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-cap and trade.png,1044223,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-parametros2.png,1002088,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-parametros8.png,859563,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-limitciones.png,827059,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-codificacion.png,816284,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-perdidas.png,251608,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-melect3.png,234474,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-bmbudo.png,230758,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-mprx0.0.png,98843,usada,docs/MemoriaMHurtado/chapters/chapter04.tex; docs/Presentations/presentation-template/JMHL_presentation.tex
-ngrafatencionporduccion.png,83516,usada,docs/MemoriaMHurtado/chapters/chapter04.tex
-emisionxtec.png,75869,usada,docs/MemoriaMHurtado/chapters/chapter04.tex
-emisionesselectrico.png,72796,usada,docs/MemoriaMHurtado/chapters/chapter04.tex
-planificador social bienestar.png,63523,usada,docs/MemoriaMHurtado/chapters/chapter02.tex; docs/Presentations/presentation-template/JMHL_presentation.tex
-ejemplo_2.png,52268,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-emislimp.png,50474,usada,docs/MemoriaMHurtado/chapters/chapter04.tex
-planificador social profit.png,50158,usada,docs/MemoriaMHurtado/chapters/chapter02.tex; docs/Presentations/presentation-template/JMHL_presentation.tex
-ejemplo_1.png,42038,usada,docs/Presentations/presentation-template/JMHL_presentation.tex
-vg1.png,30906,usada,docs/MemoriaMHurtado/chapters/chapter02.tex
-vgrx.png,29891,usada,docs/MemoriaMHurtado/chapters/chapter02.tex
-ejemplo2.02.png,28806,usada,docs/MemoriaMHurtado/chapters/chapter02.tex
-ejemplo1.02.png,23522,usada,docs/MemoriaMHurtado/chapters/chapter02.tex
+archivo,bytes,estado
+2030mparttec.png,80695,eliminada (commit de la etapa 1)
+3añosproduccion.png,81893,eliminada (commit de la etapa 1)
+A.embudo.png,96630,eliminada (commit de la etapa 1)
+Alowances.png,57260,eliminada (commit de la etapa 1)
+CCCC.png,1112755,eliminada (commit de la etapa 1)
+Escenario 1 gases.png,98579,eliminada (commit de la etapa 1)
+Funcion arreglada.png,69703,eliminada (commit de la etapa 1)
+Gabaixtest.png,56721,eliminada (commit de la etapa 1)
+Gases MWh periodo.png,98588,eliminada (commit de la etapa 1)
+MODELOILUS2.png,1545921,eliminada (commit de la etapa 1)
+PrecioCalculado.png,66220,eliminada (commit de la etapa 1)
+Precios en el tiempo.png,69075,eliminada (commit de la etapa 1)
+Profit oriented grafico pfijo.png,55542,eliminada (commit de la etapa 1)
+calibracion.png,1450161,eliminada (commit de la etapa 1)
+carbon cap.png,22473,eliminada (commit de la etapa 1)
+comp_vend.png,50369,eliminada (commit de la etapa 1)
+costo precisión gabaix.png,61767,eliminada (commit de la etapa 1) (referenciada sólo en un bloque comentado de anexo_a.tex)
+costo1gabaix.png,58327,eliminada (commit de la etapa 1)
+demandaMW.png,45220,eliminada (commit de la etapa 1)
+ejemplo_prod.png,182452,eliminada (commit de la etapa 1)
+ejemplo_produciont.png,182452,eliminada (commit de la etapa 1)
+embudo.png,75189,eliminada (commit de la etapa 1)
+emisionesm0.5.png,46948,eliminada (commit de la etapa 1)
+emisionesm0.png,45768,eliminada (commit de la etapa 1)
+emisionesm1.png,47256,eliminada (commit de la etapa 1)
+evol.png,1871970,eliminada (commit de la etapa 1)
+fuel cost.png,79428,eliminada (commit de la etapa 1)
+funcionnuevagraf.png,58918,eliminada (commit de la etapa 1)
+funcsubastadorJ(m).png,71653,eliminada (commit de la etapa 1)
+gabaixsubastador.png,49545,eliminada (commit de la etapa 1)
+grafbienestar.png,67703,eliminada (commit de la etapa 1)
+grafcostogx1.png,56221,eliminada (commit de la etapa 1)
+image.png,1775469,eliminada (commit de la etapa 1)
+impuestoscarb.png,1909351,eliminada (commit de la etapa 1)
+impuestoscarbono2.png,399607,eliminada (commit de la etapa 1)
+ingresopor_m.png,32694,eliminada (commit de la etapa 1)
+inv_mmedia.png,136288,eliminada (commit de la etapa 1)
+inversion_t.png,142766,eliminada (commit de la etapa 1)
+m0prodx.png,98805,eliminada (commit de la etapa 1)
+matrixenerg.png,1681948,eliminada (commit de la etapa 1)
+matrizelectrica2030sim.png,181442,eliminada (commit de la etapa 1)
+mbudoo.png,153490,eliminada (commit de la etapa 1)
+melect.png,234474,eliminada (commit de la etapa 1)
+melect1.png,180382,eliminada (commit de la etapa 1)
+melect2.png,193807,eliminada (commit de la etapa 1)
+nfunsubopt.png,65902,eliminada (commit de la etapa 1)
+participaciontecm.png,148793,eliminada (commit de la etapa 1)
+profit oriented.png,50231,eliminada (commit de la etapa 1)
+sapiro1.png,1874171,eliminada (commit de la etapa 1)
+subastador.png,92315,eliminada (commit de la etapa 1)
+subnuevo.png,64836,eliminada (commit de la etapa 1)
+subsobrecap.png,63622,eliminada (commit de la etapa 1)
+thetasobrecap.png,55139,eliminada (commit de la etapa 1)
+thetasypia.png,67735,eliminada (commit de la etapa 1)
+thetaypia2.png,45346,eliminada (commit de la etapa 1)
+usdm.png,27518,eliminada (commit de la etapa 1)
+usdym.png,32237,eliminada (commit de la etapa 1)
+utilidadvgx.png,31055,eliminada (commit de la etapa 1)
+uvgx2.png,29885,eliminada (commit de la etapa 1)
+ELCAP.png,1557363,movida a docs/Presentations/presentation-template/figures
+MODELOILUS1.png,1422297,movida a docs/Presentations/presentation-template/figures
+bmbudo.png,230758,movida a docs/Presentations/presentation-template/figures
+calibracion2.png,1626643,movida a docs/Presentations/presentation-template/figures
+cap and trade.png,1044223,movida a docs/Presentations/presentation-template/figures
+cccc.png,1612547,movida a docs/Presentations/presentation-template/figures
+codificacion.png,816284,movida a docs/Presentations/presentation-template/figures
+conclusion.png,1590461,movida a docs/Presentations/presentation-template/figures
+ejemplo1.02.png,23522,movida a docs/MemoriaMHurtado/figures
+ejemplo2.02.png,28806,movida a docs/MemoriaMHurtado/figures
+ejemplo_1.png,42038,movida a docs/Presentations/presentation-template/figures
+ejemplo_2.png,52268,movida a docs/Presentations/presentation-template/figures
+emisionesselectrico.png,72796,movida a docs/MemoriaMHurtado/figures
+emisionxtec.png,75869,movida a docs/MemoriaMHurtado/figures
+emislimp.png,50474,movida a docs/MemoriaMHurtado/figures
+impcarb.png,1551463,movida a docs/Presentations/presentation-template/figures
+intro1.png,1317500,movida a docs/Presentations/presentation-template/figures
+intro2.png,1365140,movida a docs/Presentations/presentation-template/figures
+intro3.png,1354304,movida a docs/Presentations/presentation-template/figures
+limitciones.png,827059,movida a docs/Presentations/presentation-template/figures
+medioambiente.png,1757039,movida a docs/Presentations/presentation-template/figures
+melect3.png,234474,movida a docs/Presentations/presentation-template/figures
+modelacion.png,1419229,movida a docs/Presentations/presentation-template/figures
+modelo1.png,1422688,movida a docs/Presentations/presentation-template/figures
+modelo2.png,1521998,movida a docs/Presentations/presentation-template/figures
+mprx0.0.png,98843,movida a docs/MemoriaMHurtado/figures y docs/Presentations/presentation-template/figures
+ngrafatencionporduccion.png,83516,movida a docs/MemoriaMHurtado/figures
+objetivo.png,1075916,movida a docs/Presentations/presentation-template/figures
+parametros2.png,1002088,movida a docs/Presentations/presentation-template/figures
+parametros8.png,859563,movida a docs/Presentations/presentation-template/figures
+perdidas.png,251608,movida a docs/Presentations/presentation-template/figures
+planificador social bienestar.png,63523,movida a docs/MemoriaMHurtado/figures y docs/Presentations/presentation-template/figures
+planificador social profit.png,50158,movida a docs/MemoriaMHurtado/figures y docs/Presentations/presentation-template/figures
+simbologia.png,2027016,movida a docs/Presentations/presentation-template/figures
+torta mitigacion.png,1118273,movida a docs/Presentations/presentation-template/figures
+vg1.png,30906,movida a docs/MemoriaMHurtado/figures
+vgrx.png,29891,movida a docs/MemoriaMHurtado/figures
