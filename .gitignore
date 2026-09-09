@@ -32,3 +32,11 @@
 # --- sistema ---
 .DS_Store
 Thumbs.db
+
+# --- cache de minted ---
+_minted/
+_minted-*/
+
+# --- artefactos de render de xaringan/quarto ---
+*_files/
+libs/
