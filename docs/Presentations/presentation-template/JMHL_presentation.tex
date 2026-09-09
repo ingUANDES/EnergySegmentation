@@ -1,0 +1,1431 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+
+%====================================================
+% Idioma
+%====================================================
+\usepackage[spanish]{babel}
+
+%====================================================
+% Paquetes requeridos
+%====================================================
+\usepackage{graphicx}
+\usepackage{fontspec} % Compilar con XeLaTeX o LuaLaTeX
+\usepackage{lualatex-math}
+\usepackage{booktabs}
+\usepackage{colortbl} % Necesario para \arrayrulecolor
+\usepackage{amsmath,amssymb}
+\usepackage[most]{tcolorbox}
+\usepackage[round]{natbib}
+\usepackage{academicons}
+\usepackage{tikz}
+\usepackage{fontawesome5}
+\usepackage{appendixnumberbeamer}
+%====================================================
+% TIPOGRAFÍA
+%====================================================
+\newfontfamily\DMSansMedium[
+    Path = font/,
+    Extension = .ttf
+]{DMSans-Medium}
+
+\newfontfamily\DMSansBold[
+    Path = font/,
+    Extension = .ttf
+]{DMSans-Bold}
+
+\newfontfamily\DMSansSemiBold[
+    Path = font/,
+    Extension = .ttf
+]{DMSans-SemiBold}
+
+%====================================================
+% PALETA MODERNA CLIMÁTICA / ECONÓMICA
+%====================================================
+\definecolor{DeepBlue}{HTML}{1E3A5F}
+\definecolor{SoftBlue}{HTML}{4F81BD}
+\definecolor{SkyBlue}{HTML}{DCEAF7}
+\definecolor{DarkGray}{HTML}{2E3440}
+\definecolor{MediumGray}{HTML}{6B7280}
+\definecolor{LightBackground}{HTML}{F7F9FB}
+\definecolor{ClimateGreen}{HTML}{5B8A72}
+\definecolor{ClimateRed}{HTML}{C65D5D}
+\definecolor{White}{HTML}{FFFFFF}
+
+%====================================================
+% TEMA
+%====================================================
+\usetheme{Madrid}
+\usefonttheme[onlymath]{serif}
+
+%====================================================
+% COLORES BEAMER
+%====================================================
+\setbeamercolor{background canvas}{bg=LightBackground}
+\setbeamercolor{normal text}{fg=DarkGray,bg=LightBackground}
+\setbeamercolor{title}{fg=White,bg=DeepBlue}
+\setbeamercolor{frametitle}{fg=White,bg=DeepBlue}
+\setbeamercolor{structure}{fg=SoftBlue}
+\setbeamercolor{item}{fg=SoftBlue}
+\setbeamercolor{palette primary}{bg=DeepBlue,fg=White}
+\setbeamercolor{palette secondary}{bg=SoftBlue,fg=White}
+\setbeamercolor{palette tertiary}{bg=DarkGray,fg=White}
+\setbeamercolor{palette quaternary}{bg=ClimateGreen,fg=White}
+\setbeamercolor{section in head/foot}{bg=DeepBlue,fg=White}
+\setbeamercolor{subsection in head/foot}{bg=SoftBlue,fg=White}
+
+%====================================================
+% BLOQUES
+%====================================================
+\setbeamercolor{block title}{bg=SkyBlue,fg=DeepBlue}
+\setbeamercolor{block body}{bg=white,fg=DarkGray}
+\setbeamertemplate{blocks}[rounded][shadow=false]
+
+%====================================================
+% TABLAS
+%====================================================
+\arrayrulecolor{SoftBlue}
+
+%====================================================
+% TIPOGRAFÍAS BEAMER
+%====================================================
+\setbeamerfont{title}{
+    family=\DMSansBold,
+    size=\fontsize{20}{24}
+}
+
+\setbeamerfont{frametitle}{
+    family=\DMSansSemiBold,
+    size=\fontsize{14}{18}
+}
+
+\setbeamerfont{normal text}{
+    family=\DMSansMedium,
+    size=\fontsize{10.5}{14}
+}
+
+\setbeamerfont{block title}{
+    family=\DMSansSemiBold
+}
+
+\setbeamerfont{block body}{
+    family=\DMSansMedium
+}
+
+\setbeamerfont{itemize/enumerate body}{
+    family=\DMSansMedium
+}
+
+\setbeamerfont{footline}{
+    family=\DMSansMedium,
+    size=\fontsize{8}{10}
+}
+
+%====================================================
+% ESPACIADO MÁS LIMPIO
+%====================================================
+\setlength{\parskip}{0.3em}
+
+%====================================================
+% Información de la presentación
+%====================================================
+
+\title[Planificador Social Inatento]{
+PLANIFICADOR SOCIAL CON ATENCIÓN LIMITADA EN UN SISTEMA CAP-AND-TRADE
+}
+
+\author[Matías Hurtado]{
+JUAN MATÍAS HURTADO LAVÍN
+}
+
+\institute{
+\includegraphics[
+    trim=0cm 2.3cm 0cm 0cm,
+    clip=true,
+    height=0.3cm
+]{Flecha-Uandes-Blanco.png}
+}
+
+\date{
+15 DE MAYO DE 2026
+}
+
+%====================================================
+% Página de título personalizada
+%====================================================
+
+\setbeamertemplate{title page}{
+    \begin{centering}
+
+        \includegraphics[
+            trim=2.5cm 6.1cm 2.6cm 6.1cm,
+            clip=true,
+            width=0.4\textwidth
+        ]{logoFICA.png}
+
+        \vfill
+
+        \begin{beamercolorbox}[sep=8pt,center]{title}
+            \usebeamerfont{title}
+            \inserttitle
+        \end{beamercolorbox}
+
+        \vfill
+
+        \begin{beamercolorbox}[sep=8pt,center]{author}
+            \usebeamerfont{author}
+            \insertauthor
+        \end{beamercolorbox}
+
+        \begin{beamercolorbox}[sep=8pt,center]{institute}
+            \usebeamerfont{institute}
+            \insertinstitute
+        \end{beamercolorbox}
+
+        \begin{beamercolorbox}[sep=8pt,center]{date}
+            \usebeamerfont{date}
+            \insertdate
+        \end{beamercolorbox}
+
+        \vfill
+
+    \end{centering}
+}
+%====================================================
+% FORZAR TÍTULO SIEMPRE EN PRIMER PLANO (Z-INDEX ALTO)
+%====================================================
+
+
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+
+
+\begin{frame}{Contaminación en el planeta}
+\begin{figure}{}
+    \centering
+    \includegraphics[
+        width=1\linewidth,
+                trim=15 15 15 15,
+        clip
+    ]{medioambiente.png}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}{Contexto histórico}
+\begin{figure}{}
+    \centering
+    \includegraphics[
+        width=1\linewidth,
+                trim=15 15 15 15,
+        clip
+    ]{intro1.png}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}{Contexto histórico}
+\begin{figure}{}
+    \centering
+    \includegraphics[
+        width=1\linewidth,
+        trim=15 15 15 15,
+        clip
+    ]{intro2.png}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}{Contexto histórico}
+\begin{figure}{}
+    \centering
+    \includegraphics[
+        width=1\linewidth,
+        trim=15 15 15 15,
+        clip
+    ]{intro3.png}
+\end{figure}
+
+\end{frame}
+
+% \begin{frame}{Trayectoria Climática}
+%  \begin{figure}
+%     \centering
+%     \includegraphics[width=1\linewidth]{intro2.png}
+% \end{figure}
+   
+% \end{frame}
+
+\begin{frame}{Posibilidad de mitigación por ministerio}
+
+\begin{figure}
+    \centering
+    \includegraphics[
+        width=0.8\linewidth,
+        trim=15 15 15 15,
+        clip
+    ]{torta mitigacion.png}
+
+\end{figure}
+\end{frame}
+
+% --- DIAPOSITIVA 2: PREGUNTA (CENTRADA Y LIMPIA) ---
+
+\begin{frame}[c]{\textit{Pero...}}
+    \centering
+
+    \vspace{.7cm}
+    
+    {\Huge \textbf{¿Está Chile realmente alineado}}
+    
+    \vspace{0.3cm}
+    
+    {\Huge \textbf{con sus metas climáticas?}}
+\end{frame}
+
+
+
+\begin{frame}{Política Climática en Chile}
+\begin{figure}
+    \centering
+    \includegraphics[
+        width=0.92\linewidth,
+        trim=15 15 15 15,
+        clip
+    ]{impcarb.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Sistema \textit{Cap-and-Trade} por \cite{amigo_two_2021}}
+
+\vspace{-0.4cm}
+
+\begin{figure}
+    \centering
+    \includegraphics[
+        width=1\linewidth,
+        trim=15 15 15 15,
+        clip
+    ]{cap and trade.png}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}{El CAP: presupuesto ambiental de emisiones}
+
+\vspace{0cm}
+
+\begin{figure}
+    \centering
+    \includegraphics[
+        width=1\linewidth,
+        trim=1 1 1 1,
+        clip
+    ]{ELCAP.png}
+\end{figure}
+
+\end{frame}
+
+
+%\vspace{-0.4cm}
+
+\begin{frame}{Limitaciones del modelo \cite{amigo_two_2021}}
+
+\centering
+
+\includegraphics[
+    width=0.8\linewidth,
+    trim=15 15 15 15,
+    clip
+]{limitciones.png}
+
+\end{frame}
+
+
+
+\begin{frame}{Objetivo del trabajo}
+
+%\vspace{-0.4cm}
+
+\begin{figure}{}
+    \centering
+    \includegraphics[
+        width=1\linewidth,
+        trim=15 15 15 15,
+        clip
+    ]{objetivo.png}
+\end{figure}
+
+\end{frame}
+
+
+
+
+\begin{frame}{Simbología del modelo}
+
+%\vspace{-0.4cm}
+
+\begin{figure}{}
+    \centering
+    \includegraphics[
+        width=1\linewidth,
+        trim=15 15 15 15,
+        clip
+    ]{simbologia.png}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}{Planificador social con inatención conductual}
+
+%\vspace{-0.4cm}
+\begin{figure}{}
+    \centering
+    \includegraphics[
+        width=0.85\linewidth,
+        trim=15 15 15 15,
+        clip
+    ]{MODELOILUS1.png}
+\end{figure}
+
+\end{frame}
+
+
+
+% \begin{frame}{}
+% \begin{figure}{}
+%     \centering
+%     \includegraphics[
+%         width=0.9\linewidth,
+%         trim=15 15 15 15,
+%         clip
+%     ]{parametros8.png}
+% \end{figure}
+
+% \end{frame}
+
+
+% \begin{frame}{Modelar el presupuesto ambiental}
+% \begin{figure}{}
+%     \centering
+%     \includegraphics[
+%         width=1\linewidth,
+%                 trim=15 15 15 15,
+%         clip
+%     ]{modelacion.png}
+% \end{figure}
+
+% \end{frame}
+
+
+
+
+
+
+% \begin{frame}{Función de beneficio del planificador}
+% \begin{figure}{}
+%     \centering
+%     \includegraphics[
+%         width=1\linewidth,
+%         trim=15 15 15 15,
+%         clip
+%     ]{modelo2.png}
+% \end{figure}
+% \end{frame}
+
+
+% \begin{frame}{Decisión óptima del planificador}
+% \begin{figure}{}
+%     \centering
+%     \includegraphics[
+%         width=1\linewidth,
+%         trim=15 15 15 15,
+%         clip
+%     ]{modelo1.png}
+% \end{figure}
+
+% \end{frame}
+
+
+\begin{frame}{Parámetros para Chile}
+\begin{figure}{}
+    \centering
+    \includegraphics[
+        width=1\linewidth,
+        trim=15 15 15 15,
+        clip
+    ]{parametros2.png}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}{¿Qué nivel de atención tiene el planificador en Chile?}
+\begin{figure}{}
+    \centering
+    \includegraphics[
+        width=0.7\linewidth,
+        trim=15 15 15 15,
+        clip
+    ]{calibracion2.png}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Implementación}
+\begin{figure}{}
+    \centering
+    \includegraphics[
+        width=1\linewidth,
+        trim=15 15 15 15,
+        clip
+    ]{codificacion.png}
+\end{figure}
+
+\end{frame}
+
+
+
+
+\begin{frame}{Incertidumbre por nivel de atención}
+
+\centering
+
+\vspace{-0.1cm}
+
+\includegraphics[
+    width=0.98\textwidth,
+    height=0.78\textheight,
+    keepaspectratio
+]{bmbudo.png}
+
+\vspace{0.05cm}
+
+{\tiny
+\begin{tcolorbox}[
+    colback=white,
+    colframe=SoftBlue,
+    arc=1.5mm,
+    boxrule=0.5pt,
+    hbox,
+    left=2pt,
+    right=2pt,
+    top=1pt,
+    bottom=1pt
+]
+\centering
+\textbf{Fórmulas usadas:}
+\(
+CAP_s = CAP + \epsilon
+\qquad
+CAP = CAP_s \pm \sigma_{\epsilon}
+\)
+\end{tcolorbox}
+}
+
+\end{frame}
+
+
+% \begin{frame}{Casos Límites}
+
+%     \begin{center}
+%         {\Large $CAP_s = CAP + \epsilon$}       
+%         {\Large $CAP = CAP_s \pm \sigma_{\epsilon}$}
+%     \end{center}
+
+%     \vspace{0.8cm}
+
+% \end{frame}
+
+
+% \begin{frame}{Resultados Caso Límite $CAP_s +\sigma_\varepsilon$}
+
+% \begin{table}[H]
+% \centering
+% \caption{Resultados del modelo según nivel de atención $m$}
+% \label{tab:resultados_m}
+
+% \renewcommand{\arraystretch}{1.2}
+% \setlength{\tabcolsep}{5pt}
+
+% \resizebox{0.9\textwidth}{!}{%
+% \begin{tabular}{cccc}
+% \toprule
+% $m$ & $\theta$ (MtCO$_2$e) & $CAP$ (MtCO$_2$e) & Beneficio (M USD) \\
+% \midrule
+
+% 0,0 & 311,0 & N/A & N/A \\
+
+% 0,2 & 301,6 & 387,92 & $-2{,}396 \times 10^{11}$ \\
+
+% 0,4 & 292,3 & 339,96 & $-7{,}319 \times 10^{10}$ \\
+
+% 0,6 & 282,9 & 314,71 & $-3{,}253 \times 10^{10}$ \\
+
+% 0,8 & 273,6 & 295,13 & $-1{,}498 \times 10^{10}$ \\
+
+% 1,0 & 264,2 & 264,20 & $5{,}251 \times 10^{4}$ \\
+
+% \bottomrule
+% \end{tabular}%
+% }
+
+% \end{table}
+
+% \end{frame}
+
+
+% \begin{frame}{Resultados Caso Límite $CAP_s-\sigma_\epsilon$}
+
+% \begin{table}[H]
+% \centering
+% \caption{Resultados del modelo según nivel de atención $m$}
+% \label{tab:resultados_m_2}
+
+% \renewcommand{\arraystretch}{1.2}
+% \setlength{\tabcolsep}{5pt}
+
+% \resizebox{0.9\textwidth}{!}{%
+% \begin{tabular}{cccc}
+% \toprule
+% $m$ & $\theta$ (MtCO$_2$e) & $CAP$ (MtCO$_2$e) & Beneficio (M USD) \\
+% \midrule
+
+% 0,0 & 311,0 & N/A & N/A \\
+
+% 0,2 & 301,6 & 140,48 & $-8{,}364 \times 10^{11}$ \\
+
+% 0,4 & 292,3 & 188,44 & $-3{,}473 \times 10^{11}$ \\
+
+% 0,6 & 282,9 & 213,69 & $-1{,}543 \times 10^{11}$ \\
+
+% 0,8 & 273,6 & 233,27 & $-5{,}228 \times 10^{10}$ \\
+
+% 1,0 & 264,2 & 264,20 & $5{,}251 \times 10^{4}$ \\
+
+% \bottomrule
+% \end{tabular}%
+% }
+
+% \end{table}
+
+% \end{frame}
+
+
+\begin{frame}{Utilidad en Casos Límite de Incertidumbre}
+
+\centering
+
+\vspace{-0.1cm}
+
+\includegraphics[
+    width=0.98\textwidth,
+    height=0.76\textheight,
+    keepaspectratio
+]{perdidas.png}
+
+\vspace{0.05cm}
+
+{\tiny
+\begin{tcolorbox}[
+    colback=white,
+    colframe=SoftBlue,
+    arc=1.5mm,
+    boxrule=0.5pt,
+    hbox,
+    left=2pt,
+    right=2pt,
+    top=1pt,
+    bottom=1pt
+]
+\centering
+\textbf{Fórmulas usadas:}
+\(
+\mathcal{V}(\theta, CAP)=\pi^{a}\theta-\frac{\kappa}{2}(\theta-CAP)^2
+\qquad
+CAP = CAP_s \pm \sigma_{\epsilon}
+\)
+\end{tcolorbox}
+}
+
+\end{frame}
+
+
+% \centering
+
+% \renewcommand{\arraystretch}{1.25}
+% \setlength{\tabcolsep}{8pt}
+
+% \begin{table}[H]
+% \centering
+
+% \begin{tabular}{c c c c}
+% \toprule
+
+% \multicolumn{2}{c}{\textbf{Caso límite}} &
+% \textbf{$CAP_s + \sigma_\varepsilon$} &
+% \textbf{$CAP_s - \sigma_\varepsilon$} \\
+
+% \cmidrule(lr){1-2}
+% \cmidrule(lr){3-3}
+% \cmidrule(lr){4-4}
+
+% \textbf{$m$} &
+% \textbf{$\theta$ (MtCO$_2$e)} &
+% \textbf{Beneficio (M USD)} &
+% \textbf{Beneficio (M USD)} \\
+
+% \midrule
+
+% 0,0 & 311,0 & N/A & N/A \\
+
+% 0,2 & 301,6 & $-2.40 \times 10^{14}$ & $-8.36 \times 10^{14}$ \\
+
+% 0,4 & 292,3 & $-7.32 \times 10^{13}$ & $-3.47 \times 10^{14}$ \\
+
+% 0,6 & 282,9 & $-3.25 \times 10^{13}$ & $-1.54 \times 10^{14}$ \\
+
+% 0,8 & 273,6 & $-1.50 \times 10^{13}$ & $-5.23 \times 10^{13}$ \\
+
+% 1,0 & 264,2 & $5.25 \times 10^{7}$ & $5.25 \times 10^{7}$ \\
+
+% \bottomrule
+% \end{tabular}
+
+% \end{table}
+
+% \end{frame}
+
+\begin{frame}{Riesgo de Incertidumbre: Costo Social del Carbono}
+    \vspace{-0.3cm} % Espacio corregido y reducido para evitar que la figura se desborde
+    \begin{figure}
+        \centering
+        \includegraphics[
+            width=0.95\linewidth,
+            trim=15 15 15 15,
+            clip
+        ]{cccc.png}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Matriz energética 2030}
+
+\centering
+\vspace{-0.15cm}
+
+\includegraphics[
+    width=0.98\textwidth,
+    height=0.76\textheight,
+    keepaspectratio
+]{melect3.png}
+
+\vspace{0.05cm}
+
+{\tiny
+\begin{tcolorbox}[
+    colback=white,
+    colframe=SoftBlue,
+    arc=1.5mm,
+    boxrule=0.6pt,
+    hbox,
+    left=2pt,
+    right=2pt,
+    top=2pt,
+    bottom=2pt
+]
+\centering
+\textbf{Metodología:} 
+$\% \, \mathrm{Fuente} = \frac{\mathrm{MWh\ Fuente}}{\mathrm{MWh\ Totales}} \times 100$
+\end{tcolorbox}
+}
+
+\end{frame}
+
+
+
+\begin{frame}{Conclusión}
+\begin{figure}{}
+    \centering
+    \includegraphics[
+        width=1\linewidth,
+        trim=15 15 15 15,
+        clip
+    ]{conclusion.png}
+\end{figure}
+
+\end{frame}
+
+
+
+\begin{frame}{}
+    \begin{center}
+        \textbf{\large ¡Muchas gracias por su atención!} \\
+        \vspace{0.2cm}
+    \end{center}
+\end{frame}
+
+\appendix
+
+\begin{frame}[allowframebreaks]{Bibliografía}
+    \bibliographystyle{apalike}
+    \bibliography{docs/MemoriaMHurtado/references}
+    Sector Energía: SNI Chile. Ministerio del Medio Ambiente. Disponible en: mma.gob.cl\\
+    Plan de Descarbonización: Ministerio de Energía de Chile (2024). Plan de Descarbonización: Borrador para consulta pública.\\
+    Precio Social del Carbono: Gobierno de Chile (2024). Actualizan precio social del carbono para incentivar la reducción de emisiones de CO2. Disponible en: www.gob.cl\\
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}
+    \vspace*{\fill} % Centrado vertical
+    \begin{center}
+        {\Huge \textbf{Anexos}}
+        
+        \vspace{0.4cm}
+        \rule{3cm}{0.8pt} % Línea decorativa opcional para dar estilo
+    \end{center}
+    \vspace*{\fill}
+\end{frame}
+
+\begin{frame}{Planificador Social  \cite{amigo_two_2021}: función objetivo}
+\small
+El planificador elige $\theta$ considerando incertidumbre en el verdadero límite ambiental $CAP$:
+\[
+CAP \sim \mathcal{N}(\mu,\sigma^2)
+\]
+
+y debe asegurar que no lo exceda con alta probabilidad:
+\[
+\Pr(\theta \ge CAP) \le \epsilon
+\]
+
+\textbf{Problema a maximizar:}
+\[
+\max_{\theta} \ \theta\,\pi^a - \mathcal{F}(\theta)
+\]
+
+sujeto a la restricción probabilística:
+\[
+\varphi^{-1}(\epsilon)\,\sigma + \mu - \theta \ge 0
+\]
+\end{frame}
+\begin{frame}{Escenario con costo fijo: $F(\theta) = 3$}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\linewidth]{ejemplo_1.png}
+\caption{Escenario con costo fijo: $F(\theta) = 3$}
+\label{fig:ejemplo1}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Escenario con costo convexo: $F(\theta) = (\theta − 3)^2 + 1$}
+    \begin{figure}[H]
+    \centering    \includegraphics[width=0.75\linewidth]{ejemplo_2.png}
+    \caption{Escenario con costo convexo: $F(\theta) = (\theta − 3)^2 + 1$}
+    \label{fig:ejemplo2}
+    \end{figure}
+\end{frame}
+
+
+
+
+\begin{frame}{Modelo Profit-Oriented \cite{munoz_lhuillier_inversion_2022}}
+\begin{align}
+\max_{\theta, P} \quad & \theta \pi^{a} P - c(P-d)^{2} \label{eq:modelo_profit_obj} \\
+\text{s.a.} \quad 
+& \theta \pi^{a} P - c(P-d)^{2} \geq 0 \label{eq:restriccion_participacion} \\
+& \theta \leq \hat{\theta} \label{eq:restriccion_theta_hat} \\
+& 0 \leq P \leq 1 \label{eq:restriccion_precio} \\
+& \theta \geq 0 \label{eq:restriccion_theta}
+\end{align}
+
+\end{frame}
+
+
+\begin{frame}{Escenario con costo convexo: $F(\theta) = (\theta − 3)^2 + 1$}
+    \begin{figure}[H]
+    \centering    \includegraphics[width=0.75\linewidth]{planificador social profit.png}
+    \caption{Escenario con costo convexo: $F(\theta) = (\theta − 3)2 + 1$}
+    \label{fig:ejemplo2}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Modelo Profit-Oriented \cite{munoz_lhuillier_inversion_2022}}
+\begin{align}
+\max_{\theta, P} \quad & \theta \pi^{a} P - c(P-d)^{2} \label{eq:modelo_profit_obj} \\
+\text{s.a.} \quad 
+& \theta \pi^{a} P - c(P-d)^{2} \geq 0 \label{eq:restriccion_participacion} \\
+& \theta \leq \hat{\theta} \label{eq:restriccion_theta_hat} \\
+& 0 \leq P \leq 1 \label{eq:restriccion_precio} \\
+& \theta \geq 0 \label{eq:restriccion_theta}
+\end{align}
+\end{frame}
+
+
+\begin{frame}{Planificador Orientado al Bienestar Social}
+    \begin{figure}[H]
+    \centering    \includegraphics[width=0.75\linewidth]{planificador social bienestar.png}
+    \caption{}
+    \label{fig:ejemplo2}
+    \end{figure}
+\end{frame}
+
+
+% \begin{frame}{Limitación del modelo Profit-Oriented}
+
+% \small
+
+% \begin{itemize}
+
+% \item Los ingresos aumentan linealmente con $\theta$.
+
+% \vspace{0.2cm}
+
+% \item El costo de información:
+% \[
+% c(P-d)^2
+% \]
+% no depende de $\theta$.
+
+% \vspace{0.2cm}
+
+% \item Emitir más permisos no genera una penalización adicional.
+
+% \vspace{0.2cm}
+
+% \item El óptimo económico termina siendo:
+% \[
+% \theta = CAP
+% \]
+
+% \end{itemize}
+
+% \vspace{0.4cm}
+
+% \begin{alertblock}{Inconsistencia}
+% El modelo incorpora racionalidad limitada,
+% pero mantiene incentivos a emitir la máxima cantidad posible.
+% \end{alertblock}
+
+% \end{frame}
+
+% \begin{frame}{Limitación del modelo Welfare-Oriented}
+
+% \small
+
+% \begin{itemize}
+
+% \item El modelo incorpora una penalización por desviarse del $CAP$.
+
+% \vspace{0.2cm}
+
+% \item Esto corrige parcialmente el problema del modelo Profit-Oriented.
+
+% \vspace{0.2cm}
+
+% \item Sin embargo, el beneficio:
+% \[
+% \theta \pi^a
+% \]
+% continúa creciendo con $\theta$.
+
+% \vspace{0.2cm}
+
+% \item Bajo ciertos parámetros, el óptimo puede ubicarse sobre el presupuesto ambiental:
+% \[
+% \theta > CAP
+% \]
+
+% \end{itemize}
+
+% \vspace{0.4cm}
+
+% \begin{alertblock}{Resultado observado}
+% En la simulación:
+% \[
+% CAP = 7
+% \qquad\text{y}\qquad
+% \theta^* = 8.4
+% \]
+
+% El regulador sobre emite aproximadamente un 20\%.
+% \end{alertblock}
+
+% \end{frame}
+
+
+
+
+
+\begin{frame}{Modelo Inatención Conductual}
+
+\small
+
+El planificador social enfrenta el siguiente problema:
+
+\begin{align*}
+\max_{\theta} \ \mathbb{E} \left[ 
+\pi^a \theta - \frac{\kappa}{2}(\theta - CAP)^2 
+\,\bigg|\, CAP_s \right]
+\end{align*}
+
+Derivando respecto a $\theta$:
+
+\begin{align*}
+0 
+&= \frac{\partial}{\partial \theta}
+\mathbb{E} \left[ 
+\pi^a \theta - \frac{\kappa}{2}(\theta - CAP)^2 
+\,\bigg|\, CAP_s \right] \\
+&= \mathbb{E} \left[ 
+\pi^a - \kappa(\theta - CAP) 
+\,\bigg|\, CAP_s \right] \\
+&= \pi^a - \kappa \theta + \kappa \mathbb{E}[CAP \mid CAP_s]
+\end{align*}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}{Modelo Inatención Conductual}
+
+\small
+
+Despejando:
+
+\begin{align*}
+\theta^*(CAP_s) 
+= \mathbb{E}[CAP \mid CAP_s] + \frac{\pi^a}{\kappa}
+\end{align*}
+
+Siguiendo inatención conductual:
+
+\begin{align*}
+\mathbb{E}[CAP \mid CAP_s] 
+= m\,CAP_s + (1-m)\,CAP_d
+\end{align*}
+
+Finalmente:
+
+\begin{align*}
+\boxed{
+\theta^*(CAP_s) 
+= m\,CAP_s + (1-m)\,CAP_d + \frac{\pi^a}{\kappa}
+}
+\end{align*}
+
+\end{frame}
+
+
+\begin{frame}{Variables y Parámetros del Modelo}
+    \vspace{0.3cm}
+    \centering
+    \footnotesize % Reducimos un poco el tamaño para que respire la diapositiva
+    \renewcommand{\arraystretch}{1.2} % Da un poco más de espacio vertical entre filas
+    
+    \begin{tabular}{ll c} % l=izq, l=izq, c=centro
+        \hline
+        \textbf{Símbolo} & \textbf{Descripción} & \textbf{Unidad} \\ \hline
+        $\kappa$ & Costo social por desviación del $CAP$ & USD/tCO$_2$e \\
+        $CAP_s$ & Señal observada (presupuesto percibido) & tCO$_2$e \\
+        $CAP_d$ & Presupuesto por defecto (anclaje) & tCO$_2$e \\
+        $\sigma_\epsilon^2$ & Varianza del error de percepción (ruido) & (tCO$_2$e)$^2$ \\
+        $\sigma_{\text{CAP}}^2$ & Varianza del presupuesto real & (tCO$_2$e)$^2$ \\ \hline
+    \end{tabular}
+
+    \vspace{0.6cm}
+    \begin{itemize}
+        \item \scriptsize Los valores de $\sigma^2$ determinan el nivel de atención $m$ del planificador.
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Estimaciones de CAP (1/2)}
+
+\scriptsize
+
+\begin{tabular}{l c c c}
+\toprule
+\textbf{Fuente} & \textbf{Fecha} & \textbf{CAP (MtCO$_2$e)} & \textbf{Horizonte} \\
+\midrule
+\cite{amigo_two_2021} & 10/02/2021 & 365,29 & 2019--2030 \\
+\cite{ministerio_del_medio_ambiente_anteproyecto_2025} & 2025 & 300,27 & 2031--2035 \\
+\cite{ministerio_del_medio_ambiente_reporte_2024} & 2024 & 332,34 & 2020--2022 \\
+\cite{ministerio_del_medio_ambiente_reporte_2024} & 2024 & 296,67 & 2023--2030 \\
+\cite{ministerio_de_energia_de_chile_plan_2024} & 2024 & 296,00 & 2020--2030 \\
+\cite{gobierno_de_chile_estrategia_2021} & 21/10/2021 & 306,40 & 2020--2030 \\
+\addlinespace
+Climate Action Tracker & 02/11/2016 & 493,30 & 2030 \\
+Climate Action Tracker & 06/11/2017 & 496,37 & 2030 \\
+Climate Action Tracker & 23/03/2018 & 392,19 & 2030 \\
+Climate Action Tracker & 16/08/2018 & 401,38 & 2030 \\
+Climate Action Tracker & 30/11/2018 & 407,51 & 2030 \\
+Climate Action Tracker & 01/11/2018 & 364,62 & 2020 \\
+\bottomrule
+\end{tabular}
+
+\end{frame}
+
+\begin{frame}{Estimaciones de CAP (2/2)}
+
+\scriptsize
+\begin{center}
+    \begin{tabular}{l c c c}
+    \toprule
+    \textbf{Fuente} & \textbf{Fecha} & \textbf{CAP (MtCO$_2$e)} & \textbf{Horizonte} \\
+    \midrule
+    Climate Action Tracker & 02/12/2019 & 318,24 & 2020--2030 \\
+    Climate Action Tracker & 19/09/2019 & 401,38 & 2030 \\
+    Climate Action Tracker & 19/09/2019 & 373,81 & 2020 \\
+    Climate Action Tracker & 02/12/2019 & 297,21 & 2030 \\
+    Climate Action Tracker & 04/11/2022 & 286,76 & 2020--2030 \\
+    Climate Action Tracker & 03/11/2025 & 294,14 & 2031--2035 \\
+    \addlinespace
+    Climate Action Tracker (CFI) & 02/11/2016 & 422,83 & 2030 \\
+    Climate Action Tracker (CFI) & 06/11/2017 & 427,43 & 2030 \\
+    Climate Action Tracker (CFI) & 23/03/2018 & 333,98 & 2030 \\
+    Climate Action Tracker (CFI) & 16/08/2018 & 344,70 & 2030 \\
+    Climate Action Tracker (CFI) & 30/11/2018 & 350,83 & 2030 \\
+    Climate Action Tracker (CFI) & 19/09/2019 & 344,70 & 2030 \\
+    Climate Action Tracker (CFI) & 04/11/2022 & 283,42 & 2030 \\
+    Climate Action Tracker (CFI) & 07/10/2024 & 280,36 & 2030 \\
+    \addlinespace
+    \cite{palma_behnke_chilean_2019} & 2019 & 300,94 & 2020--2030 \\
+    \bottomrule
+    \end{tabular}
+
+    \vspace{0.2cm}
+    \tiny
+    \textbf{Nota:} CFI = considerando financiamiento internacional. 
+    Climate Action Tracker: \url{https://climateactiontracker.org/}.
+\end{center}
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}{$\theta_{base}$ según atención}
+
+\centering
+
+\small % Reduce tamaño general de la tabla
+
+\renewcommand{\arraystretch}{1.05}
+\setlength{\tabcolsep}{8pt}
+
+\begin{tabular}{c c c}
+\toprule
+\textbf{$\sigma_{\varepsilon}$} & \textbf{$m$} & \textbf{$\theta_{base}$} \\
+\textbf{(MtCO$_2$e)} & & \textbf{(MtCO$_2$e)} \\
+\midrule
+$\infty$ & 0,0 & 311,01 \\
+185,58 & 0,1 & 306,33 \\
+123,72 & 0,2 & 301,65 \\
+94,49  & 0,3 & 296,97 \\
+75,76  & 0,4 & 292,29 \\
+61,86  & 0,5 & 287,61 \\
+50,51  & 0,6 & 282,93 \\
+40,50  & 0,7 & 278,24 \\
+30,93  & 0,8 & 273,56 \\
+20,62  & 0,9 & 268,88 \\
+0,00   & 1,0 & 264,20 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.25cm}
+
+\footnotesize{Fuente: Elaboración propia.}
+
+\end{frame}
+
+\begin{frame}{Calibración del Modelo sobre la Matriz eléctrica - año 2024}
+    \begin{table}[H]
+\centering
+\small
+\label{tab:top10_distancia_mix}
+\renewcommand{\arraystretch}{1.1}
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{c c c}
+\toprule
+\textbf{$\sigma_{\varepsilon}$ (MtCO$_2$e)} & \textbf{$m$} & \textbf{Distancia absoluta} \\
+\midrule
+$\infty$ & 0,0 & 0,2727 \\
+185,58 & 0,1 & 0,2758 \\
+123,72 & 0,2 & 0,2788 \\
+94,49  & 0,3 & 0,2818 \\
+75,76  & 0,4 & 0,2849 \\
+61,86  & 0,5 & 0,2879 \\
+50,51  & 0,6 & 0,2909 \\
+40,50  & 0,7 & 0,2940 \\
+30,93  & 0,8 & 0,2970 \\
+20,62  & 0,9 & 0,2998 \\
+0,00   & 1,0 & 0,3026 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.15cm}
+\footnotesize{Fuente: Elaboración propia.}
+\end{table}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+% --- DIAPOSITIVA 3: EVOLUCIÓN DE LA MATRIZ ENERGÉTICA ---
+
+\begin{frame}{Resultados Caso Borde $CAP+\epsilon$}
+\begin{table}[H]
+\centering
+\label{tab:resultados_m}
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3pt} % Reduce espacio entre columnas para ganar ancho
+
+\resizebox{\textwidth}{!}{% Ajusta la tabla al ancho de la diapositiva
+\begin{tabular}{ccccc}
+\toprule
+$m$ & CAP (MtCO$_2$) & $\theta-CAP$ (MtCO$_2$) & Costo (M USD) & Beneficio (M USD) \\
+\midrule
+0,0 & N/A & N/A & N/A & N/A \\
+0,1 & 449,78 & -143,45 & 662.589.589.804,07 & -662.589.533.175,84 \\
+0,2 & 387,92 & -86,27 & 239.644.999.121,04 & -239.644.942.893,35 \\
+0,3 & 358,69 & -61,72 & 122.674.630.993,48 & -122.674.575.181,06 \\
+0,4 & 339,96 & -47,67 & 73.186.603.953,91 & -73.186.548.571,17 \\
+0,5 & 326,06 & -38,45 & 47.612.752.798,72 & -47.612.697.859,80 \\
+0,6 & 314,71 & -31,78 & 32.527.377.488,24 & -32.527.323.007,85 \\
+0,7 & 304,70 & -26,45 & 22.532.072.038,36 & -22.532.018.030,91 \\
+0,8 & 295,13 & -21,57 & 14.977.809.285,24 & -14.977.755.754,22 \\
+0,9 & 284,82 & -15,94 & 8.180.115.598,42 & -8.180.062.570,72 \\
+1,0 & 264,20 & 0,00 & 0,00 & 52.510,01 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+\end{frame}
+
+\begin{frame}{Resultados Caso Borde $CAP-\epsilon$}
+\begin{table}[H]
+\centering
+\label{tab:resultados_m_2}
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3pt}
+
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ccccc}
+\toprule
+$m$ & CAP (MtCO$_2$) & $\theta-CAP$ (MtCO$_2$) & Costo (M USD) & Beneficio (M USD) \\
+\midrule
+0,0 & N/A & N/A & N/A & N/A \\
+0,1 & 78,62 & 227,71 & 1.669.659.335.377,53 & -1.669.659.278.749,30 \\
+0,2 & 140,48 & 161,17 & 836.427.074.998,41 & -836.427.018.770,71 \\
+0,3 & 169,71 & 127,26 & 521.499.495.445,26 & -521.499.439.632,84 \\
+0,4 & 188,44 & 103,85 & 347.276.282.042,91 & -347.276.226.660,18 \\
+0,5 & 202,34 & 85,27 & 234.107.160.573,50 & -234.107.105.634,59 \\
+0,6 & 213,69 & 69,23 & 154.345.018.699,95 & -154.344.964.219,57 \\
+0,7 & 223,70 & 54,54 & 95.785.627.884,60 & -95.785.573.877,16 \\
+0,8 & 233,27 & 40,29 & 52.276.698.090,68 & -52.276.644.559,66 \\
+0,9 & 243,58 & 25,30 & 20.613.082.650,14 & -20.613.029.622,44 \\
+1,0 & 264,20 & 0,00 & 0,00 & 52.510,01 \\
+\bottomrule
+\end{tabular}%
+}
+\vspace{0.2cm}
+\begin{flushleft}
+\footnotesize Fuente: Elaboración propia.
+\end{flushleft}
+\end{table}
+\end{frame}
+
+
+
+\begin{frame}{Evolución de la Matriz Energética (m=1, 2020-2030)}
+    \centering
+    \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{mprx0.0.png}
+ 
+\end{frame}
+
+\begin{frame}[fragile]{Definición de $\theta$ según nivel de atención}
+
+\small
+
+\begin{block}{Código en Julia}
+\begin{verbatim}
+k = 64.4
+
+# m = 0.0
+theta_base = 311_013_377.53
+.
+.
+.
+# m = 1.0
+# theta_base = 264_200_000.00
+
+@expression(model, theta, theta_base + pi_a / k)
+\end{verbatim}
+\end{block}
+
+\vspace{0.2cm}
+
+\footnotesize{
+Cada valor de \texttt{theta\_base} representa el nivel base de permisos
+asociado a un nivel de atención \(m\).
+}
+\end{frame}
+
+
+%====================================================
+% ANEXOS: Parámetros originales de Amigo et al. (2021)
+%====================================================
+
+\section{Parámetros originales de Amigo et al. (2021)}
+
+%----------------------------------------------------
+\begin{frame}{Factores de planta por tecnología}
+
+\centering
+
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{12pt}
+
+\begin{table}
+\centering
+\small
+\begin{tabular}{l c}
+\toprule
+\textbf{Tecnología} & \textbf{Factor de planta (CF)} \\
+\midrule
+Biomasa           & 0.55 \\
+Carbón            & 0.99 \\
+Eólica            & 0.23 \\
+Gas               & 0.60 \\
+Geotérmica        & 0.65 \\
+Hidro Embalse     & 0.39 \\
+Hidro Pasada      & 0.43 \\
+Hidro Mini Pasada & 0.39 \\
+Petróleo Diésel   & 0.90 \\
+Solar             & 0.24 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{0.15cm}
+
+{\footnotesize Fuente: Amigo et al. (2021).}
+
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}{Anexo: Costos de inversión por tecnología}
+
+\centering
+
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{12pt}
+
+\begin{table}
+\centering
+\small
+\begin{tabular}{l c}
+\toprule
+\textbf{Tecnología} & \textbf{Costo de inversión (USD/kW)} \\
+\midrule
+Biomasa            & 3\,253 \\
+Carbón             & 3\,000 \\
+Eólica             & 1\,361 \\
+Gas                & 800 \\
+Geotérmica         & 5\,870 \\
+Hidro Embalse      & 2\,180 \\
+Hidro Pasada       & 4\,050 \\
+Hidro Mini Pasada  & 3\,565 \\
+Petróleo Diésel    & 687 \\
+Solar              & 2\,000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{0.15cm}
+
+{\footnotesize Fuente: elaboración propia en base al trabajo de Amigo et al. (2021).}
+
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}{Anexo: Factores de emisión por tecnología}
+
+\centering
+
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{12pt}
+
+\begin{table}
+\centering
+\small
+\begin{tabular}{l c}
+\toprule
+\textbf{Tecnología} & \textbf{Factor de emisión $\epsilon_i$ (tCO$_2$e/MWh)} \\
+\midrule
+Biomasa            & 0.00 \\
+Carbón             & 0.91 \\
+Eólica             & 0.00 \\
+Gas                & 0.65 \\
+Geotérmica         & 0.00 \\
+Hidro Embalse      & 0.00 \\
+Hidro Pasada       & 0.00 \\
+Hidro Mini Pasada  & 0.00 \\
+Petróleo Diésel    & 0.91 \\
+Solar              & 0.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{0.15cm}
+
+{\footnotesize Fuente: elaboración propia en base al trabajo de Amigo et al. (2021).}
+
+\end{frame}
+\end{document}
+
+
