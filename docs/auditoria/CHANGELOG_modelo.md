@@ -11,7 +11,7 @@ Los cinco estados del modelo, en orden cronológico:
 | **2** | Presentación UVigo | `docs/Presentations/UVigo/home.Rmd` | jul 2022 |
 | **3** | Artículo *Inattention raises energy prices* | `Submissions/EnergyPolicy/inattention_energy_prices.tex` | sep 2026 |
 | **4** | Memoria de Juan Matías Hurtado | `docs/MemoriaMHurtado/` | ago 2025 |
-| **5** | Presentación de defensa de Hurtado | `docs/Presentations/presentation-template/JMHL_presentation.tex` | 2026 |
+| **5** | Presentación de defensa de Hurtado | `docs/Presentations/HurtadoDefensa2026/JMHL_presentation.tex` | 2026 |
 
 Los estados 4 y 5 son posteriores al 1–2 pero **no** derivan del 3: se desarrollaron en paralelo, a partir de la memoria de Muñoz directamente.
 
@@ -129,7 +129,7 @@ Detallado en [`AUDITORIA_2_MHurtado.md`](AUDITORIA_2_MHurtado.md) §4.2. En resu
 
 ## Estado 5 — presentación de defensa de Hurtado (2026)
 
-`docs/Presentations/presentation-template/JMHL_presentation.tex`, 47 páginas, beamer + LuaLaTeX.
+`docs/Presentations/HurtadoDefensa2026/JMHL_presentation.tex`, 47 páginas, beamer + LuaLaTeX.
 
 No cambia el modelo. Aporta:
 

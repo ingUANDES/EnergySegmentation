@@ -12,8 +12,8 @@ Verificación con TeX Live 2026 (XeLaTeX para la memoria, LuaLaTeX para la prese
 
 | Cambio | Detalle |
 |---|---|
-| **Nueva presentación de defensa** | `docs/Presentations/presentation-template/JMHL_presentation.tex` (1.431 líneas, beamer/LuaLaTeX) y su `references.bib` (26 entradas). |
-| **Se borró la plantilla** | `docs/Presentations/presentation-template/presentation.tex` fue eliminado. La carpeta se llama `presentation-template` pero ya no contiene una plantilla: contiene la presentación de un alumno. |
+| **Nueva presentación de defensa** | `docs/Presentations/HurtadoDefensa2026/JMHL_presentation.tex` (1.431 líneas, beamer/LuaLaTeX) y su `references.bib` (26 entradas). |
+| **Se borró la plantilla** | `docs/Presentations/HurtadoDefensa2026/presentation.tex` fue eliminado. La carpeta se llama `HurtadoDefensa2026` pero ya no contiene una plantilla: contiene la presentación de un alumno. |
 | **38 PNG nuevos en la raíz** | Y `image.png` pasó de 56 KB a 1,78 MB. La raíz del repositorio es hoy **el directorio más pesado: 45,3 MB de los 89,2 MB del árbol (51%)**. |
 | **Cambios en la memoria** | Sólo dos: la clave `munoz_ethical_2022` → `munoz_lhuillier_inversion_2022` en `attachments/anexo_a.tex:178`, y la eliminación de siete líneas comentadas en la tabla de parámetros de `chapters/chapter02.tex`. |
 

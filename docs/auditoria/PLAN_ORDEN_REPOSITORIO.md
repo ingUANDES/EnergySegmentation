@@ -33,7 +33,7 @@ De ahí las tres consecuencias medibles:
 | `docs/Presentations/UVigo` | 28 | 1,1 | presentación xaringan 2022 (incluye 18 archivos de `libs/` y `home_files/`) |
 | `Apuntes` + `docs/Apuntes` | 26 | 1,6 | **el mismo árbol, duplicado íntegro** |
 | `code` | 13 | 1,2 | GAMS, Julia, notebooks |
-| `docs/Presentations/presentation-template` | 8 | 0,3 | presentación de Hurtado (la plantilla fue borrada) |
+| `docs/Presentations/HurtadoDefensa2026` | 8 | 0,3 | presentación de Hurtado (la plantilla fue borrada) |
 | `docs/Memoria` | 5 | 0,04 | **plantilla muerta**: 4 archivos de `core/` y un anexo, sin documento maestro |
 | `docs/Presentations/PhDEIIPUCV` | 2 | 0,01 | presentación PUCV |
 
@@ -62,7 +62,7 @@ EnergySegmentation/
 │   ├── uvigo-2022/                ← hoy docs/Presentations/UVigo
 │   ├── ifors-2023/                ← hoy docs/Presentations/IFORS
 │   ├── pucv-phd/                  ← hoy docs/Presentations/PhDEIIPUCV
-│   └── hurtado-defensa-2026/      ← hoy docs/Presentations/presentation-template
+│   └── hurtado-defensa-2026/      ← hoy docs/Presentations/HurtadoDefensa2026
 │       └── figures/               ← las 29 capturas que hoy están en la raíz
 ├── submissions/
 │   ├── energy-2021-published/     ← hoy Energy_8000. Línea base, congelada
@@ -93,9 +93,25 @@ Usar [`inventario_raiz.csv`](inventario_raiz.csv), que clasifica las 96 imágene
 2. **59 imágenes sin uso (17,0 MB)** → **no borrar a ciegas**. Preguntar a los autores: hay grupos que son claramente iteraciones de una misma captura (`cccc.png`/`CCCC.png`; `embudo.png`/`A.embudo.png`/`bmbudo.png`/`mbudoo.png`; `melect.png`/`melect1..3.png`; `MODELOILUS1.png`/`MODELOILUS2.png`; `calibracion.png`/`calibracion2.png`), donde en general sólo una está referenciada. Lo demás son figuras de trabajo de exploraciones anteriores (`gabaixsubastador.png`, `funcsubastadorJ(m).png`, `thetasypia.png`, …). Propuesta: mover todo a `archivo/figuras-sueltas/` en un PR, y borrar en un segundo PR una vez que los autores confirmen.
 3. **Sustituir las capturas por LaTeX donde sea barato.** Las ocho más pesadas de la presentación de Hurtado (`simbologia.png` 1,93 MB, `objetivo.png`, `limitciones.png`, `parametros2.png`, `codificacion.png`, `calibracion2.png`, `MODELOILUS1.png`, `cccc.png`) son tablas y ecuaciones **que ya existen como LaTeX en la memoria**. Reescribirlas nativas en beamer ahorra ~12 MB, hace la presentación editable y elimina la dependencia de la raíz. Es la única tarea de esta etapa que requiere trabajo real de edición.
 
-### Etapa 2 — Deduplicar *(15,5 MB, 99 archivos)*
+### Etapa 2 — Deduplicar *(hecho: 31 archivos, 2,79 MB)*
 
-Los cuatro focos, en orden de tamaño:
+El titular original de esta etapa —15,5 MB en 99 archivos— **sobrestimaba lo deduplicable**,
+porque 10,2 MB corresponden a los `Figures/` triplicados de los envíos, que deben quedar
+repetidos a propósito, y 6,2 MB a los `libs/` de las charlas ya expuestas, que tampoco se
+tocan. Lo que quedaba y se eliminó:
+
+| Grupo eliminado | Archivos | MB | Por qué es seguro |
+|---|---|---|---|
+| `Apuntes/` en la raíz | 14 | 0,95 | Copia obsoleta de `docs/Apuntes/`: 13 archivos idénticos byte a byte más `Figures/contaminación.png`, que ninguna fuente referencia. La copia viva es la de `docs/`, porque `cnt.tex` incluye una figura de `Informe/`, carpeta que sólo existe como hermana dentro de `docs/`. |
+| `docs/Presentations/UVigo/home_files/` | 12 | 0,40 | **Sobrante de render, no soporte de la charla.** `home.html` referencia únicamente `libs/`; ni el HTML ni el `.Rmd` mencionan `home_files`, que además contiene la figura de ejemplo `pressure-1.png` de la plantilla de rmarkdown. El caso de IFORS es el opuesto: su `home.html` referencia `home_files/` 23 veces, y por eso se conserva. |
+| `docs/Presentations/IFORS/images/Captura de pantalla 2023-07-12…png` | 1 | 1,09 | Idéntica a `frontSlide.png`, que es la que la charla usa; ninguna fuente nombra la captura. |
+| `docs/DocumentoMemoria/images/` | 4 | 0,35 | Réplica de `core/images/`, que es la ruta que usan los capítulos. Dos de los cuatro archivos (`cqgl_1.png`, `crystal.pdf`) no se referencian en ninguna copia. |
+
+Verificado tras eliminar: la memoria de Muñoz sigue en 113 páginas con 0 errores y 0
+figuras faltantes, y los tres apuntes compilan desde su propia carpeta (`cnt` 7 páginas,
+`cnt_v2` 11, `cnt_v3` 15; ninguno con errores ni figuras faltantes).
+
+Los focos que **no** se deduplican, y la razón:
 
 | Grupo | Archivos redundantes | Acción |
 |---|---|---|
@@ -105,14 +121,26 @@ Los cuatro focos, en orden de tamaño:
 | `core/` de `DocumentoMemoria`, `Memoria` y `MemoriaMHurtado` | 4 + logos | **Unificar en `shared/`.** Es la etapa 3. |
 | `docs/Presentations/UVigo/libs/` y `home_files/`, `IFORS/home_files/` | 88 archivos, 6,2 MB | **Corregido tras verificar: NO deben sacarse del índice.** `UVigo/home.html` e `IFORS/home.html` están versionados y no funcionan sin ellos — son el registro de charlas ya expuestas, no artefactos regenerables sin el entorno de R/Quarto original. Si se quiere un formato de archivo más liviano, exportar cada charla a PDF y retirar HTML y `libs/` juntos. |
 
-### Etapa 3 — Preámbulo compartido y limpieza de plantillas
+### Etapa 3 — Preámbulo compartido y limpieza de plantillas *(hecha)*
 
-1. **`docs/Memoria/` es una plantilla muerta** (5 archivos, sin maestro): eliminar.
-2. **Unificar los tres preámbulos** en `shared/preambulo-memoria.tex`. Los tres arrastran los mismos defectos —`shadows.blur`, `Times New Roman`, `gensymb`— porque son copias. Un preámbulo único con las correcciones ya verificadas evita que el próximo memorista herede los mismos cuatro bloqueadores. Diferencia a preservar: la memoria de Hurtado **usa** `minted` (tres bloques de código Julia) y la de Muñoz no, así que el preámbulo compartido debe cargarlo condicionalmente o dejar `minted` en el documento que lo necesita.
-3. **`docs/Presentations/presentation-template/`**: renombrar a `presentaciones/hurtado-defensa-2026/`. Si se quiere conservar una plantilla de presentación, recuperar `presentation.tex` de `29cb916` y ponerla en `shared/plantilla-presentacion/`.
-4. **`docs/Informe/`** (10 archivos, 1,8 MB, con `informe.tex` y `defensa.rmd`): no tiene relación declarada con el resto del proyecto. Preguntar a los autores si corresponde a un trabajo anterior; si sí, `archivo/informe-<año>/`.
-5. **`docs/Presentations/June2020.pdf`** (1,9 MB): PDF suelto sin fuente. Mover a `archivo/` o eliminar.
-6. **`referencesOLD.bib`** en `MemoriaMHurtado` y `docs/DocumentoMemoria`: sin uso, eliminar.
+| Punto | Estado |
+|---|---|
+| `docs/Memoria/` (plantilla muerta, 5 archivos) | **eliminada** por instrucción de los autores |
+| Unificar los tres preámbulos | **hecho**: `shared/memoria/preambulo-base.tex`. Cada `core/preambulo.tex` queda en 8 y 20 líneas y sólo añade lo propio: el `\graphicspath` y, en Hurtado, `minted` más `subcaption`, `makecell`, `url` y `xurl`. `minted` **no** está en la base: sólo Hurtado lo usa y obliga a `-shell-escape` con Pygments. |
+| `presentation-template/` → nombre real | **hecho**: `docs/Presentations/HurtadoDefensa2026/`, siguiendo la convención de las otras carpetas de `Presentations/`. No era una plantilla: es la defensa del 15 de mayo de 2026. |
+| `docs/Informe/` | **se conserva**: es el material inicial de la investigadora postdoctoral coautora del artículo de *Energy*. Descrito así en el README. |
+| `docs/Presentations/June2020.pdf` | **se conserva** por instrucción de los autores. |
+| `referencesOLD.bib` | **eliminado** (sólo existía en `MemoriaMHurtado`; `DocumentoMemoria` no tenía uno). |
+
+Dos hallazgos al unificar:
+
+- **`changes` se cargaba sin usarse.** El preámbulo de Hurtado lo pedía, pero no hay ni un `\added`, `\deleted` ni `\replaced` en los capítulos. Sale del preámbulo y de la lista de paquetes del README. Lo mismo con `subfigure` en el de Muñoz: ninguna de las dos memorias usa comandos de subfiguras.
+- **Los `.sty` de terceros, `fonts/` y `logos/` siguen duplicados a propósito.** Son 0,97 MB que sí se podrían unificar, pero `kpathsea` no busca en `shared/`: hacer que los encuentre exige fijar `TEXINPUTS`, y eso rompe el criterio de aceptación de compilar desde la propia carpeta con `xelatex` a secas. Las fuentes `TamilMN*.otf` no son peso muerto: `core/julialogo.sty` las declara con `Path=fonts/`.
+
+Verificado tras unificar, cada documento desde su propia carpeta y con el ciclo completo
+de bibliografía: memoria de Muñoz **113 páginas**, memoria de Hurtado **57**, presentación
+**48**; las tres con 0 errores, 0 figuras faltantes y 0 citas ni referencias indefinidas.
+Mismos conteos que antes de tocar los preámbulos.
 
 ### Etapa 4 — Rutas y compilación reproducible
 
@@ -132,7 +160,7 @@ Los cuatro focos, en orden de tamaño:
 
 | | Antes | Después |
 |---|---|---|
-| Peso del árbol | 92,9 MB | **38,0 MB** |
+| Peso del árbol | 92,9 MB | **40,5 MB** |
 | Archivos en la raíz | 97 | 3 |
 | Imágenes sin uso en la raíz | 59 (17,0 MB) | 0 |
 | Duplicados redundantes | 99 (15,5 MB) | 42 (los `Figures/` de submissions, deliberados) |
@@ -147,9 +175,9 @@ Desglose del ahorro, sobre los 92,9 MB de `master`:
 | PDF de la presentación fuera del índice | −22,4 | hecho (etapa 1) |
 | 59 imágenes sin uso de la raíz | −17,0 | **hecho**: eliminadas por instrucción de los autores; el inventario queda como registro |
 | las 8 capturas pesadas de la presentación reescritas como LaTeX | −9,9 | **hecho**: tcolorbox y tikz nativos, con el contenido compartido de la memoria en `shared/datos-modelo.tex` |
-| duplicados, excluidos los `Figures/` de submissions | −5,3 | pendiente (etapa 2) |
+| duplicados, excluidos los `Figures/` de los envíos | −2,8 | **hecho** (etapa 2); el −5,3 previo sobrestimaba lo deduplicable |
 | 10 artefactos de compilación | −0,4 | hecho (etapa 0) |
-| **total** | **−54,9 → 38,0 MB** | queda pendiente sólo la deduplicación de la etapa 2 |
+| **total** | **−52,4 → 40,5 MB** | ejecutado; lo que reste depende de las etapas 3 a 5 |
 
 Los 10,2 MB de los tres `Figures/` triplicados **se conservan** deliberadamente, porque cada envío histórico debe quedar autocontenido.
 
