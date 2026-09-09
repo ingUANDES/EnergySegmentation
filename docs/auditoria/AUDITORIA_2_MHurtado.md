@@ -148,13 +148,15 @@ Como referencia externa útil: la propia memoria cita que la literatura recogida
 | Métrica | `29cb916` | `72e13ce` |
 |---|---|---|
 | Peso del árbol | 87 MB | **89,2 MB** |
-| Imágenes en la raíz | 56 | **94** (45,2 MB) |
-| — de ellas, referenciadas por alguna fuente | — | 37 (28,3 MB) |
-| — de ellas, **huérfanas** | — | **57 (16,8 MB)** |
+| Imágenes en la raíz | 56 | **96** (45,3 MB) |
+| — de ellas, referenciadas por alguna fuente | — | 38 (28,4 MB) |
+| — de ellas, **huérfanas** | — | **58 (16,9 MB)** |
 | Archivos duplicados exactos | 99 | 99 (15,5 MB) |
 | `.gitignore` | no existe | no existe |
 
-Las 37 imágenes de la raíz que sí se usan pertenecen todas a **la memoria y la presentación de Hurtado** (29 la presentación, 6 `chapter02.tex`, 5 `chapter04.tex`, con solapamiento). Ninguna otra fuente del repositorio referencia la raíz. Es decir: la raíz funciona hoy como carpeta de figuras de un solo alumno, y arrastra además 57 archivos que nadie usa.
+**Corrección respecto de la primera versión de este informe**: los conteos eran 94/37/57. `git ls-tree --name-only` entrega entrecomillados los nombres con acento (`3añosproduccion.png` y `costo precisión gabaix.png`), de modo que el filtro por extensión los omitía. Los valores correctos son 96 imágenes, 38 referenciadas y 58 huérfanas.
+
+Las 38 imágenes de la raíz que sí se usan pertenecen todas a **la memoria y la presentación de Hurtado** (30 referencias en la presentación, 6 en `chapter02.tex`, 5 en `chapter04.tex` y 1 en `attachments/anexo_a.tex`, con tres archivos compartidos). Ninguna otra fuente del repositorio referencia la raíz. Es decir: la raíz funciona hoy como carpeta de figuras de un solo alumno, y arrastra además 57 archivos que nadie usa.
 
 Hay señales claras de iteración de capturas dejadas en el árbol: `cccc.png` y `CCCC.png`; `embudo.png`, `A.embudo.png`, `bmbudo.png` y `mbudoo.png`; `melect.png`, `melect1.png`, `melect2.png` y `melect3.png`; `MODELOILUS1.png` y `MODELOILUS2.png`; `calibracion.png` y `calibracion2.png`. De cada grupo, en general sólo una está referenciada.
 

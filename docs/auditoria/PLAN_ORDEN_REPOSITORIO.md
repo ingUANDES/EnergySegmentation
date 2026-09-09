@@ -20,7 +20,7 @@ De ahí las tres consecuencias medibles:
 
 | Directorio | Archivos | MB | Qué es |
 |---|---|---|---|
-| `(raíz)` | 97 | 45,3 | 94 imágenes + README + 2 fuentes. 37 imágenes las usan la memoria y la presentación de Hurtado; **57 (16,8 MB) no las usa nadie** |
+| `(raíz)` | 98 | 45,3 | 96 imágenes + README + `.gitignore`. 38 las usan la memoria y la presentación de Hurtado; **58 (16,9 MB) no las usa nadie** |
 | `docs/Presentations/IFORS` | 79 | 10,1 | presentación Quarto 2023 (`home.qmd` + `home.html` + libs) |
 | `Submissions/AppliedEnergy_V2` | 26 | 5,8 | envío a Applied Energy |
 | `Submissions/Energy_8000` | 34 | 5,5 | **artículo publicado en *Energy*** (línea base) |
@@ -87,10 +87,10 @@ Cada etapa es un PR independiente y verificable. **No avanzar a la siguiente sin
 
 ### Etapa 1 — Vaciar la raíz *(el 51% del repositorio)*
 
-Usar [`inventario_raiz.csv`](inventario_raiz.csv), que clasifica las 94 imágenes en usadas y huérfanas con su archivo referenciante:
+Usar [`inventario_raiz.csv`](inventario_raiz.csv), que clasifica las 96 imágenes en usadas y huérfanas:
 
-1. **37 imágenes usadas (28,3 MB)** → mover a la carpeta del documento que las usa: 29 a `presentaciones/hurtado-defensa-2026/figures/`, y las de `chapter02.tex` y `chapter04.tex` a `memorias/hurtado-2025/figures/`. Actualizar los `\includegraphics` correspondientes (son rutas planas, el reemplazo es directo).
-2. **57 imágenes huérfanas (16,8 MB)** → **no borrar a ciegas**. Preguntar a los autores: hay grupos que son claramente iteraciones de una misma captura (`cccc.png`/`CCCC.png`; `embudo.png`/`A.embudo.png`/`bmbudo.png`/`mbudoo.png`; `melect.png`/`melect1..3.png`; `MODELOILUS1.png`/`MODELOILUS2.png`; `calibracion.png`/`calibracion2.png`), donde en general sólo una está referenciada. Lo demás son figuras de trabajo de exploraciones anteriores (`gabaixsubastador.png`, `funcsubastadorJ(m).png`, `thetasypia.png`, …). Propuesta: mover todo a `archivo/figuras-sueltas/` en un PR, y borrar en un segundo PR una vez que los autores confirmen.
+1. **38 imágenes usadas (28,4 MB)** → mover a la carpeta del documento que las usa: 29 a `presentaciones/hurtado-defensa-2026/figures/`, y las de `chapter02.tex` y `chapter04.tex` a `memorias/hurtado-2025/figures/`. Actualizar los `\includegraphics` correspondientes (son rutas planas, el reemplazo es directo).
+2. **58 imágenes huérfanas (16,9 MB)** → **no borrar a ciegas**. Preguntar a los autores: hay grupos que son claramente iteraciones de una misma captura (`cccc.png`/`CCCC.png`; `embudo.png`/`A.embudo.png`/`bmbudo.png`/`mbudoo.png`; `melect.png`/`melect1..3.png`; `MODELOILUS1.png`/`MODELOILUS2.png`; `calibracion.png`/`calibracion2.png`), donde en general sólo una está referenciada. Lo demás son figuras de trabajo de exploraciones anteriores (`gabaixsubastador.png`, `funcsubastadorJ(m).png`, `thetasypia.png`, …). Propuesta: mover todo a `archivo/figuras-sueltas/` en un PR, y borrar en un segundo PR una vez que los autores confirmen.
 3. **Sustituir las capturas por LaTeX donde sea barato.** Las ocho más pesadas de la presentación de Hurtado (`simbologia.png` 2,03 MB, `objetivo.png`, `limitciones.png`, `parametros2.png`, `codificacion.png`, `calibracion2.png`, `MODELOILUS1.png`, `cccc.png`) son tablas y ecuaciones **que ya existen como LaTeX en la memoria**. Reescribirlas nativas en beamer ahorra ~12 MB, hace la presentación editable y elimina la dependencia de la raíz. Es la única tarea de esta etapa que requiere trabajo real de edición.
 
 ### Etapa 2 — Deduplicar *(15,5 MB, 99 archivos)*
@@ -134,7 +134,7 @@ Los cuatro focos, en orden de tamaño:
 |---|---|---|
 | Peso del árbol | 89,2 MB | **56,0 MB** |
 | Archivos en la raíz | 97 | 3 |
-| Imágenes huérfanas | 57 (16,8 MB) | 0 |
+| Imágenes huérfanas | 58 (16,9 MB) | 0 |
 | Duplicados redundantes | 99 (15,5 MB) | 42 (los `Figures/` de submissions, deliberados) |
 | Artefactos versionados | 11 + 18 de xaringan | 0 |
 | Copias del preámbulo de memoria | 3 divergentes | 1 |
@@ -144,7 +144,7 @@ Desglose del ahorro, sobre los 89,2 MB actuales:
 
 | Concepto | MB |
 |---|---|
-| 57 imágenes huérfanas de la raíz | −16,8 |
+| 58 imágenes huérfanas de la raíz | −16,9 |
 | las 8 capturas pesadas de la presentación reescritas como LaTeX | −9,9 |
 | duplicados, excluidos los `Figures/` de submissions | −5,3 |
 | `libs/` y `home_files/` de xaringan | −0,7 |
@@ -156,7 +156,7 @@ Los 10,2 MB de los tres `Figures/` triplicados **se conservan** deliberadamente,
 ## 6. Riesgos y qué no hacer
 
 - **No reescribir el historial.** Un `git filter-repo` para purgar las imágenes del historial bajaría el `.git`, pero rompe todos los clones existentes y las referencias a commits de las memorias ya defendidas. El repositorio es público y pequeño; no vale la pena.
-- **No borrar las 57 huérfanas sin confirmación.** Algunas pueden ser figuras de resultados cuyo código generador ya no existe.
+- **No borrar las 58 huérfanas sin confirmación.** Algunas pueden ser figuras de resultados cuyo código generador ya no existe.
 - **No tocar `submissions/energy-2021-published/`.** Es la línea base del changelog y corresponde a un artículo publicado.
 - **Mover con `git mv`**, no copiar y borrar, para preservar el seguimiento de historial de cada archivo.
 - **Un PR por etapa.** Un PR que mueva 200 archivos y edite rutas al mismo tiempo es imposible de revisar y de revertir.
