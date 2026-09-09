@@ -36,8 +36,21 @@
 \newcommand{\valCAPdExacto}{311,0134}  % MtCO2e
 \newcommand{\valSigmaCAP}{61,86}       % MtCO2e
 \newcommand{\valKappa}{64,40}          % USD/tCO2e
-\newcommand{\valMCalibrado}{0,1}       % nivel de atención seleccionado
-\newcommand{\valSigmaEpsCalibrado}{185,58} % MtCO2e, coherente con \valSigmaCAP y m=0,1
+% Calibración: hay que distinguir dos valores de m que la memoria usa para
+% cosas distintas (chapter04.tex, Cuadro tab:top10_distancia_mix y el texto
+% que le sigue).
+%   - El argmin de la distancia absoluta es m=0, que exige sigma_eps -> infinito
+%     y por eso no sirve como parámetro operativo.
+%   - Para los análisis posteriores se selecciona m=0,1, el menor m con un
+%     sigma_eps finito, cuya distancia (0,2758) queda muy cerca del mínimo.
+% Nota: el texto de la memoria dice sigma_eps = 186,90 y el cuadro dice 185,58
+% para el mismo m=0,1. Pendiente de unificar por los autores; ver
+% docs/auditoria/AUDITORIA_2_MHurtado.md.
+\newcommand{\valMArgmin}{0}                  % menor distancia absoluta
+\newcommand{\valDistanciaArgmin}{0,2727}
+\newcommand{\valMSeleccionado}{0,1}          % usado en los análisis posteriores
+\newcommand{\valDistanciaSeleccionado}{0,2758}
+\newcommand{\valSigmaEpsSeleccionado}{185,58} % MtCO2e, segun tab:top10_distancia_mix
 \newcommand{\valHorizonte}{2020--2030}
 \newcommand{\unidadMt}{MtCO$_2$e}
 \newcommand{\unidadUSDt}{USD/tCO$_2$e}
