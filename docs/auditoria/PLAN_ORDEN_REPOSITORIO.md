@@ -103,7 +103,7 @@ Los cuatro focos, en orden de tamaño:
 | `Apuntes/` y `docs/Apuntes/` idénticos archivo por archivo | 13 | **Eliminar uno.** Conservar `apuntes/` en la raíz de la nueva estructura. |
 | `docs/DocumentoMemoria/images/` replica `core/images/` | 4 | Sólo se referencia `core/images/`. **Eliminar `images/`.** |
 | `core/` de `DocumentoMemoria`, `Memoria` y `MemoriaMHurtado` | 4 + logos | **Unificar en `shared/`.** Es la etapa 3. |
-| `docs/Presentations/UVigo/libs/` y `home_files/` | 18 archivos, 0,7 MB | Artefactos de render de xaringan. Añadir al `.gitignore` y sacar del índice; se regeneran al compilar. |
+| `docs/Presentations/UVigo/libs/` y `home_files/`, `IFORS/home_files/` | 88 archivos, 6,2 MB | **Corregido tras verificar: NO deben sacarse del índice.** `UVigo/home.html` e `IFORS/home.html` están versionados y no funcionan sin ellos — son el registro de charlas ya expuestas, no artefactos regenerables sin el entorno de R/Quarto original. Si se quiere un formato de archivo más liviano, exportar cada charla a PDF y retirar HTML y `libs/` juntos. |
 
 ### Etapa 3 — Preámbulo compartido y limpieza de plantillas
 
@@ -132,7 +132,7 @@ Los cuatro focos, en orden de tamaño:
 
 | | Antes | Después |
 |---|---|---|
-| Peso del árbol | 89,2 MB | **56,0 MB** |
+| Peso del árbol | 92,9 MB | **38,0 MB** |
 | Archivos en la raíz | 97 | 3 |
 | Imágenes huérfanas | 58 (16,9 MB) | 0 |
 | Duplicados redundantes | 99 (15,5 MB) | 42 (los `Figures/` de submissions, deliberados) |
@@ -140,18 +140,18 @@ Los cuatro focos, en orden de tamaño:
 | Copias del preámbulo de memoria | 3 divergentes | 1 |
 | Documentos que compilan desde su carpeta | 0 de 4 | 4 de 4 |
 
-Desglose del ahorro, sobre los 89,2 MB actuales:
+Desglose del ahorro, sobre los 92,9 MB de `master`:
 
-| Concepto | MB |
-|---|---|
-| 58 imágenes huérfanas de la raíz | −16,9 |
-| las 8 capturas pesadas de la presentación reescritas como LaTeX | −9,9 |
-| duplicados, excluidos los `Figures/` de submissions | −5,3 |
-| `libs/` y `home_files/` de xaringan | −0,7 |
-| 11 artefactos de compilación | −0,4 |
-| **total** | **−33,2 → 56,0 MB** |
+| Concepto | MB | Estado |
+|---|---|---|
+| PDF de la presentación fuera del índice | −22,4 | hecho (etapa 1) |
+| 58 imágenes huérfanas de la raíz | −16,9 | archivadas en `archivo/`; **la baja de peso requiere que los autores confirmen el borrado** |
+| las 8 capturas pesadas de la presentación reescritas como LaTeX | −9,9 | pendiente (etapa 1, punto 3) |
+| duplicados, excluidos los `Figures/` de submissions | −5,3 | pendiente (etapa 2) |
+| 10 artefactos de compilación | −0,4 | hecho (etapa 0) |
+| **total** | **−54,9 → 38,0 MB** | |
 
-Los 10,2 MB de los tres `Figures/` triplicados **se conservan** deliberadamente, porque cada envío histórico debe quedar autocontenido. Mover además `June2020.pdf` a `archivo/` baja a 54,2 MB.
+Los 10,2 MB de los tres `Figures/` triplicados **se conservan** deliberadamente, porque cada envío histórico debe quedar autocontenido. La etapa 1 por sí sola es **neutra en peso del árbol de trabajo**: mueve y archiva, no borra. El árbol queda en 93,0 MB hasta que los autores decidan sobre las 58 huérfanas.
 
 ## 6. Riesgos y qué no hacer
 
