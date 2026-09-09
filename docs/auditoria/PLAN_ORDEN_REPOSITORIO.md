@@ -20,7 +20,7 @@ De ahí las tres consecuencias medibles:
 
 | Directorio | Archivos | MB | Qué es |
 |---|---|---|---|
-| `(raíz)` | 98 | 45,3 | 96 imágenes + README + `.gitignore`. 38 las usan la memoria y la presentación de Hurtado; **58 (16,9 MB) no las usa nadie** |
+| `(raíz)` | 98 | 45,3 | 96 imágenes + README + `.gitignore`. 37 las componen la memoria y la presentación de Hurtado; **59 (17,0 MB) no se componen en ningún documento** |
 | `docs/Presentations/IFORS` | 79 | 10,1 | presentación Quarto 2023 (`home.qmd` + `home.html` + libs) |
 | `Submissions/AppliedEnergy_V2` | 26 | 5,8 | envío a Applied Energy |
 | `Submissions/Energy_8000` | 34 | 5,5 | **artículo publicado en *Energy*** (línea base) |
@@ -32,7 +32,7 @@ De ahí las tres consecuencias medibles:
 | `Submissions/EnergyPolicy` | 21 | 1,7 | artículo en desarrollo |
 | `docs/Presentations/UVigo` | 28 | 1,1 | presentación xaringan 2022 (incluye 18 archivos de `libs/` y `home_files/`) |
 | `Apuntes` + `docs/Apuntes` | 26 | 1,6 | **el mismo árbol, duplicado íntegro** |
-| `code` | 12 | 1,2 | GAMS, Julia, notebooks |
+| `code` | 13 | 1,2 | GAMS, Julia, notebooks |
 | `docs/Presentations/presentation-template` | 8 | 0,3 | presentación de Hurtado (la plantilla fue borrada) |
 | `docs/Memoria` | 5 | 0,04 | **plantilla muerta**: 4 archivos de `core/` y un anexo, sin documento maestro |
 | `docs/Presentations/PhDEIIPUCV` | 2 | 0,01 | presentación PUCV |
@@ -80,8 +80,8 @@ Cada etapa es un PR independiente y verificable. **No avanzar a la siguiente sin
 
 ### Etapa 0 — Congelar la línea base y detener el sangrado *(sin riesgo)*
 
-1. Añadir `.gitignore` (ya propuesto en el PR de auditoría de la memoria de Muñoz) y sacar del índice los **11 artefactos versionados** con `git rm --cached`:
-   `docs/DocumentoMemoria/memoria.{log,aux,bbl,blg,toc,lof,lot}`, `memoria.tex.bak`, `core/preambulo.tex.bak`, `core/primeras_paginas.tex.bak`, `docs/Presentations/UVigo/tikz1779c212df233.log`, `code/cnt_2050_total_cap900_scenarios.gdx`.
+1. Añadir `.gitignore` (ya propuesto en el PR de auditoría de la memoria de Muñoz) y sacar del índice los **10 artefactos de compilación versionados** con `git rm --cached`:
+   `docs/DocumentoMemoria/memoria.{bbl,blg,log,lof,lot,toc}`, `memoria.tex.bak`, `core/preambulo.tex.bak`, `core/primeras_paginas.tex.bak` y `docs/Presentations/UVigo/tikz1779c212df233.log`. (`memoria.aux` no está versionado; `code/cnt_2050_total_cap900_scenarios.gdx` sí, y se conserva a propósito: es la salida del solver para CAP=900 y no se reproduce sin licencia de GAMS.)
 2. Escribir el `README.md` con el mapa de carpetas y, para cada documento, **desde dónde se compila y con qué motor** (`xelatex -shell-escape` para la memoria de Hurtado, `lualatex` para su presentación, `pdflatex` para el artículo, `xelatex` para la memoria de Muñoz). Es la información que hoy no existe en ninguna parte y la causa de que cada uno haya inventado su convención.
 3. Marcar `submissions/energy-2021-published/` como congelada en el README: es la línea base del [changelog](CHANGELOG_modelo.md) y no debe editarse.
 
@@ -89,9 +89,9 @@ Cada etapa es un PR independiente y verificable. **No avanzar a la siguiente sin
 
 Usar [`inventario_raiz.csv`](inventario_raiz.csv), que clasifica las 96 imágenes en usadas y huérfanas:
 
-1. **38 imágenes usadas (28,4 MB)** → mover a la carpeta del documento que las usa: 29 a `presentaciones/hurtado-defensa-2026/figures/`, y las de `chapter02.tex` y `chapter04.tex` a `memorias/hurtado-2025/figures/`. Actualizar los `\includegraphics` correspondientes (son rutas planas, el reemplazo es directo).
-2. **58 imágenes huérfanas (16,9 MB)** → **no borrar a ciegas**. Preguntar a los autores: hay grupos que son claramente iteraciones de una misma captura (`cccc.png`/`CCCC.png`; `embudo.png`/`A.embudo.png`/`bmbudo.png`/`mbudoo.png`; `melect.png`/`melect1..3.png`; `MODELOILUS1.png`/`MODELOILUS2.png`; `calibracion.png`/`calibracion2.png`), donde en general sólo una está referenciada. Lo demás son figuras de trabajo de exploraciones anteriores (`gabaixsubastador.png`, `funcsubastadorJ(m).png`, `thetasypia.png`, …). Propuesta: mover todo a `archivo/figuras-sueltas/` en un PR, y borrar en un segundo PR una vez que los autores confirmen.
-3. **Sustituir las capturas por LaTeX donde sea barato.** Las ocho más pesadas de la presentación de Hurtado (`simbologia.png` 2,03 MB, `objetivo.png`, `limitciones.png`, `parametros2.png`, `codificacion.png`, `calibracion2.png`, `MODELOILUS1.png`, `cccc.png`) son tablas y ecuaciones **que ya existen como LaTeX en la memoria**. Reescribirlas nativas en beamer ahorra ~12 MB, hace la presentación editable y elimina la dependencia de la raíz. Es la única tarea de esta etapa que requiere trabajo real de edición.
+1. **37 imágenes usadas (28,3 MB)** → mover a la carpeta del documento que las usa: 29 a `presentaciones/hurtado-defensa-2026/figures/`, y las de `chapter02.tex` y `chapter04.tex` a `memorias/hurtado-2025/figures/`. Actualizar los `\includegraphics` correspondientes (son rutas planas, el reemplazo es directo).
+2. **59 imágenes sin uso (17,0 MB)** → **no borrar a ciegas**. Preguntar a los autores: hay grupos que son claramente iteraciones de una misma captura (`cccc.png`/`CCCC.png`; `embudo.png`/`A.embudo.png`/`bmbudo.png`/`mbudoo.png`; `melect.png`/`melect1..3.png`; `MODELOILUS1.png`/`MODELOILUS2.png`; `calibracion.png`/`calibracion2.png`), donde en general sólo una está referenciada. Lo demás son figuras de trabajo de exploraciones anteriores (`gabaixsubastador.png`, `funcsubastadorJ(m).png`, `thetasypia.png`, …). Propuesta: mover todo a `archivo/figuras-sueltas/` en un PR, y borrar en un segundo PR una vez que los autores confirmen.
+3. **Sustituir las capturas por LaTeX donde sea barato.** Las ocho más pesadas de la presentación de Hurtado (`simbologia.png` 1,93 MB, `objetivo.png`, `limitciones.png`, `parametros2.png`, `codificacion.png`, `calibracion2.png`, `MODELOILUS1.png`, `cccc.png`) son tablas y ecuaciones **que ya existen como LaTeX en la memoria**. Reescribirlas nativas en beamer ahorra ~12 MB, hace la presentación editable y elimina la dependencia de la raíz. Es la única tarea de esta etapa que requiere trabajo real de edición.
 
 ### Etapa 2 — Deduplicar *(15,5 MB, 99 archivos)*
 
@@ -134,9 +134,9 @@ Los cuatro focos, en orden de tamaño:
 |---|---|---|
 | Peso del árbol | 92,9 MB | **38,0 MB** |
 | Archivos en la raíz | 97 | 3 |
-| Imágenes huérfanas | 58 (16,9 MB) | 0 |
+| Imágenes sin uso en la raíz | 59 (17,0 MB) | 0 |
 | Duplicados redundantes | 99 (15,5 MB) | 42 (los `Figures/` de submissions, deliberados) |
-| Artefactos versionados | 11 + 18 de xaringan | 0 |
+| Artefactos de compilación versionados | 10 | 0 |
 | Copias del preámbulo de memoria | 3 divergentes | 1 |
 | Documentos que compilan desde su carpeta | 0 de 4 | 4 de 4 |
 
@@ -145,18 +145,18 @@ Desglose del ahorro, sobre los 92,9 MB de `master`:
 | Concepto | MB | Estado |
 |---|---|---|
 | PDF de la presentación fuera del índice | −22,4 | hecho (etapa 1) |
-| 58 imágenes huérfanas de la raíz | −16,9 | archivadas en `archivo/`; **la baja de peso requiere que los autores confirmen el borrado** |
+| 59 imágenes sin uso de la raíz | −17,0 | archivadas en `archivo/`; **la baja de peso requiere que los autores confirmen el borrado** |
 | las 8 capturas pesadas de la presentación reescritas como LaTeX | −9,9 | pendiente (etapa 1, punto 3) |
 | duplicados, excluidos los `Figures/` de submissions | −5,3 | pendiente (etapa 2) |
 | 10 artefactos de compilación | −0,4 | hecho (etapa 0) |
 | **total** | **−54,9 → 38,0 MB** | |
 
-Los 10,2 MB de los tres `Figures/` triplicados **se conservan** deliberadamente, porque cada envío histórico debe quedar autocontenido. La etapa 1 por sí sola es **neutra en peso del árbol de trabajo**: mueve y archiva, no borra. El árbol queda en 93,0 MB hasta que los autores decidan sobre las 58 huérfanas.
+Los 10,2 MB de los tres `Figures/` triplicados **se conservan** deliberadamente, porque cada envío histórico debe quedar autocontenido. La etapa 1 por sí sola es **neutra en peso del árbol de trabajo**: mueve y archiva, no borra. El árbol queda en 93,0 MB hasta que los autores decidan sobre las 59 archivadas.
 
 ## 6. Riesgos y qué no hacer
 
 - **No reescribir el historial.** Un `git filter-repo` para purgar las imágenes del historial bajaría el `.git`, pero rompe todos los clones existentes y las referencias a commits de las memorias ya defendidas. El repositorio es público y pequeño; no vale la pena.
-- **No borrar las 58 huérfanas sin confirmación.** Algunas pueden ser figuras de resultados cuyo código generador ya no existe.
+- **No borrar las 59 archivadas sin confirmación.** Algunas pueden ser figuras de resultados cuyo código generador ya no existe.
 - **No tocar `submissions/energy-2021-published/`.** Es la línea base del changelog y corresponde a un artículo publicado.
 - **Mover con `git mv`**, no copiar y borrar, para preservar el seguimiento de historial de cada archivo.
 - **Un PR por etapa.** Un PR que mueva 200 archivos y edite rutas al mismo tiempo es imposible de revisar y de revertir.

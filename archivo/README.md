@@ -1,8 +1,9 @@
 # Figuras sueltas archivadas
 
-Estas imágenes estaban en la raíz del repositorio y **ninguna fuente del proyecto las
-referencia** (comprobado sobre todos los `.tex`, `.Rtex`, `.Rmd`, `.qmd`, `.sty` y `.cls`
-versionados). Son 58 archivos, 16.9 MB.
+Estas imágenes estaban en la raíz del repositorio y **ningún documento del proyecto las
+compone**: 58 no aparecen en ninguna fuente y una aparece sólo dentro de un bloque
+comentado (ver más abajo). Comprobado sobre todos los `.tex`, `.Rtex`, `.Rmd`, `.qmd`,
+`.sty` y `.cls` versionados. Son 59 archivos, 17,0 MB.
 
 Se archivan en vez de borrarse: algunas pueden ser figuras de resultados cuyo código
 generador ya no existe. **Pendiente de que los autores confirmen qué se conserva y qué
@@ -21,6 +22,14 @@ y aquí queda la anterior. Son los candidatos más claros a eliminar:
 | `melect1.png` | `melect3.png` | 0.17 |
 | `melect2.png` | `melect3.png` | 0.18 |
 | `MODELOILUS2.png` | `MODELOILUS1.png` | 1.47 |
+
+## Caso aparte: referenciada, pero en código comentado
+
+`costo precisión gabaix.png` sí aparece en un `\includegraphics` de
+`docs/MemoriaMHurtado/attachments/anexo_a.tex`, pero dentro de un bloque `figure`
+íntegramente comentado (líneas 455-459), así que no se compone en el PDF. Se archiva aquí
+y la línea comentada lleva una nota: si se reactiva el bloque, hay que mover el archivo a
+`docs/MemoriaMHurtado/figures/`.
 
 ## Series completas sin uso
 

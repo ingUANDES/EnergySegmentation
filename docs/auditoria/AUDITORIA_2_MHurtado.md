@@ -50,7 +50,7 @@ Paquetes adicionales que exige este preámbulo y no trae una instalación mínim
 
 ### 2.1 Errores en el propio código fuente
 
-- **`attachments/anexo_a.tex:170`** — hay una **línea en blanco dentro de `\begin{cases}`**, lo que termina el párrafo en modo matemático y produce cuatro errores en cascada (`Missing $ inserted`, `Extra }`, `Missing } inserted`). Se corrige borrando la línea en blanco.
+- **`attachments/anexo_a.tex:171`** — hay una **línea en blanco dentro de `\begin{cases}`**, lo que termina el párrafo en modo matemático y produce cuatro errores en cascada (`Missing $ inserted`, `Extra }`, `Missing } inserted`). Se corrige borrando la línea en blanco.
 
 ### 2.2 Resultado tras las correcciones
 
@@ -137,7 +137,7 @@ Como referencia externa útil: la propia memoria cita que la literatura recogida
 ## 5. La presentación `JMHL_presentation.tex`
 
 - **29 de sus figuras son PNG de la raíz del repositorio**, y la mayoría son **capturas de pantalla del contenido de la memoria**: `simbologia.png` (2,03 MB), `objetivo.png`, `limitciones.png`, `parametros2.png`, `codificacion.png`, `calibracion2.png`, `MODELOILUS1.png`, `cccc.png`. Son tablas, ecuaciones y diagramas que ya existen como LaTeX en la memoria, versionados como imágenes de 1 a 2 MB cada una. Esto es el origen directo del crecimiento de la raíz.
-- Las rutas son relativas a la raíz del repositorio. Verificado: compilada **desde la raíz** produce **47 páginas, 0 errores, 0 figuras faltantes**; compilada desde su propia carpeta produce las mismas 47 páginas pero con **las 29 figuras como cajas vacías** (`using draft setting`) y 25 errores de `luatex.def`. Es decir, la presentación es consistente con la convención de Overleaf-desde-la-raíz — a diferencia de la memoria de Hurtado, que no compila desde ninguna ubicación. El costo de esa consistencia es que obliga a la raíz a funcionar como carpeta de figuras.
+- Las rutas son relativas a la raíz del repositorio. Verificado: compilada **desde la raíz** produce **47 páginas, 0 errores, 0 figuras faltantes**; compilada desde su propia carpeta produce las mismas 47 páginas con **25 errores de `luatex.def`** y las figuras sustituidas por cajas vacías (`using draft setting`). Las 29 son las figuras de la raíz que la presentación referencia en su fuente, no un conteo de cajas vacías tomado del log. Es decir, la presentación es consistente con la convención de Overleaf-desde-la-raíz — a diferencia de la memoria de Hurtado, que no compila desde ninguna ubicación. El costo de esa consistencia es que obliga a la raíz a funcionar como carpeta de figuras.
 - Sus dependencias propias (`fontspec` con las DM Sans en `font/`, `academicons`, `fontawesome5`, `tcolorbox`, `appendixnumberbeamer`, `lualatex-math`) están correctamente incluidas en la carpeta o son instalables; exige LuaLaTeX o XeLaTeX, no pdfLaTeX.
 - Su `references.bib` (26 entradas) trae **fuentes institucionales chilenas actuales** que no están en ninguna otra bibliografía del repositorio: Plan de Mitigación 2024, anteproyecto del Ministerio del Medio Ambiente 2025, Reporte del Coordinador Eléctrico Nacional 2024, Leyes 20.780 y 21.455, ICAP. Es material directamente reutilizable para la sección institucional del artículo.
 
@@ -149,14 +149,14 @@ Como referencia externa útil: la propia memoria cita que la literatura recogida
 |---|---|---|
 | Peso del árbol | 87 MB | **89,2 MB** |
 | Imágenes en la raíz | 56 | **96** (45,3 MB) |
-| — de ellas, referenciadas por alguna fuente | — | 38 (28,4 MB) |
-| — de ellas, **huérfanas** | — | **58 (16,9 MB)** |
+| — de ellas, compuestas por algún documento | — | 37 (28,3 MB) |
+| — de ellas, **sin uso** | — | **59 (17,0 MB)**, incluida una referenciada sólo en un bloque comentado |
 | Archivos duplicados exactos | 99 | 99 (15,5 MB) |
 | `.gitignore` | no existe | no existe |
 
-**Corrección respecto de la primera versión de este informe**: los conteos eran 94/37/57. `git ls-tree --name-only` entrega entrecomillados los nombres con acento (`3añosproduccion.png` y `costo precisión gabaix.png`), de modo que el filtro por extensión los omitía. Los valores correctos son 96 imágenes, 38 referenciadas y 58 huérfanas.
+**Corrección respecto de la primera versión de este informe**: los conteos eran 94/37/57 y los correctos son **96 / 37 / 59**. Dos errores se compensaban en parte. Primero, `git ls-tree --name-only` entrega entrecomillados los nombres con acento, de modo que el filtro por extensión omitía `3añosproduccion.png` y `costo precisión gabaix.png`: la raíz tiene 96 imágenes, no 94. Segundo, `costo precisión gabaix.png` aparece en un `\includegraphics` de `attachments/anexo_a.tex` pero **dentro de un bloque `figure` íntegramente comentado**, así que no se compone en el PDF y cuenta como sin uso, no como referenciada.
 
-Las 38 imágenes de la raíz que sí se usan pertenecen todas a **la memoria y la presentación de Hurtado** (30 referencias en la presentación, 6 en `chapter02.tex`, 5 en `chapter04.tex` y 1 en `attachments/anexo_a.tex`, con tres archivos compartidos). Ninguna otra fuente del repositorio referencia la raíz. Es decir: la raíz funciona hoy como carpeta de figuras de un solo alumno, y arrastra además 57 archivos que nadie usa.
+Las 37 imágenes de la raíz que sí se componen pertenecen todas a **la memoria y la presentación de Hurtado** (30 referencias en la presentación, 6 en `chapter02.tex` y 5 en `chapter04.tex`, con tres archivos compartidos por los dos documentos). Ninguna otra fuente del repositorio referencia la raíz. Es decir: la raíz funciona hoy como carpeta de figuras de un solo alumno, y arrastra además 57 archivos que nadie usa.
 
 Hay señales claras de iteración de capturas dejadas en el árbol: `cccc.png` y `CCCC.png`; `embudo.png`, `A.embudo.png`, `bmbudo.png` y `mbudoo.png`; `melect.png`, `melect1.png`, `melect2.png` y `melect3.png`; `MODELOILUS1.png` y `MODELOILUS2.png`; `calibracion.png` y `calibracion2.png`. De cada grupo, en general sólo una está referenciada.
 
@@ -166,7 +166,7 @@ El plan concreto de reordenamiento está en [`PLAN_ORDEN_REPOSITORIO.md`](PLAN_O
 
 ## 7. Orden de trabajo sugerido para la memoria de Hurtado
 
-1. Corregir la línea en blanco dentro de `\begin{cases}` en `attachments/anexo_a.tex:170`.
+1. Corregir la línea en blanco dentro de `\begin{cases}` en `attachments/anexo_a.tex:171`.
 2. Preámbulo: `shadows.blur` → `shadows`, `Times New Roman` → `TeX Gyre Termes`. **Conservar `minted`** y documentar en `LEEME.txt` que la compilación exige `-shell-escape` y Pygments.
 3. Normalizar a relativas al documento las dos rutas de `memoria.Rtex` (`\bibliography` y `\input` del anexo) y añadir `\graphicspath` mientras las figuras sigan en la raíz.
 4. Renombrar `memoria.Rtex` → `memoria.tex` (no hay código R activo).
