@@ -145,13 +145,13 @@ Desglose del ahorro, sobre los 92,9 MB de `master`:
 | Concepto | MB | Estado |
 |---|---|---|
 | PDF de la presentación fuera del índice | −22,4 | hecho (etapa 1) |
-| 59 imágenes sin uso de la raíz | −17,0 | archivadas en `archivo/`; **la baja de peso requiere que los autores confirmen el borrado** |
-| las 8 capturas pesadas de la presentación reescritas como LaTeX | −9,9 | pendiente (etapa 1, punto 3) |
+| 59 imágenes sin uso de la raíz | −17,0 | **hecho**: eliminadas por instrucción de los autores; el inventario queda como registro |
+| las 8 capturas pesadas de la presentación reescritas como LaTeX | −9,9 | **hecho**: tcolorbox y tikz nativos, con el contenido compartido de la memoria en `shared/datos-modelo.tex` |
 | duplicados, excluidos los `Figures/` de submissions | −5,3 | pendiente (etapa 2) |
 | 10 artefactos de compilación | −0,4 | hecho (etapa 0) |
-| **total** | **−54,9 → 38,0 MB** | |
+| **total** | **−54,9 → 38,0 MB** | queda pendiente sólo la deduplicación de la etapa 2 |
 
-Los 10,2 MB de los tres `Figures/` triplicados **se conservan** deliberadamente, porque cada envío histórico debe quedar autocontenido. La etapa 1 por sí sola es **neutra en peso del árbol de trabajo**: mueve y archiva, no borra. El árbol queda en 93,0 MB hasta que los autores decidan sobre las 59 archivadas.
+Los 10,2 MB de los tres `Figures/` triplicados **se conservan** deliberadamente, porque cada envío histórico debe quedar autocontenido.
 
 ## 6. Riesgos y qué no hacer
 

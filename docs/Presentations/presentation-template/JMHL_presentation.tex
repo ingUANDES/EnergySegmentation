@@ -54,6 +54,54 @@
 %====================================================
 % TEMA
 %====================================================
+% ---------------------------------------------------------------------
+% Nomenclatura, ecuaciones y valores del modelo, compartidos con la
+% memoria. Ver shared/datos-modelo.tex.
+% ---------------------------------------------------------------------
+\newcommand{\refcita}[1]{\citet{#1}}
+\input{../../../shared/datos-modelo}
+
+% ---------------------------------------------------------------------
+% Tarjetas nativas: reemplazan las capturas de pantalla que antes
+% ilustraban estas láminas.
+% ---------------------------------------------------------------------
+\tcbset{
+  tarjeta/.style={
+    enhanced, sharp corners=downhill, rounded corners=northwest,
+    colback=#1!7!white, colframe=#1, boxrule=0.6pt, arc=3mm,
+    left=2mm, right=2mm, top=1.5mm, bottom=1.5mm,
+    fonttitle=\bfseries\small, coltitle=#1
+  },
+  simbolo/.style={
+    enhanced, colback=#1!6!white, colframe=#1!55!white, boxrule=0.5pt,
+    arc=2.5mm, halign=center, valign=center,
+    left=1mm, right=1mm, top=1mm, bottom=1mm
+  }
+}
+% Tarjeta de un símbolo: #1 color, #2 icono, #3 símbolo, #4 descripción, #5 unidad
+\newcommand{\tarjetaSimbolo}[5]{%
+  \begin{tcolorbox}[simbolo=#1, width=\linewidth, height=2.55cm]
+    {\color{#1}\large #2}\\[0.2em]
+    {\color{#1}$\displaystyle #3$}\\[0.1em]
+    {\tiny #4}\\[0.15em]
+    {\tiny\color{#1}\textbf{#5}}
+  \end{tcolorbox}}
+% Estilos del diagrama del planificador. Van en el preámbulo: un #1 dentro
+% del cuerpo de un frame de beamer produce "Illegal parameter number".
+\tikzset{
+  caja/.style={draw=#1, dashed, rounded corners=2pt, fill=#1!5!white,
+               align=center, inner sep=3pt, text=DarkGray},
+  flecha/.style={-latex, thick, draw=#1}
+}
+
+% Fila con icono a la izquierda: #1 color, #2 icono, #3 contenido
+\newcommand{\filaIcono}[3]{%
+  \begin{tcolorbox}[simbolo=#1, halign=left, width=\linewidth]
+    \begin{minipage}[c]{0.085\linewidth}\centering{\color{#1}\Large #2}\end{minipage}%
+    \hspace{0.02\linewidth}%
+    \begin{minipage}[c]{0.855\linewidth}#3\end{minipage}
+  \end{tcolorbox}}
+
 \usetheme{Madrid}
 \usefonttheme[onlymath]{serif}
 
@@ -336,13 +384,11 @@ JUAN MATÍAS HURTADO LAVÍN
 
 \begin{frame}{Limitaciones del modelo \cite{amigo_two_2021}}
 
-\centering
+\vspace{0.4cm}
+\filaIcono{SoftBlue}{\faIcon{file-alt}}{El modelo supone \textbf{información perfecta} sobre el presupuesto de emisiones.}
 
-\includegraphics[
-    width=0.8\linewidth,
-    trim=15 15 15 15,
-    clip
-]{figures/limitciones.png}
+\vspace{0.35cm}
+\filaIcono{ClimateGreen}{\faDollarSign}{Un \textbf{costo social} sin definición ni uso al modelar.}
 
 \end{frame}
 
@@ -350,16 +396,22 @@ JUAN MATÍAS HURTADO LAVÍN
 
 \begin{frame}{Objetivo del trabajo}
 
-%\vspace{-0.4cm}
+\begin{tcolorbox}[tarjeta=DeepBlue, title={\faBullseye\ \ Objetivo general}]
+\centering
+Modelar un planificador racional con \textbf{atención limitada}, junto con una
+\textbf{función penalizadora} por alejarse del $CAP$, en un sistema de
+\emph{cap-and-trade}.
+\end{tcolorbox}
 
-\begin{figure}{}
-    \centering
-    \includegraphics[
-        width=1\linewidth,
-        trim=15 15 15 15,
-        clip
-    ]{figures/objetivo.png}
-\end{figure}
+\vspace{0.3cm}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+  \filaIcono{DeepBlue}{\faBolt}{\textbf{Foco:} sector eléctrico chileno.}
+\end{column}
+\begin{column}{0.48\textwidth}
+  \filaIcono{DeepBlue}{\faIcon{calendar-alt}}{\textbf{Periodo:} \valHorizonte.}
+\end{column}
+\end{columns}
 
 \end{frame}
 
@@ -368,30 +420,63 @@ JUAN MATÍAS HURTADO LAVÍN
 
 \begin{frame}{Simbología del modelo}
 
-%\vspace{-0.4cm}
+\vspace{-0.1cm}
+\begin{columns}[T]
+\begin{column}{0.24\textwidth}\tarjetaSimbolo{ClimateGreen}{\faChartArea}{CAP}{\descCAP\\$\distCAP$}{\unidadMt}\end{column}
+\begin{column}{0.24\textwidth}\tarjetaSimbolo{SoftBlue}{\faBroadcastTower}{CAP_s}{\descCAPs}{\unidadMt}\end{column}
+\begin{column}{0.24\textwidth}\tarjetaSimbolo{DeepBlue}{\faAnchor}{CAP_d}{\descCAPd}{\unidadMt}\end{column}
+\begin{column}{0.24\textwidth}\tarjetaSimbolo{MediumGray}{\faWaveSquare}{\varepsilon}{\descEps\\$\distEps$}{\unidadMt}\end{column}
+\end{columns}
 
-\begin{figure}{}
-    \centering
-    \includegraphics[
-        width=1\linewidth,
-        trim=15 15 15 15,
-        clip
-    ]{figures/simbologia.png}
-\end{figure}
+\vspace{0.25cm}
+\begin{columns}[T]
+\begin{column}{0.06\textwidth}\end{column}
+\begin{column}{0.28\textwidth}\tarjetaSimbolo{ClimateGreen}{\faClipboardCheck}{\theta}{\descTheta}{\unidadMt}\end{column}
+\begin{column}{0.28\textwidth}\tarjetaSimbolo{ClimateRed}{\faTag}{\pi^a}{\descPiA}{\unidadUSDt}\end{column}
+\begin{column}{0.28\textwidth}\tarjetaSimbolo{DeepBlue}{\faUsers}{\kappa}{\descKappa}{\unidadUSDt}\end{column}
+\begin{column}{0.06\textwidth}\end{column}
+\end{columns}
 
 \end{frame}
 
 \begin{frame}{Planificador social con inatención conductual}
 
-%\vspace{-0.4cm}
-\begin{figure}{}
-    \centering
-    \includegraphics[
-        width=0.85\linewidth,
-        trim=15 15 15 15,
-        clip
-    ]{figures/MODELOILUS1.png}
-\end{figure}
+\vspace{-0.15cm}
+\begin{center}
+\begin{tcolorbox}[tarjeta=DeepBlue, width=0.92\linewidth]
+\centering $\displaystyle \ecThetaOptimo$
+\end{tcolorbox}
+\end{center}
+
+\vspace{-0.15cm}
+\begin{center}
+\begin{tikzpicture}[font=\scriptsize]
+  % eje de atención
+  \draw[-latex, very thick, draw=SoftBlue] (-3.6,2.05) -- (3.6,2.05);
+  \fill[SoftBlue] (-3.6,2.05) circle (1.6pt);
+  \node[above=1pt] at (0,2.05) {Nivel de atención $m$};
+  \node[below=2pt, DeepBlue] at (-3.6,2.05) {$0$};
+  \node[below=2pt, ClimateGreen] at (3.6,2.05) {$1$};
+  \node[left=2pt, DeepBlue, align=center] at (-3.75,2.05) {Atención baja\\$CAP_d$};
+  \node[right=2pt, ClimateGreen, align=center] at (3.75,2.05) {Atención alta\\$CAP_s$};
+  % entradas
+  \node[caja=DeepBlue] (ancla) at (-3.1,0.55) {Valor por defecto (ancla)\\[1pt] $CAP_d$};
+  \node[caja=ClimateGreen] (senal) at (3.1,0.55) {Señal observada (ruidosa)\\[1pt] $\ecSenal$};
+  \node[caja=MediumGray] (sesgo) at (3.3,-1.35) {Sesgo económico\\[1pt] $\dfrac{\pi^a}{\kappa}$};
+  % planificador
+  \node[circle, draw=DeepBlue, very thick, fill=white, minimum size=1.5cm,
+        align=center, text=DeepBlue] (plan) at (0,-1.05) {Planificador\\social};
+  % salida
+  \node[draw=DeepBlue, thick, rounded corners=3pt, fill=SkyBlue,
+        align=center, inner sep=4pt] (out) at (0,-2.85)
+        {Permisos emitidos\ \ $\theta^*$};
+  % flechas
+  \draw[flecha=DeepBlue] (ancla.south) to[out=-70,in=170] (plan.west);
+  \draw[flecha=ClimateGreen] (senal.south) to[out=-110,in=10] (plan.east);
+  \draw[flecha=MediumGray, dashed] (sesgo.west) -- (plan.east);
+  \draw[flecha=DeepBlue] (plan.south) -- (out.north);
+\end{tikzpicture}
+\end{center}
 
 \end{frame}
 
@@ -453,39 +538,60 @@ JUAN MATÍAS HURTADO LAVÍN
 
 
 \begin{frame}{Parámetros para Chile}
-\begin{figure}{}
-    \centering
-    \includegraphics[
-        width=1\linewidth,
-        trim=15 15 15 15,
-        clip
-    ]{figures/parametros2.png}
-\end{figure}
+
+\vspace{0.15cm}
+\filaIcono{ClimateGreen}{\faBullseye}{$CAP_s = \valCAPs$ \unidadMt \hfill {\scriptsize \origenCAPs}}
+
+\vspace{0.15cm}
+\filaIcono{DeepBlue}{\faBalanceScale}{$CAP_d = \valCAPd$ \unidadMt \hfill {\scriptsize \origenCAPd}}
+
+\vspace{0.15cm}
+\filaIcono{MediumGray}{\faChartArea}{$\sigma_{CAP} = \valSigmaCAP$ \unidadMt \hfill {\scriptsize \origenSigmaCAP}}
+
+\vspace{0.15cm}
+\filaIcono{ClimateRed}{\faDollarSign}{$\kappa = \valKappa$ \unidadUSDt \hfill {\scriptsize \origenKappa}}
+
+\vspace{0.2cm}
+{\tiny\color{MediumGray} Mismos valores que el cuadro de parámetros base de la memoria: ambos leen \texttt{shared/datos-modelo.tex}.}
 
 \end{frame}
 
 
 \begin{frame}{¿Qué nivel de atención tiene el planificador en Chile?}
-\begin{figure}{}
-    \centering
-    \includegraphics[
-        width=0.7\linewidth,
-        trim=15 15 15 15,
-        clip
-    ]{figures/calibracion2.png}
-\end{figure}
+
+\vspace{0.1cm}
+\begin{tcolorbox}[tarjeta=ClimateGreen, title={\faBullseye\ \ 1. Metodología de ajuste}]
+\begin{columns}[c]
+\begin{column}{0.32\textwidth}\centering{\color{ClimateGreen}\faIcon{calendar-alt}}\\{\scriptsize Matriz real 2024}\end{column}
+\begin{column}{0.32\textwidth}\centering{\color{ClimateGreen}\faLayerGroup}\\{\scriptsize Matrices modeladas 2024}\end{column}
+\begin{column}{0.32\textwidth}\centering{\color{ClimateGreen}\faUsers}\\{\scriptsize 11 escenarios de atención}\end{column}
+\end{columns}
+\end{tcolorbox}
+
+\vspace{0.1cm}
+\begin{tcolorbox}[tarjeta=SoftBlue, title={\faSearch\ \ 2. Comparación}]
+\centering{\scriptsize Comparar \ \ $\rightarrow$ \ \ buscar mejor ajuste \ \ $\rightarrow$ \ \ menor distancia absoluta}
+\end{tcolorbox}
+
+\vspace{0.1cm}
+\begin{tcolorbox}[tarjeta=DeepBlue, title={\faChartBar\ \ 3. Resultado clave}]
+\centering
+{\faCheckCircle}\ \ Mínimo en $m = 0$ \quad$\Rightarrow$\quad \textbf{planificador inatento}
+\end{tcolorbox}
+
 \end{frame}
 
 
 \begin{frame}{Implementación}
-\begin{figure}{}
-    \centering
-    \includegraphics[
-        width=1\linewidth,
-        trim=15 15 15 15,
-        clip
-    ]{figures/codificacion.png}
-\end{figure}
+
+\vspace{0.3cm}
+\filaIcono{ClimateGreen}{\faPuzzlePiece}{\textbf{Modelo de complementariedad mixta:} formulación matemática que modela el equilibrio del sistema.}
+
+\vspace{0.3cm}
+\filaIcono{DeepBlue}{\faCogs}{\textbf{PATH:} solver especializado para resolver problemas de complementariedad.}
+
+\vspace{0.3cm}
+\filaIcono{MediumGray}{\faCode}{\textbf{Julia + JuMP:} implementación flexible y eficiente del modelo.}
 
 \end{frame}
 
@@ -702,15 +808,32 @@ CAP = CAP_s \pm \sigma_{\epsilon}
 % \end{frame}
 
 \begin{frame}{Riesgo de Incertidumbre: Costo Social del Carbono}
-    \vspace{-0.3cm} % Espacio corregido y reducido para evitar que la figura se desborde
-    \begin{figure}
-        \centering
-        \includegraphics[
-            width=0.95\linewidth,
-            trim=15 15 15 15,
-            clip
-        ]{figures/cccc.png}
-    \end{figure}
+
+\vspace{0.1cm}
+\begin{columns}[T]
+\begin{column}{0.32\textwidth}
+\begin{tcolorbox}[tarjeta=DeepBlue, title={\faCloudRain\ \ Eventos extremos más frecuentes}]
+{\scriptsize\begin{itemize}\setlength\itemsep{2pt}
+\item Infraestructura \item Capital físico \item Actividad económica
+\end{itemize}}
+\end{tcolorbox}
+\end{column}
+\begin{column}{0.32\textwidth}
+\begin{tcolorbox}[tarjeta=ClimateGreen, title={\faSeedling\ \ Sequías y cambios en el clima}]
+{\scriptsize\begin{itemize}\setlength\itemsep{2pt}
+\item Producción agrícola \item Oferta \item Precios
+\end{itemize}}
+\end{tcolorbox}
+\end{column}
+\begin{column}{0.32\textwidth}
+\begin{tcolorbox}[tarjeta=SoftBlue, title={\faWater\ \ Daños en ecosistemas y recursos naturales}]
+{\scriptsize\begin{itemize}\setlength\itemsep{2pt}
+\item Agua \item Pesquerías \item Biodiversidad
+\end{itemize}}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+
 \end{frame}
 
 
@@ -774,7 +897,7 @@ $\% \, \mathrm{Fuente} = \frac{\mathrm{MWh\ Fuente}}{\mathrm{MWh\ Totales}} \tim
 
 \begin{frame}[allowframebreaks]{Bibliografía}
     \bibliographystyle{apalike}
-    \bibliography{docs/MemoriaMHurtado/references}
+    \bibliography{references}
     Sector Energía: SNI Chile. Ministerio del Medio Ambiente. Disponible en: mma.gob.cl\\
     Plan de Descarbonización: Ministerio de Energía de Chile (2024). Plan de Descarbonización: Borrador para consulta pública.\\
     Precio Social del Carbono: Gobierno de Chile (2024). Actualizan precio social del carbono para incentivar la reducción de emisiones de CO2. Disponible en: www.gob.cl\\
