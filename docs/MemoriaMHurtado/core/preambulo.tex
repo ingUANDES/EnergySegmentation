@@ -58,7 +58,7 @@
 \usepackage{extarrows}
 \usetikzlibrary{fadings}
 \usetikzlibrary{patterns}
-\usetikzlibrary{shadows.blur}
+\usetikzlibrary{shadows} % shadows.blur no existe en las versiones actuales de PGF
 \usetikzlibrary{shapes}
 
 
@@ -95,10 +95,13 @@
 %\usepackage[pdftex]{graphicx}
 
 \usepackage{graphicx}
+% Transitorio: las figuras de los capitulos estan en la raiz del repositorio y el resto
+% de las rutas son relativas al documento. Ver docs/auditoria/PLAN_ORDEN_REPOSITORIO.md etapa 1.
+\graphicspath{{../../}{./}}
 
 \usepackage{fontspec}
  
-\setmainfont{Times New Roman}
+\setmainfont{TeX Gyre Termes} % clon libre de Times; la fuente propietaria no es portable
 
 
 

@@ -65,7 +65,7 @@ ok..
 \addcontentsline{toc}{chapter}{Bibliografía}
 
 \bibliographystyle{newapa}
-\bibliography{docs/MemoriaMHurtado/references}
+\bibliography{references}
 
 \appendix % seguido de archivos de apendices
 
@@ -74,11 +74,11 @@ ok..
 % Escribe 'Anexos' en el Indice General
 \addcontentsline{toc}{chapter}{Anexos}
 
-\input{docs/MemoriaMHurtado/attachments/anexo_a}    % archivo de apendice
+\input{attachments/anexo_a}    % archivo de apendice
 
-%\input{docs/MemoriaMHurtado/attachments/anexo_b}     % otro archivo de apendice
+%\input{attachments/anexo_b}     % otro archivo de apendice
 
-%\input{docs/MemoriaMHurtado/attachments/anexo_c}  
+%\input{attachments/anexo_c}  
 
 \label{end}
 \end{document}

@@ -1,0 +1,42 @@
+# --- artefactos de compilacion LaTeX ---
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.synctex.gz
+*.toc
+*.nav
+*.snm
+*.vrb
+*.xdv
+
+# --- respaldos de editor ---
+*.bak
+*~
+*.swp
+
+# --- salidas de solver ---
+*.gdx
+*.lst
+*.lxi
+
+# --- knitr / xaringan ---
+*_cache/
+*_files/
+
+# --- sistema ---
+.DS_Store
+Thumbs.db
+
+# --- cache de minted ---
+_minted/
+_minted-*/
+
+# --- artefactos de render de xaringan/quarto ---
+*_files/
+libs/
