@@ -142,15 +142,34 @@ de bibliografía: memoria de Muñoz **113 páginas**, memoria de Hurtado **57**,
 **48**; las tres con 0 errores, 0 figuras faltantes y 0 citas ni referencias indefinidas.
 Mismos conteos que antes de tocar los preámbulos.
 
-### Etapa 4 — Rutas y compilación reproducible
+### Etapa 4 — Rutas y compilación reproducible *(hecha)*
 
-Ésta es la etapa que resuelve la causa raíz. Para cada documento:
+| Punto | Estado |
+|---|---|
+| Rutas de figuras relativas al documento, sin `\graphicspath` de rescate | **hecho**: 10 `\includegraphics` de la memoria de Muñoz pasan de `docs/DocumentoMemoria/core/images/…` a `core/images/…`, y el `\graphicspath` sale de los dos preámbulos. Ninguno de los dos documentos depende ya de compilarse desde una carpeta concreta. |
+| `\input` y `\bibliography` relativos al documento | **ya lo estaban**. El plan decía que `memoria.Rtex` de Hurtado mezclaba tres convenciones; al verificarlo sobre el estado actual, sus diez `\input` y su `\bibliography` son todos relativos al documento. La mezcla que quedaba estaba en las rutas de figuras, y era la de Muñoz. |
+| Renombrar `memoria.Rtex` → `memoria.tex` | **hecho**. Comprobado antes: no hay ni un fragmento de knitr vivo (`<<>>=` o ```` ```{r} ````) en el maestro ni en los capítulos; el único está en `attachments/anexo_b.Rtex`, que el maestro tiene comentado. |
+| `latexmkrc` por carpeta | **hecho** en las seis carpetas de documentos LaTeX vivos. `Submissions/Energy_8000/` no lleva uno a propósito: es la línea base congelada y su cadena pasa por `knitr`. |
 
-1. Rutas de figuras **relativas a su propia carpeta** (`figures/...`), sin `\graphicspath` de rescate.
-2. `\input` y `\bibliography` **relativos al documento**. Hoy `memoria.Rtex` de Hurtado mezcla tres convenciones en el mismo archivo (ver [`AUDITORIA_2_MHurtado.md`](AUDITORIA_2_MHurtado.md) §2).
-3. Renombrar `memoria.Rtex` → `memoria.tex`: el único fragmento de knitr está en `anexo_b`, que está comentado en el maestro, así que no se ejecuta código R.
-4. Añadir a cada carpeta un `Makefile` o `latexmkrc` de tres líneas con el motor y las banderas correctas. Es lo que evita que la próxima persona tenga que descubrir que hace falta `-shell-escape`.
-5. **Criterio de aceptación por documento**: compila desde su propia carpeta, 0 errores, 0 figuras faltantes, 0 citas ni referencias indefinidas. Los cuatro documentos vivos ya alcanzan ese criterio con las correcciones verificadas en las auditorías (artículo 15 páginas, memoria de Muñoz 113, memoria de Hurtado 57, presentación de Hurtado 47).
+Con esto, **`latexmk` a secas desde la carpeta del documento basta**: ya no hay que
+descubrir que la memoria de Hurtado necesita `-shell-escape`, ni que la presentación
+necesita `lualatex`.
+
+Un hallazgo al verificar en una instalación limpia de TeX Live: la presentación necesita
+también `luatexbase`, que no estaba en la lista de paquetes del README. Se agrega.
+
+**Criterio de aceptación, comprobado documento por documento con `latexmk` desde su
+propia carpeta** — 0 errores, 0 figuras faltantes y 0 citas ni referencias indefinidas en
+los ocho:
+
+| Documento | Páginas |
+|---|---|
+| `docs/DocumentoMemoria/memoria.tex` | 113 |
+| `docs/MemoriaMHurtado/memoria.tex` | 57 |
+| `docs/Presentations/HurtadoDefensa2026/JMHL_presentation.tex` | 48 |
+| `Submissions/EnergyPolicy/inattention_energy_prices.tex` | 15 |
+| `docs/Apuntes/cnt.tex` · `cnt_v2.tex` · `cnt_v3.tex` | 7 · 11 · 15 |
+| `docs/Presentations/PhDEIIPUCV/main.tex` | 4 |
 
 ### Etapa 5 — Bibliografías
 

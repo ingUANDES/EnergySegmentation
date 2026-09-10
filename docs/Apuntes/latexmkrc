@@ -1,0 +1,4 @@
+# Motor de los apuntes. Uso: latexmk (compila los tres) o latexmk cnt_v3.
+# cnt_v3 necesita el paquete tablefootnote; cnt toma una figura de ../Informe/.
+$pdf_mode = 1;          # pdflatex
+@default_files = ('cnt.tex', 'cnt_v2.tex', 'cnt_v3.tex');

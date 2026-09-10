@@ -1,0 +1,6 @@
+# Motor y banderas de la presentacion de defensa. Uso: latexmk.
+# lualatex es necesario: el preambulo carga lualatex-math y fuentes DM Sans de font/.
+$pdf_mode = 4;          # lualatex
+$bibtex_use = 2;
+@default_files = ('JMHL_presentation.tex');
+$clean_ext = 'nav snm vrb';

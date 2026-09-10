@@ -28,21 +28,23 @@ Continuación de [Amigo, Cea-Echenique y Feijoo (2021)](https://doi.org/10.1016/
 
 ## Cómo compilar
 
-**El motor y el directorio de compilación no son intercambiables entre documentos.** Esta tabla es la referencia; cada combinación está verificada.
+**En las seis carpetas con un `latexmkrc`, basta `latexmk` desde la carpeta del documento**: el motor y las banderas ya están ahí. La tabla siguiente dice cuáles son, para quien compile a mano o quiera saber qué hace `latexmk`. Cada combinación está verificada.
 
 | Documento | Motor | Compilar desde | Notas |
 |---|---|---|---|
 | `Submissions/EnergyPolicy/inattention_energy_prices.tex` | `pdflatex` | su propia carpeta | clase Elsevier `cas-dc`, incluida en la carpeta. 15 páginas. |
 | `docs/DocumentoMemoria/memoria.tex` | `xelatex` | su propia carpeta | lee `shared/memoria/preambulo-base.tex`. 113 páginas. |
-| `docs/MemoriaMHurtado/memoria.Rtex` | `xelatex -shell-escape` + `bibtex` | su propia carpeta | **requiere Pygments** (`pip install Pygments`): `chapter03.tex` usa `minted`. Lee `shared/memoria/preambulo-base.tex` y `shared/datos-modelo.tex`. 57 páginas. |
+| `docs/MemoriaMHurtado/memoria.tex` | `xelatex -shell-escape` + `bibtex` | su propia carpeta | **requiere Pygments** (`pip install Pygments`): `chapter03.tex` usa `minted`. Lee `shared/memoria/preambulo-base.tex` y `shared/datos-modelo.tex`. 57 páginas. |
 | `docs/Presentations/HurtadoDefensa2026/JMHL_presentation.tex` | `lualatex` + `bibtex` | su propia carpeta | figuras en `figures/`, fuentes DM Sans en `font/`, bibliografía en su `references.bib`. 48 páginas. |
 | `docs/Apuntes/cnt.tex`, `cnt_v2.tex`, `cnt_v3.tex` | `pdflatex` | su propia carpeta | 7, 11 y 15 páginas. `cnt_v3` necesita `tablefootnote`; `cnt` toma una figura de `../Informe/`. |
 | `docs/Presentations/UVigo/home.Rmd` | R + `xaringan` | su propia carpeta | `rmarkdown::render("home.Rmd")`. El HTML renderizado y su `libs/` están versionados. |
 | `docs/Presentations/IFORS/home.qmd` | `quarto render` | su propia carpeta | el HTML renderizado y su `home_files/` están versionados. |
 | `Submissions/Energy_8000/R1/Clean_R1.Rtex` | R + `knitr` → `pdflatex` | su propia carpeta | `knitr::knit()` y luego `pdflatex` + `bibtex`. |
-| `docs/Presentations/PhDEIIPUCV/main.tex` | `pdflatex` | su propia carpeta | beamer. |
+| `docs/Presentations/PhDEIIPUCV/main.tex` | `pdflatex` | su propia carpeta | beamer. 4 páginas. |
 
-Todos los documentos con bibliografía necesitan el ciclo completo:
+Las carpetas con `latexmkrc` son las de las dos memorias, la presentación de Hurtado, la de PhDEIIPUCV, el artículo en desarrollo y los apuntes. `Submissions/Energy_8000/` **no lleva uno a propósito**: es la línea base congelada y su cadena pasa por `knitr`.
+
+Compilando a mano, los documentos con bibliografía necesitan el ciclo completo:
 
 ```bash
 <motor> documento && bibtex documento && <motor> documento && <motor> documento
@@ -52,7 +54,7 @@ Todos los documentos con bibliografía necesitan el ciclo completo:
 
 ### Paquetes LaTeX
 
-Además de una instalación estándar: `physics`, `yhmath`, `extarrows`, `cancel`, `mathdots`, `gensymb`, `pgfplots`, `siunitx`, `eurosym`, `bbm`, `babel-spanish`, `makecell`, `xurl`, `todonotes`, `truncate`, `tablefootnote` (apuntes), `minted` (con `fvextra`, `catchfile`, `xstring`, `framed`, `upquote`), y para la presentación de Hurtado `academicons`, `fontawesome5`, `tcolorbox`, `appendixnumberbeamer`, `lualatex-math`.
+Además de una instalación estándar: `physics`, `yhmath`, `extarrows`, `cancel`, `mathdots`, `gensymb`, `pgfplots`, `siunitx`, `eurosym`, `bbm`, `babel-spanish`, `makecell`, `luatexbase`, `xurl`, `todonotes`, `truncate`, `tablefootnote` (apuntes), `minted` (con `fvextra`, `catchfile`, `xstring`, `framed`, `upquote`), y para la presentación de Hurtado `academicons`, `fontawesome5`, `tcolorbox`, `appendixnumberbeamer`, `lualatex-math`.
 
 ## Convenciones
 
@@ -62,4 +64,5 @@ Además de una instalación estándar: `physics`, `yhmath`, `extarrows`, `cancel
 - **Sin duplicados, salvo los deliberados.** Los `Figures/` repetidos entre las carpetas de `Submissions/` **son a propósito**: cada envío histórico debe quedar autocontenido para poder reproducirlo. Cualquier otra copia idéntica de un archivo es un error; ver la etapa 2 del plan de orden.
 - **Un preámbulo, no tres.** Las dos memorias comparten `shared/memoria/preambulo-base.tex`; cada `core/preambulo.tex` sólo añade lo suyo (el `\graphicspath`, y en el caso de Hurtado `minted` y cuatro paquetes más). Existían tres copias divergentes del mismo preámbulo y las tres arrastraban los mismos cuatro bloqueadores de compilación. Los `.sty` de terceros y las carpetas `fonts/` y `logos/` **siguen duplicados a propósito**: `kpathsea` no busca en `shared/`, y hacer que lo haga exigiría fijar `TEXINPUTS`, lo que rompe el criterio de compilar desde la propia carpeta con `xelatex` a secas.
 - **Un dato, un lugar.** Los valores de parámetros, las ecuaciones del planificador y las descripciones de los símbolos viven en `shared/datos-modelo.tex`, que la memoria y la presentación leen con `\input`. Antes estaban escritos por separado en cada documento, y de ahí venían las discrepancias entre ambos. Al agregar un valor, agréguelo ahí.
+- **Rutas relativas al documento, sin `\graphicspath` de rescate.** Ningún documento depende ya de compilarse desde una carpeta concreta del repositorio: todas las rutas de figuras, `\input` y `\bibliography` son relativas a la carpeta del propio documento. Las únicas excepciones son deliberadas y explícitas: `shared/` se alcanza con `../../`, y `docs/Apuntes/cnt.tex` toma una figura de `../Informe/`.
 - **Cada documento es autocontenido**: sus figuras viven en su propia carpeta y sus rutas son relativas a ella. El patrón heredado de Overleaf —todo relativo a la raíz del repositorio— se está retirando; ver el plan de orden. La memoria de Muñoz es la que aún lo usa.
