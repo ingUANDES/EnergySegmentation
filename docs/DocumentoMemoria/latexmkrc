@@ -1,0 +1,5 @@
+# Motor y banderas de esta memoria. Uso: latexmk (o latexmk -C para limpiar).
+# La tabla de compilacion de todos los documentos esta en el README del repositorio.
+$pdf_mode = 5;          # xelatex: el preambulo usa fontspec
+$bibtex_use = 2;        # ejecutar bibtex y limpiar el .bbl
+@default_files = ('memoria.tex');

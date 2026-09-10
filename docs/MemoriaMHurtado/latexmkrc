@@ -1,0 +1,8 @@
+# Motor y banderas de esta memoria. Uso: latexmk (o latexmk -C para limpiar).
+# Requiere Pygments instalado (pip install Pygments): chapters/chapter03.tex usa minted,
+# y por eso xelatex va con -shell-escape.
+$pdf_mode = 5;          # xelatex
+$xelatex = 'xelatex -shell-escape %O %S';
+$bibtex_use = 2;
+@default_files = ('memoria.tex');
+$clean_ext = '%R.bbl _minted-%R/* nav snm';

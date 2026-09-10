@@ -21,6 +21,13 @@
 # ya versionados de UVigo, IFORS y June2020 se conservan como registro de charlas dadas.
 docs/Presentations/HurtadoDefensa2026/*.pdf
 
+# Los PDF de los apuntes y de la presentacion de PhDEIIPUCV tampoco se versionan: nunca
+# lo estuvieron y ahora latexmk los genera en cada compilacion. Se regeneran con
+# `latexmk` desde su carpeta. Los PDF de las dos memorias y del articulo si se versionan,
+# como estaban.
+docs/Apuntes/*.pdf
+docs/Presentations/PhDEIIPUCV/*.pdf
+
 # --- respaldos de editor ---
 *.bak
 *~

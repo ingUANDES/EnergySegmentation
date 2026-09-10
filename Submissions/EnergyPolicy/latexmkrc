@@ -1,0 +1,6 @@
+# Motor y banderas del articulo en desarrollo. Uso: latexmk.
+# La clase cas-dc de Elsevier viene incluida en esta carpeta.
+$pdf_mode = 1;          # pdflatex
+$bibtex_use = 2;
+@default_files = ('inattention_energy_prices.tex');
+$clean_ext = 'abs spl';

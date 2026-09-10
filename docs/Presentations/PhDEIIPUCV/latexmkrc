@@ -1,0 +1,3 @@
+# Motor de esta presentacion. Uso: latexmk.
+$pdf_mode = 1;          # pdflatex
+@default_files = ('main.tex');
