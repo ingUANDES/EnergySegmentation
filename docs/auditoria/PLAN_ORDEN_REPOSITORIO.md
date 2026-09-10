@@ -204,7 +204,7 @@ Ninguna de las cuatro tiene citas indefinidas.
 
 | | Antes | Después |
 |---|---|---|
-| Peso del árbol | 92,9 MB | **60.0 MB** (real, medido) |
+| Peso del árbol | 92,9 MB | **60,0 MB** (medido) |
 | Archivos en la raíz | 97 | 2 |
 | Imágenes sin uso en la raíz | 59 (17,0 MB) | 0 |
 | Duplicados redundantes | 99 (15,5 MB) | 72 (12,66 MB), todos deliberados o documentados |
@@ -212,17 +212,25 @@ Ninguna de las cuatro tiene citas indefinidas.
 | Copias del preámbulo de memoria | 3 divergentes | 1 |
 | Documentos que compilan desde su carpeta | 0 de 4 | 8 de 8, con `latexmk` a secas |
 
-Desglose del ahorro, sobre los 92,9 MB de `master`:
+Desglose real, midiendo el árbol en cada commit con `git ls-tree -r -l`. **Sustituye a la
+tabla de estimaciones previas, que sumaba −54,5 MB**: contaba dos veces las imágenes de la
+raíz —la etapa 1 las archivó y sólo se borraron después, por instrucción de los autores— y
+mezclaba partidas medidas en momentos distintos. La baja real es −32,9 MB.
 
-| Concepto | MB | Estado |
-|---|---|---|
-| PDF de la presentación fuera del índice | −22,4 | hecho (etapa 1) |
-| 59 imágenes sin uso de la raíz | −17,0 | **hecho**: eliminadas por instrucción de los autores; el inventario queda como registro |
-| las 8 capturas pesadas de la presentación reescritas como LaTeX | −9,9 | **hecho**: tcolorbox y tikz nativos, con el contenido compartido de la memoria en `shared/datos-modelo.tex` |
-| duplicados, excluidos los `Figures/` de los envíos | −2,8 | **hecho** (etapa 2); el −5,3 previo sobrestimaba lo deduplicable |
-| 10 artefactos de compilación | −0,4 | hecho (etapa 0) |
-| bibliografía de la memoria de Muñoz depurada | −2,0 | **hecho** (etapa 5) |
-| **total** | **−32.9 → 60.0 MB** | las cinco etapas ejecutadas |
+| Commit | Contenido | Archivos | MB | Δ |
+|---|---|---|---|---|
+| `22ce824^` | base, antes de empezar | 458 | 92,9 | — |
+| `22ce824` | etapa 0: README y artefactos fuera del índice | 448 | 92,8 | −0,1 |
+| `b988d25` | etapa 1: la raíz vaciada (mover y archivar, no borrar) | 452 | 93,0 | +0,2 |
+| `86abacd` | borrado de las archivadas + 8 capturas a LaTeX + PDF de la charla fuera del índice | 385 | 66,1 | **−26,9** |
+| `8d39a64` | etapa 2: deduplicar | 354 | 63,3 | −2,8 |
+| `38819fa` | etapa 3: preámbulo único y plantilla muerta | 349 | 62,0 | −1,3 |
+| `024c5cc` | etapa 4: rutas y `latexmkrc` | 355 | 62,0 | +0,0 |
+| `7aef6ac` | etapa 5: bibliografía depurada | 355 | **60,0** | −2,1 |
+
+La etapa 1 es **neutra en peso**: mueve y archiva. La caída de 26,9 MB llega en el commit
+siguiente, cuando los autores autorizan borrar lo archivado y se reescriben las capturas.
+La etapa 4 tampoco cambia el peso: añade seis `latexmkrc` y reescribe rutas.
 
 Los 10,2 MB de los tres `Figures/` triplicados **se conservan** deliberadamente, porque cada envío histórico debe quedar autocontenido.
 
