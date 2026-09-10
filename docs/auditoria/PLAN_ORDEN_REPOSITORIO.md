@@ -171,21 +171,46 @@ los ocho:
 | `docs/Apuntes/cnt.tex` · `cnt_v2.tex` · `cnt_v3.tex` | 7 · 11 · 15 |
 | `docs/Presentations/PhDEIIPUCV/main.tex` | 4 |
 
-### Etapa 5 — Bibliografías
+### Etapa 5 — Bibliografías *(hecha)*
 
-`docs/DocumentoMemoria/references.bib` tiene **2.038 entradas para 17 citas**: es un volcado completo de Zotero. En contraste, `MemoriaMHurtado/references.bib` tiene 25 entradas para 20 citas. Depurar la primera con `bibtool -x memoria.aux` o `bibexport`, y adoptar la convención de Hurtado —bibliografía por documento, sólo lo citado— como estándar del repositorio.
+`docs/DocumentoMemoria/references.bib` era un volcado completo de Zotero: **2.038 entradas
+para las 17 citas del documento, 2,0 MB**. Queda en **17 entradas, 26 KB**.
+
+La depuración se hizo leyendo los `\citation` del `.aux` del documento compilado —no
+buscando claves en el texto— y comprobando que ninguna de las 17 tuviera `crossref` a una
+entrada no citada. Las 2.038 entradas incluían además 24 claves duplicadas.
+
+**Verificación fuerte**: el texto extraído del PDF es **idéntico byte a byte** antes y
+después de la depuración. 113 páginas, 0 errores, 0 citas indefinidas, los mismos 17
+`\bibitem`.
+
+Estado de las demás bibliografías, medido sobre los `.aux` de cada documento compilado:
+
+| Bibliografía | Citas | Entradas | Tamaño | Decisión |
+|---|---|---|---|---|
+| `docs/DocumentoMemoria/references.bib` | 17 | 17 | 26 KB | **depurada** |
+| `docs/MemoriaMHurtado/references.bib` | 18 | 25 | 15 KB | se deja: ya es mínima |
+| `docs/Presentations/HurtadoDefensa2026/references.bib` | 7 | 26 | 16 KB | se deja: 16 KB no justifican tocar una charla ya dada |
+| `Submissions/EnergyPolicy/references.bib` | 16 | 339 | 405 KB | **decisión de los autores** |
+
+La del artículo es el mismo problema en pequeño, pero el artículo **está en desarrollo** y
+esa bibliografía hace de biblioteca de trabajo: depurarla obligaría a reexportar de Zotero
+cada entrada nueva que se quiera citar. Se deja como está y se declara la excepción en el
+README. Depurarla, si lo prefieren, es una línea.
+
+Ninguna de las cuatro tiene citas indefinidas.
 
 ## 5. Resultado esperado
 
 | | Antes | Después |
 |---|---|---|
-| Peso del árbol | 92,9 MB | **40,5 MB** |
-| Archivos en la raíz | 97 | 3 |
+| Peso del árbol | 92,9 MB | **60.0 MB** (real, medido) |
+| Archivos en la raíz | 97 | 2 |
 | Imágenes sin uso en la raíz | 59 (17,0 MB) | 0 |
-| Duplicados redundantes | 99 (15,5 MB) | 42 (los `Figures/` de submissions, deliberados) |
+| Duplicados redundantes | 99 (15,5 MB) | 72 (12,66 MB), todos deliberados o documentados |
 | Artefactos de compilación versionados | 10 | 0 |
 | Copias del preámbulo de memoria | 3 divergentes | 1 |
-| Documentos que compilan desde su carpeta | 0 de 4 | 4 de 4 |
+| Documentos que compilan desde su carpeta | 0 de 4 | 8 de 8, con `latexmk` a secas |
 
 Desglose del ahorro, sobre los 92,9 MB de `master`:
 
@@ -196,14 +221,15 @@ Desglose del ahorro, sobre los 92,9 MB de `master`:
 | las 8 capturas pesadas de la presentación reescritas como LaTeX | −9,9 | **hecho**: tcolorbox y tikz nativos, con el contenido compartido de la memoria en `shared/datos-modelo.tex` |
 | duplicados, excluidos los `Figures/` de los envíos | −2,8 | **hecho** (etapa 2); el −5,3 previo sobrestimaba lo deduplicable |
 | 10 artefactos de compilación | −0,4 | hecho (etapa 0) |
-| **total** | **−52,4 → 40,5 MB** | ejecutado; lo que reste depende de las etapas 3 a 5 |
+| bibliografía de la memoria de Muñoz depurada | −2,0 | **hecho** (etapa 5) |
+| **total** | **−32.9 → 60.0 MB** | las cinco etapas ejecutadas |
 
 Los 10,2 MB de los tres `Figures/` triplicados **se conservan** deliberadamente, porque cada envío histórico debe quedar autocontenido.
 
 ## 6. Riesgos y qué no hacer
 
 - **No reescribir el historial.** Un `git filter-repo` para purgar las imágenes del historial bajaría el `.git`, pero rompe todos los clones existentes y las referencias a commits de las memorias ya defendidas. El repositorio es público y pequeño; no vale la pena.
-- **No borrar las 59 archivadas sin confirmación.** Algunas pueden ser figuras de resultados cuyo código generador ya no existe.
+- ~~No borrar las 59 archivadas sin confirmación.~~ Los autores confirmaron el borrado en la etapa 1; el inventario queda como registro de qué había.
 - **No tocar `submissions/energy-2021-published/`.** Es la línea base del changelog y corresponde a un artículo publicado.
 - **Mover con `git mv`**, no copiar y borrar, para preservar el seguimiento de historial de cada archivo.
 - **Un PR por etapa.** Un PR que mueva 200 archivos y edite rutas al mismo tiempo es imposible de revisar y de revertir.
