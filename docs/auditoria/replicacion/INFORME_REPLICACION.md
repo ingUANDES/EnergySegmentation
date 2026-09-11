@@ -84,11 +84,27 @@ de enviar.
 
 ### 3.2 El efecto del rendimiento $P$ (Tabla `efectopenthetapia`)
 
-No replica: 2 de 14 celdas de $\pi^a$. En la replicación, con $CAP = 100$ MtCO₂e el modelo
-se queda en la esquina $\theta = 120{,}2$ M y $\pi^a = 270{,}13$ **para todo $P \ge 0{,}8$**,
-porque $\eta = 0$ y la restricción de costo de información no llega a morder. La tabla
-publicada muestra $\theta$ y $\pi^a$ variando de forma no monótona (25,75 en $P=0{,}85$,
-317,24 en $P=1$), que la replicación no produce con ningún $c$ probado.
+No replica: 2 de 14 celdas de $\pi^a$. Con $CAP = 100$ MtCO₂e la replicación da, según el
+valor de $c$:
+
+| $P$ | Publicado $\pi^a$ | Replicado con $c=9{,}2\times10^{8}$ | Replicado con $c=9{,}2\times10^{11}$ |
+|---|---|---|---|
+| 0,798 | 270,13 | 179,83 | 179,83 |
+| 0,80 | 270,13 | **270,13** | **270,13** |
+| 0,85 | 25,75 | 270,13 | 270,13 |
+| 0,90 | 93,65 | 270,13 | 270,13 |
+| 0,95 | 188,86 | 270,13 | 270,13 |
+| 0,99 | 298,11 | 270,13 | 254.756,53 |
+| 1,00 | 317,24 | 270,13 | 254.868,03 |
+
+Con $c = 9{,}2\times10^{8}$ el modelo se queda en la esquina $\theta = 120{,}2$ M y
+$\pi^a = 270{,}13$ para todo $P \ge 0{,}8$, porque $\eta = 0$ y la restricción de costo de
+información no llega a morder. Con el $c = 9{,}2\times10^{11}$ que declara el artículo la
+esquina se rompe en los dos rendimientos más altos: $\theta$ baja a 120,11 M y $\pi^a$ sube
+a 254.757 y 254.868 USD/t, tres órdenes de magnitud fuera de escala. La única celda que
+coincide es $P = 0{,}8$. La tabla publicada muestra $\theta$ y $\pi^a$ variando de forma no
+monótona (25,75 en $P=0{,}85$, 317,24 en $P=1$), que la replicación no produce con ninguno
+de los dos valores de $c$.
 
 ### 3.3 Los modelos de bienestar
 
