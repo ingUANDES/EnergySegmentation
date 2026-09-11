@@ -54,3 +54,7 @@ _minted-*/
 # NOTA: los libs/ y *_files/ de xaringan y quarto NO se ignoran a proposito.
 # docs/Presentations/{UVigo,IFORS}/home.html estan versionados y no funcionan sin ellos:
 # son el registro de charlas ya expuestas, no artefactos regenerables.
+
+# La licencia de PATH no se versiona: se pasa por PATH_LICENSE_STRING.
+# Se obtiene de https://pages.cs.wisc.edu/~ferris/path/LICENSE
+.path_license
